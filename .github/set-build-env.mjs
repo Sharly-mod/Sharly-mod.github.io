@@ -22,7 +22,9 @@ const base = estSiteUtilisateur ? '/' : `/${depot}`;
 // casse, mais GitHub redirige, ce qui casserait les URL canoniques du sitemap.
 const site = `https://${compte.toLowerCase()}.github.io${estSiteUtilisateur ? '' : `/${depot.toLowerCase()}`}`;
 
-console.log(
+// Le message informatif part sur stderr : stdout est redirigé vers $GITHUB_OUTPUT,
+// où GitHub n'accepte que des lignes au format clé=valeur.
+console.error(
   estSiteUtilisateur
     ? `Site utilisateur détecté : publication à la racine.`
     : `Site projet détecté : publication sous ${base}`
