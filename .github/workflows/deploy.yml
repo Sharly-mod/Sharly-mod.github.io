@@ -38,16 +38,7 @@ jobs:
       # Un site utilisateur (repo "Sharly-mod.github.io") est à la racine.
       - name: Calculer les variables de build
         id: config
-        run: |
-          if [ "${GITHUB_REPOSITORY}" = "Sharly-mod/Sharly-mod.github.io" ]; then
-            echo "base=" >> "$GITHUB_OUTPUT"
-            echo "site=https://sharly-mod.github.io" >> "$GITHUB_OUTPUT"
-            echo "Site utilisateur détecté : publication à la racine."
-          else
-            echo "base=/${GITHUB_REPOSITORY#*/}" >> "$GITHUB_OUTPUT"
-            echo "site=https://sharly-mod.github.io/${GITHUB_REPOSITORY#*/}" >> "$GITHUB_OUTPUT"
-            echo "Site projet détecté : publication sous /${{ GITHUB_REPOSITORY#*/ }"
-          fi
+        run: node .github/set-build-env.mjs "$GITHUB_REPOSITORY" >> "$GITHUB_OUTPUT"
 
       - name: Construire le site
         run: npm run build
@@ -56,34 +47,7 @@ jobs:
           BASE_PATH: ${{ steps.config.outputs.base }}
 
       - name: Vérifier les liens internes
-        run: |
-          node --input-type=module -e '
-          import { readdir, readFile, stat } from "node:fs/promises";
-          import { join } from "node:path";
-          const pages = [];
-          const walk = async (d) => {
-            for (const e of await readdir(d, { withFileTypes: true })) {
-              const p = join(d, e.name);
-              if (e.isDirectory()) await walk(p);
-              else if (e.name.endsWith(".html")) pages.push(p);
-            }
-          };
-          await walk("dist");
-          const broken = [];
-          for (const p of pages) {
-            const html = await readFile(p, "utf8");
-            for (const m of html.matchAll(/href="(\/[^"#?]*)/g)) {
-              const href = m[1];
-              const cible = href.endsWith("/") ? join("dist", href, "index.html") : join("dist", href);
-              try { await stat(cible); } catch { broken.push(`${p} -> ${href}`); }
-            }
-          }
-          if (broken.length) {
-            console.error("Liens internes cassés :\n" + broken.join("\n"));
-            process.exit(1);
-          }
-          console.log(pages.length + " pages, aucun lien cassé.");
-          '
+        run: node .github/check-links.mjs "${{ steps.config.outputs.base }}"
 
       - uses: actions/configure-pages@v5
         id: pages
