@@ -25,8 +25,13 @@ competences:
   - "Routage et cycle requête/réponse"
   - "Géolocalisation et cartographie interactive"
 misEnAvant: true
+repo: https://github.com/Sharly-mod/FairRepair
 couleur: cyan
 liens:
+  - label: Dépôt GitHub
+    url: https://github.com/Sharly-mod/FairRepair
+  - label: Documentation
+    url: https://github.com/Sharly-mod/FairRepair#readme
   - label: Schéma conceptuel (MCD)
     url: https://fr.wikipedia.org/wiki/Mod%C3%A8le_de_conception_de_donn%C3%A9es
 ---

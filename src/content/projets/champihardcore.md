@@ -21,8 +21,11 @@ competences:
   - Programmation asynchrone et sécurité des callbacks
   - Build Maven et packaging de plugin
 misEnAvant: true
+repo: https://github.com/Sharly-mod/ChampiHardcore
 couleur: ambre
 liens:
+  - label: Dépôt GitHub
+    url: https://github.com/Sharly-mod/ChampiHardcore
   - label: Paper API
     url: https://papermc.io/software/paper
   - label: Documentation Bukkit
