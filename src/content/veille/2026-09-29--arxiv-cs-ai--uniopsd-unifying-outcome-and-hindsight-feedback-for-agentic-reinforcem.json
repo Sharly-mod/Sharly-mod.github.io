@@ -1,0 +1,14 @@
+{
+  "titre": "UniOPSD: Unifying Outcome and Hindsight Feedback for Agentic Reinforcement Learning",
+  "url": "https://arxiv.org/abs/2609.34810",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.34810v1 Announce Type: new Abstract: Reinforcement learning has become an effective approach to training language model agents, but sparse and delayed outcome rewards provide limited guidance for credit assignment across long interaction sequences. Recent work on on-policy self-distillation (OPSD) offers complementary supervision by evaluating a policy's sampled responses under privileged training-time context. However, our diagnostics show that positive average agreement between outcome and hindsight feedback coexists with substantial local disagreement, raising the question of how",
+  "score": 10
+}

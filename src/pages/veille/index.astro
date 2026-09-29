@@ -1,0 +1,426 @@
+---
+import { getCollection } from 'astro:content';
+import { lien } from '../../lib/urls';
+import Base from '../../layouts/Base.astro';
+import { categories } from '../../../scripts/veille.config.mjs';
+
+const notes = (await getCollection('notes')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const flux = (await getCollection('veille')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const dernier = flux[0]?.data.date;
+const nomCategories = {
+  'ia-jv': 'IA & jeu vidéo',
+  moteurs: 'Moteurs & rendu',
+  recherche: 'Recherche',
+  web: 'Web & outillage',
+  infra: 'Infrastructure',
+  metiers: 'Métiers du jeu',
+} as const;
+
+const nomCouleurs = {
+  'ia-jv': 'violet',
+  moteurs: 'ambre',
+  recherche: 'cyan',
+  web: 'vert',
+  infra: 'cyan',
+  metiers: 'vert',
+} as const;
+
+// Regroupement par jour, du plus récent au plus ancien
+function parJour<T extends { data: { date: Date } }>(liste: T[]) {
+  const groupes = new Map<string, T[]>();
+  for (const item of liste) {
+    const cle = item.data.date.toISOString().slice(0, 10);
+    const groupe = groupes.get(cle);
+    if (groupe) groupe.push(item);
+    else groupes.set(cle, [item]);
+  }
+  return [...groupes.entries()];
+}
+
+const options = ['all', ...Object.keys(nomCategories)];
+const jours = parJour(flux);
+---
+
+<Base
+  titre="Veille tech"
+  description="Veille technologique sur l'intelligence artificielle appliquée au jeu vidéo : NPC, moteurs, rendu neuronal, et les questions d'industrialisation qui les accompagnent."
+>
+  <section class="entete-page">
+    <div class="conteneur">
+      <span class="surtitre">Veille technologique</span>
+      <h1>IA dans le jeu vidéo, et au-delà</h1>
+      <p class="legende">
+        Une veille, ce n'est pas une liste de liens. C'est un tri. Voici ce que je
+        retiens de ce que je lis : d'abord les notes d'analyse que j'ai écrites
+        après avoir compris l'article, puis les articles suivis automatiquement,
+        filtrés sur leur pertinence.
+      </p>
+      <p class="legende legende-suite">
+        Les articles sont collectés depuis {new Set(flux.map((a) => a.data.source)).size}
+        sources (RSS) et triés par score de pertinence.
+        {
+          dernier && (
+            <>
+              {' '}Dernière mise à jour :{' '}
+              <strong>
+                {dernier.toLocaleDateString('fr-FR', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </strong>.
+            </>
+          )
+        }
+        Les chiffres et affirmations des éditeurs sont rapportés, pas validés : ma
+        valeur ajoutée est dans l'analyse, pas dans la reprise du communiqué.
+      </p>
+    </div>
+  </section>
+
+  <div class="conteneur corps">
+    <nav class="filtres" aria-label="Filtrer par catégorie">
+      <button type="button" data-filtre="all" aria-pressed="true">Tout</button>
+      {
+        options.slice(1).map((c) => (
+          <button type="button" data-filtre={c} aria-pressed="false">
+            {nomCategories[c as keyof typeof nomCategories]}
+            {' · '}
+            {
+              [...notes, ...flux].filter((a) => a.data.categories.includes(c as never))
+                .length
+            }
+          </button>
+        ))
+      }
+    </nav>
+
+    <section class="bloc" id="notes">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Écrit par moi</span>
+          <h2>Notes d'analyse</h2>
+        </div>
+        <p class="legende">
+          Ce que j'ai compris, et ce que ça change dans ma façon de concevoir.
+        </p>
+      </div>
+
+      <div class="grille-notes" data-groupe="notes">
+        {
+          notes.map((note) => (
+            <a
+              class="article avec-analyse"
+              href={lien(`/veille/note/${note.id}/`)}
+              data-categories={note.data.categories.join(' ')}
+            >
+              <div class="meta">
+                {note.data.categories.map((c) => (
+                  <span class="pastille" data-ton={nomCouleurs[c]}>
+                    {nomCategories[c]}
+                  </span>
+                ))}
+              </div>
+              <h3>{note.data.titre}</h3>
+              <p class="source">
+                {note.data.source} —{' '}
+                <time datetime={note.data.date.toISOString()}>
+                  {note.data.date.toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                </time>
+              </p>
+              <p class="apercu">Note d'analyse complète →</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="bloc" id="flux">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Collecté automatiquement</span>
+          <h2>Articles suivis</h2>
+        </div>
+        <p class="legende">
+          Flux RSS filtrés par mots-clés, dédupliqués et triés par pertinence.
+          <a class="lien-externe" href={lien('/rss.xml')}>S'abonner par RSS ↗</a> ou
+          <a class="lien-externe" href={lien('/veille.opml')}>importer les sources ↗</a>.
+        </p>
+      </div>
+
+      <div data-groupe="flux">
+        {
+          jours.length === 0 && (
+            <p class="legende vide">
+              Aucun article pour l'instant. Lance <code>npm run veille</code> pour
+              remplir la base.
+            </p>
+          )
+        }
+        {
+          jours.map(([jour, articles]) => (
+            <div class="jour" data-categories={articles.map((a) => a.data.categories.join(' ')).join(' ')}>
+              <h3 class="date">
+                <time datetime={jour}>
+                  {new Date(jour).toLocaleDateString('fr-FR', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                  })}
+                </time>
+              </h3>
+              <div class="articles">
+                {articles.map((a) => (
+                  <a
+                    class="article"
+                    href={a.data.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-categories={a.data.categories.join(' ')}
+                  >
+                    <div class="meta">
+                      <span class="pastille" data-ton={nomCouleurs[a.data.categories[0] as keyof typeof nomCouleurs] ?? 'violet'}>
+                        {a.data.source}
+                      </span>
+                      <span>score {a.data.score}</span>
+                    </div>
+                    <h4>{a.data.titre}</h4>
+                    {a.data.resume && <p>{a.data.resume}</p>}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      {jours.length > 0 && <p class="fin">Fin du flux — les articles sont purgés au-delà de 300 entrées.</p>}
+    </section>
+
+    <section class="bloc sources">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Méthode</span>
+          <h2>Les sources</h2>
+        </div>
+      </div>
+      <ul class="liste-sources">
+        {
+          Object.values(categories).map((cat) => (
+            <li>
+              <span class="pastille" data-ton={cat.couleur}>
+                {cat.nom}
+              </span>
+              <p>{cat.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .entete-page {
+    padding-block: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .entete-page h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: -0.03em;
+  }
+
+  .entete-page .legende {
+    max-width: 66ch;
+    margin-top: 1rem;
+  }
+
+  .legende-suite {
+    font-size: 0.9rem !important;
+    color: var(--texte-3) !important;
+  }
+
+  .corps {
+    padding-bottom: 4rem;
+  }
+
+  .filtres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--bordure);
+  }
+
+  .filtres button {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.82rem;
+    color: var(--texte-2);
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .filtres button:hover {
+    color: var(--texte);
+    border-color: var(--bordure-forte);
+  }
+
+  .filtres button[aria-pressed='true'] {
+    color: #0b0b10;
+    background: var(--violet);
+    border-color: transparent;
+    font-weight: 600;
+  }
+
+  .bloc + .bloc {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .entete-section p {
+    max-width: 48ch;
+  }
+
+  .grille-notes {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  }
+
+  .article .source {
+    font-family: var(--police-mono);
+    font-size: 0.74rem;
+    color: var(--texte-3);
+  }
+
+  .article .apercu {
+    margin-top: 0.3rem;
+    color: var(--violet);
+    font-size: 0.85rem;
+    font-weight: 550;
+  }
+
+  .article h4 {
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .jour + .jour {
+    margin-top: 2.25rem;
+  }
+
+  .date {
+    position: sticky;
+    top: 4.5rem;
+    z-index: 2;
+    margin-bottom: 0.9rem;
+    padding: 0.35rem 0;
+    font-family: var(--police-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--texte-3);
+    background: var(--fond);
+  }
+
+  .articles {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .vide {
+    padding: 2rem;
+    background: var(--fond-2);
+    border: 1px dashed var(--bordure-forte);
+    border-radius: var(--r-m);
+  }
+
+  .vide code {
+    font-family: var(--police-mono);
+    font-size: 0.85em;
+    padding: 0.1em 0.4em;
+    background: var(--fond-3);
+    border-radius: 4px;
+  }
+
+  .fin {
+    margin-top: 2.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--texte-3);
+  }
+
+  .liste-sources {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    list-style: none;
+    padding: 0;
+  }
+
+  .liste-sources li {
+    display: grid;
+    gap: 0.4rem;
+    justify-items: start;
+  }
+
+  .liste-sources p {
+    font-size: 0.9rem;
+    color: var(--texte-2);
+  }
+
+  .sources {
+    padding-bottom: 2rem;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+</style>
+
+<script>
+  const boutons = document.querySelectorAll<HTMLButtonElement>('[data-filtre]');
+  const elements = document.querySelectorAll<HTMLElement>('[data-categories]');
+
+  function appliquer(filtre: string) {
+    for (const el of elements) {
+      const cats = (el.dataset.categories ?? '').split(' ').filter(Boolean);
+      el.hidden = filtre !== 'all' && !cats.includes(filtre);
+    }
+    // Masque les entêtes de jour devenues vides
+    for (const jour of document.querySelectorAll<HTMLElement>('.jour')) {
+      const visibles = jour.querySelectorAll<HTMLElement>('.article:not([hidden])');
+      jour.hidden = visibles.length === 0;
+    }
+    const groupes = document.querySelectorAll<HTMLElement>('[data-groupe]');
+    for (const groupe of groupes) {
+      const enfants = groupe.querySelectorAll<HTMLElement>('.article');
+      const visibles = [...enfants].filter((e) => !e.hidden);
+      if (enfants.length > 0) groupe.hidden = visibles.length === 0;
+    }
+  }
+
+  for (const bouton of boutons) {
+    bouton.addEventListener('click', () => {
+      for (const b of boutons) b.setAttribute('aria-pressed', 'false');
+      bouton.setAttribute('aria-pressed', 'true');
+      appliquer(bouton.dataset.filtre ?? 'all');
+    });
+  }
+</script>

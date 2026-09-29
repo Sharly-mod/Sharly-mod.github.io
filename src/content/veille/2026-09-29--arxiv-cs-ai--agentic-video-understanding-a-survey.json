@@ -1,0 +1,14 @@
+{
+  "titre": "Agentic Video Understanding: A Survey",
+  "url": "https://arxiv.org/abs/2609.31713",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.31713v1 Announce Type: cross Abstract: As large language models (LLMs) become capable of processing increasingly diverse modalities and longer temporal contexts, an emerging line of work is moving beyond fixed video-language inference toward agentic systems that actively decide what information to inspect, retain, verify, and act upon. This survey reviews video understanding agents: systems that use video as the primary information source and solve understanding tasks through adaptive state construction and action selection. We first formalize an agent loop for video understanding, ",
+  "score": 10
+}

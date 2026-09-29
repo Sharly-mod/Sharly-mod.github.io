@@ -1,0 +1,103 @@
+name: Déployer sur GitHub Pages
+
+# Construit le portfolio et le publie sur GitHub Pages.
+# Le build tourne en local strict : aucune clé de déploiement n'est stockée
+# dans le dépôt, tout passe par le token automatique de GitHub Actions.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Empêche deux déploiements simultanés, et annule les runs obsolètes.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      # Un site projet (repo "portfolio") est servi sous /portfolio/.
+      # Un site utilisateur (repo "Sharly-mod.github.io") est à la racine.
+      - name: Calculer les variables de build
+        id: config
+        run: |
+          if [ "${GITHUB_REPOSITORY}" = "Sharly-mod/Sharly-mod.github.io" ]; then
+            echo "base=" >> "$GITHUB_OUTPUT"
+            echo "site=https://sharly-mod.github.io" >> "$GITHUB_OUTPUT"
+            echo "Site utilisateur détecté : publication à la racine."
+          else
+            echo "base=/${GITHUB_REPOSITORY#*/}" >> "$GITHUB_OUTPUT"
+            echo "site=https://sharly-mod.github.io/${GITHUB_REPOSITORY#*/}" >> "$GITHUB_OUTPUT"
+            echo "Site projet détecté : publication sous /${{ GITHUB_REPOSITORY#*/ }"
+          fi
+
+      - name: Construire le site
+        run: npm run build
+        env:
+          SITE_URL: ${{ steps.config.outputs.site }}
+          BASE_PATH: ${{ steps.config.outputs.base }}
+
+      - name: Vérifier les liens internes
+        run: |
+          node --input-type=module -e '
+          import { readdir, readFile, stat } from "node:fs/promises";
+          import { join } from "node:path";
+          const pages = [];
+          const walk = async (d) => {
+            for (const e of await readdir(d, { withFileTypes: true })) {
+              const p = join(d, e.name);
+              if (e.isDirectory()) await walk(p);
+              else if (e.name.endsWith(".html")) pages.push(p);
+            }
+          };
+          await walk("dist");
+          const broken = [];
+          for (const p of pages) {
+            const html = await readFile(p, "utf8");
+            for (const m of html.matchAll(/href="(\/[^"#?]*)/g)) {
+              const href = m[1];
+              const cible = href.endsWith("/") ? join("dist", href, "index.html") : join("dist", href);
+              try { await stat(cible); } catch { broken.push(`${p} -> ${href}`); }
+            }
+          }
+          if (broken.length) {
+            console.error("Liens internes cassés :\n" + broken.join("\n"));
+            process.exit(1);
+          }
+          console.log(pages.length + " pages, aucun lien cassé.");
+          '
+
+      - uses: actions/configure-pages@v5
+        id: pages
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import { lien } from '../lib/urls';
+
+// Les fichiers commençant par « _ » sont des gabarits, pas des projets publiés.
+const projets = import.meta.glob('../content/projets/[^_]*.{md,mdx}');
+const noms = Object.keys(projets)
+  .map((c) => c.split('/').pop()?.replace(/\.mdx?$/, ''))
+  .filter(Boolean);
+---
+
+<Base titre="Page introuvable">
+  <div class="conteneur">
+    <div class="erreur">
+      <p class="code">404</p>
+      <h1>Cette page n'existe pas</h1>
+      <p class="legende">
+        Le lien est peut-être ancien, ou l'adresse mal saisie. Voici par où
+        recommencer.
+      </p>
+
+      <ul class="liens">
+        <li><a href={lien('/')}>Accueil</a></li>
+        <li><a href={lien('/projets/')}>Projets</a></li>
+        <li><a href={lien('/veille/')}>Veille tech</a></li>
+        <li><a href={lien('/a-propos/')}>À propos</a></li>
+      </ul>
+
+      {
+        noms.length > 0 && (
+          <>
+            <h2>Ou peut-être l'un de ces projets</h2>
+            <ul class="liens">
+              {noms.map((n) => (
+                <li>
+                  <a href={lien(`/projets/${n}/`)}>{n}</a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+    </div>
+  </div>
+</Base>
+
+<style>
+  .erreur {
+    padding-block: clamp(4rem, 14vw, 8rem);
+  }
+
+  .code {
+    font-family: var(--police-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--violet);
+  }
+
+  .erreur h1 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    letter-spacing: -0.03em;
+  }
+
+  .legende {
+    max-width: 50ch;
+    margin-top: 1rem;
+  }
+
+  .erreur h2 {
+    margin-top: 2.5rem;
+    font-size: 1.1rem;
+    color: var(--texte-2);
+  }
+
+  .liens {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .liens a {
+    display: inline-block;
+    color: var(--violet);
+    font-size: 1.05rem;
+  }
+
+  .liens a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

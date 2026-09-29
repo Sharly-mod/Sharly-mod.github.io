@@ -1,0 +1,14 @@
+{
+  "titre": "NetInjectBench: Benchmarking Indirect Prompt Injection in Tool-Using Large Language Model Agents for Network Operations",
+  "url": "https://arxiv.org/abs/2607.10490",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "tech",
+    "recherche"
+  ],
+  "resume": "arXiv:2607.10490v2 Announce Type: replace-cross Abstract: Tool-using large language model (LLM) agents are attractive for network operations, but tickets, alerts, logs, runbooks, and ChatOps messages can carry indirect prompt injections. We present NetInjectBench, a 130-scenario benchmark that separates untrusted artifact text, trusted policy metadata, and evaluation labels for network-operation tool use. The sample contains 40 benign, 40 weak-attack, 40 strong-attack, and 10 approved high-impact change scenarios; each is evaluated with Qwen2.5-7B, Llama3.1-8B, and Mistral-7B. Across 240 attac",
+  "score": 13
+}

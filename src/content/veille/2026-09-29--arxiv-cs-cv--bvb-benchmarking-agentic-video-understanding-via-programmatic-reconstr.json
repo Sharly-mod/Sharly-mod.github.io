@@ -1,0 +1,14 @@
+{
+  "titre": "BVB: Benchmarking Agentic Video Understanding via Programmatic Reconstruction in Blender",
+  "url": "https://arxiv.org/abs/2609.15478",
+  "source": "arXiv cs.CV",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.CV",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.15478v3 Announce Type: replace Abstract: Multimodal agents can create complex videos in software such as Blender by writing code instead of using diffusion models. Yet video understanding benchmarks still evaluate models mainly through question answering. If an agent truly understands a video, it can reconstruct it programmatically. We introduce BVB, Blender-VideoBench, a benchmark that tests this ability by asking agents to reconstruct real-world videos as animated Blender scenes. To ensure fair comparison, each agent programs the reconstruction through a lightweight harness, Mini-",
+  "score": 11
+}

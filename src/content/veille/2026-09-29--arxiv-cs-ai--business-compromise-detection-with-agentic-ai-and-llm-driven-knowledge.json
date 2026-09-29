@@ -1,0 +1,14 @@
+{
+  "titre": "Business Compromise Detection with Agentic AI and LLM-driven Knowledge Discovery",
+  "url": "https://arxiv.org/abs/2609.32643",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.32643v1 Announce Type: new Abstract: Detecting compromised business ad accounts is a challenge in digital advertising, as attackers exploit hijacked accounts to launch fraudulent campaigns. Large Language Model (LLM) agents show promise for integrity enforcement, but hallucinated mistakes on hard cases create business friction. In a study we find the autonomous agent is a strong, recall-heavy signal extractor but an unreliable final arbiter, conceding precision on ambiguous decisions. We therefore keep the agent as an investigator that emits a structured, interpretable signal vector",
+  "score": 11
+}

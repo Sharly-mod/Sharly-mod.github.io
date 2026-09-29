@@ -1,0 +1,14 @@
+{
+  "titre": "LLM4Trust: Exploring the Capabilities of Large Language Models for Trust Evaluation",
+  "url": "https://arxiv.org/abs/2609.33521",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "tech",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.33521v1 Announce Type: new Abstract: Trust evaluation plays a critical role in cybersecurity by supporting risk mitigation and decision-making. A variety of trust evaluation methods have been proposed, with learning-based approaches offering high accuracy and automation. However, they often require substantial ground truth, suffer from low training efficiency, lack support for basic trust properties, and provide limited explainability. Large Language Models (LLMs) offer a compelling alternative due to their strong zero-/few-shot reasoning abilities and broad knowledge. To this end, ",
+  "score": 11
+}

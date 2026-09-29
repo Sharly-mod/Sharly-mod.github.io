@@ -1,0 +1,14 @@
+{
+  "titre": "PowerBench: A Benchmark for Agentic Retrieval and Reasoning in Power Systems",
+  "url": "https://arxiv.org/abs/2609.34492",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.34492v1 Announce Type: new Abstract: Large language model (LLM) agents offer new opportunities for automated analysis in industry. However, rigorous evaluation of such agents-for example, within power system scenarios-remains hindered: real operational data are confidential, and existing public resources fail to fully capture the chained dependencies and heterogeneous evidence. To address this gap, we propose PowerBench, comprising (1) a generation framework that derives interconnected heterogeneous operational data through a common dependency chain, and (2) a synthetic dataset gene",
+  "score": 12
+}

@@ -1,0 +1,229 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import { lien } from '../../../lib/urls';
+import Base from '../../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.map((note) => ({
+    params: { id: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const d = note.data;
+
+const nomCategories = {
+  'ia-jv': 'IA & jeu vidéo',
+  moteurs: 'Moteurs & rendu',
+  recherche: 'Recherche',
+  web: 'Web & outillage',
+  infra: 'Infrastructure',
+  metiers: 'Métiers du jeu',
+} as const;
+
+const nomCouleurs = {
+  'ia-jv': 'violet',
+  moteurs: 'ambre',
+  recherche: 'cyan',
+  web: 'vert',
+  infra: 'cyan',
+  metiers: 'vert',
+} as const;
+
+const projetLie = d.projetLie ? await getEntry(d.projetLie) : undefined;
+
+const autres = (await getCollection('notes', (n) => n.id !== note.id))
+  .sort((a, b) => b.data.poids - a.data.poids || b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
+---
+
+<Base titre={d.titre} description={`Note de veille : ${d.titre}`}>
+  <article class="conteneur">
+    <nav class="fil" aria-label="Fil d'Ariane">
+      <a href={lien('/veille/')}>Veille</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Note</span>
+    </nav>
+
+    <header class="entete">
+      <div class="etiquettes">
+        {
+          d.categories.map((c) => (
+            <span class="pastille" data-ton={nomCouleurs[c]}>
+              {nomCategories[c]}
+            </span>
+          ))
+        }
+        <span class="pastille">{d.source}</span>
+      </div>
+
+      <h1>{d.titre}</h1>
+
+      <p class="meta">
+        Publié le{' '}
+        <time datetime={d.date.toISOString()}>
+          {d.date.toLocaleDateString('fr-FR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })}
+        </time>
+        · Source : <a class="lien-externe" href={d.url} target="_blank" rel="noopener noreferrer">
+          {d.source} ↗
+        </a>
+      </p>
+
+      {
+        projetLie && (
+          <p class="lie">
+            Cette note fait le lien avec mon projet{' '}
+            <a href={lien(`/projets/${projetLie.id}/`)}>{projetLie.data.titre}</a>.
+          </p>
+        )
+      }
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <footer class="pied-note">
+      {
+        d.tags.length > 0 && (
+          <ul class="pastilles">
+            {d.tags.map((t) => (
+              <li class="pastille">{t}</li>
+            ))}
+          </ul>
+        )
+      }
+      <p class="avertissement">
+        Note de veille personnelle : c'est ma lecture de la source, pas un compte
+        rendu officiel. Les chiffres annoncés par les éditeurs sont rapportés
+        comme tels et n'ont pas été vérifiés indépendamment.
+      </p>
+    </footer>
+
+    {
+      autres.length > 0 && (
+        <aside class="autres">
+          <h2>Autres notes</h2>
+          <div class="grille">
+            {autres.map((n) => (
+              <a class="carte" href={lien(`/veille/note/${n.id}/`)}>
+                <span class="pastille" data-ton={nomCouleurs[n.data.categories[0]]}>
+                  {n.data.source}
+                </span>
+                <h3>{n.data.titre}</h3>
+                <p class="date-note">
+                  {n.data.date.toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                </p>
+              </a>
+            ))}
+          </div>
+        </aside>
+      )
+    }
+  </article>
+</Base>
+
+<style>
+  .fil {
+    display: flex;
+    gap: 0.5rem;
+    padding-block: 2rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--texte-3);
+  }
+
+  .fil a:hover {
+    color: var(--violet);
+  }
+
+  .entete {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--bordure);
+  }
+
+  .etiquettes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .entete h1 {
+    margin-top: 1rem;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    letter-spacing: -0.03em;
+  }
+
+  .meta {
+    margin-top: 1rem;
+    font-family: var(--police-mono);
+    font-size: 0.8rem;
+    color: var(--texte-3);
+  }
+
+  .lie {
+    margin-top: 1rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    color: var(--texte-2);
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-left: 3px solid var(--violet);
+    border-radius: var(--r-s);
+  }
+
+  .lie a {
+    color: var(--violet);
+    font-weight: 600;
+  }
+
+  .prose {
+    margin-top: 2.5rem;
+  }
+
+  .pied-note {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .avertissement {
+    margin-top: 1.25rem;
+    max-width: var(--largeur-texte);
+    font-size: 0.82rem;
+    color: var(--texte-3);
+  }
+
+  .autres {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .autres h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  .grille {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .date-note {
+    font-family: var(--police-mono);
+    font-size: 0.75rem;
+    color: var(--texte-3);
+  }
+</style>

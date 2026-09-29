@@ -1,0 +1,14 @@
+{
+  "titre": "SIPO: Selective-Inference Policy Optimization for Tree-Structured Agentic RL",
+  "url": "https://arxiv.org/abs/2609.34805",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.34805v1 Announce Type: new Abstract: Tree-structured reinforcement learning trains search agents by comparing alternative continuations and propagating terminal rewards to intermediate decisions. Adaptive expansion, however, creates a statistical asymmetry: an incumbent is selected using its own generation statistic, whereas fresh siblings are sampled after selection. When that statistic is associated with return, branch values can reflect selection history as well as continuation quality, even for a shared parent. We propose Selective-Inference Policy Optimization (\\SIPO{}), which ",
+  "score": 10
+}

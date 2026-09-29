@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+  <head>
+    <title>Veille — Sharly Farag</title>
+    <dateCreated>Tue, 29 Sep 2026 08:45:24 GMT</dateCreated>
+  </head>
+  <body>
+    <outline text="ia-jv" title="ia-jv">
+      <outline type="rss" text="AI and Games" title="AI and Games" xmlUrl="https://www.aiandgames.com/feed/" htmlUrl="https://www.aiandgames.com"/>
+      <outline type="rss" text="Game Developer" title="Game Developer" xmlUrl="https://www.gamedeveloper.com/rss.xml" htmlUrl="https://www.gamedeveloper.com/rss.xml"/>
+      <outline type="rss" text="GamesIndustry.biz" title="GamesIndustry.biz" xmlUrl="https://www.gamesindustry.biz/feed" htmlUrl="https://www.gamesindustry.biz"/>
+      <outline type="rss" text="NVIDIA Developer — Générative AI" title="NVIDIA Developer — Générative AI" xmlUrl="https://developer.nvidia.com/blog/category/generative-ai/feed/" htmlUrl="https://developer.nvidia.com/blog/category/generative-ai"/>
+      <outline type="rss" text="Unity Blog" title="Unity Blog" xmlUrl="https://unity.com/blog/rss" htmlUrl="https://unity.com/blog/rss"/>
+    </outline>
+    <outline text="recherche" title="recherche">
+      <outline type="rss" text="arXiv cs.AI" title="arXiv cs.AI" xmlUrl="https://rss.arxiv.org/rss/cs.AI" htmlUrl="https://rss.arxiv.org/rss/cs.AI"/>
+      <outline type="rss" text="arXiv cs.LG" title="arXiv cs.LG" xmlUrl="https://rss.arxiv.org/rss/cs.LG" htmlUrl="https://rss.arxiv.org/rss/cs.LG"/>
+      <outline type="rss" text="arXiv cs.CV" title="arXiv cs.CV" xmlUrl="https://rss.arxiv.org/rss/cs.CV" htmlUrl="https://rss.arxiv.org/rss/cs.CV"/>
+    </outline>
+    <outline text="moteurs" title="moteurs">
+      <outline type="rss" text="Simon Schreibt" title="Simon Schreibt" xmlUrl="https://simonschreibt.de/feed/" htmlUrl="https://simonschreibt.de"/>
+      <outline type="rss" text="80 Level" title="80 Level" xmlUrl="https://80.lv/feed/" htmlUrl="https://80.lv"/>
+    </outline>
+    <outline text="web" title="web">
+      <outline type="rss" text="OpenAI News" title="OpenAI News" xmlUrl="https://openai.com/news/rss.xml" htmlUrl="https://openai.com/news/rss.xml"/>
+      <outline type="rss" text="Hugging Face" title="Hugging Face" xmlUrl="https://huggingface.co/blog/feed.xml" htmlUrl="https://huggingface.co/blog/feed.xml"/>
+      <outline type="rss" text="MarkTechPost" title="MarkTechPost" xmlUrl="https://www.marktechpost.com/feed/" htmlUrl="https://www.marktechpost.com"/>
+      <outline type="rss" text="MIT Technology Review — IA" title="MIT Technology Review — IA" xmlUrl="https://www.technologyreview.com/topic/artificial-intelligence/feed/" htmlUrl="https://www.technologyreview.com/topic/artificial-intelligence"/>
+      <outline type="rss" text="web.dev" title="web.dev" xmlUrl="https://web.dev/feed.xml" htmlUrl="https://web.dev/feed.xml"/>
+      <outline type="rss" text="Hacker News — mieux notés" title="Hacker News — mieux notés" xmlUrl="https://hnrss.org/frontpage?points=150" htmlUrl="https://hnrss.org/frontpage?points=150"/>
+    </outline>
+  </body>
+</opml>

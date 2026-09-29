@@ -1,0 +1,11 @@
+# Normalise les fins de ligne : le dépôt est buildé sur Linux par GitHub
+# Actions, le développement se fait sur Windows. Sans ça, chaque fichier apparaît
+# modifié après un checkout, et les differences de build deviennent invisibles.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.woff binary
+*.woff2 binary

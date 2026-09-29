@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CarteProjet from '../../components/CarteProjet.astro';
+
+const tous = (await getCollection('projets')).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+
+const libelles = {
+  cours: 'Projets de cours',
+  personnel: 'Projets personnels',
+  stage: 'Projets de stage',
+  professionnel: 'Projets professionnels',
+} as const;
+
+const regroupes = ['personnel', 'cours', 'stage', 'professionnel']
+  .map((c) => ({
+    cle: c as keyof typeof libelles,
+    projets: tous.filter((p) => p.data.contexte === c),
+  }))
+  .filter((g) => g.projets.length > 0);
+---
+
+<Base
+  titre="Projets"
+  description="Applications web, plugins de jeu et projets de cours — avec le détail des décisions techniques et des difficultés rencontrées."
+>
+  <section class="entete-page">
+    <div class="conteneur">
+      <span class="surtitre">Réalisations</span>
+      <h1>Projets</h1>
+      <p class="legende">
+        Chaque projet est détaillé de la même façon : le contexte, ce que j'ai
+        réellement fait, la décision technique que je défendrai en entretien, et
+        les difficultés rencontrées. Les projets de cours sont regroupés à part.
+      </p>
+    </div>
+  </section>
+
+  <div class="conteneur corps">
+    {
+      regroupes.map((groupe) => (
+        <section class="groupe">
+          <div class="entete-section">
+            <h2>{libelles[groupe.cle]}</h2>
+            <span class="legende">
+              {groupe.projets.length} projet{groupe.projets.length > 1 ? 's' : ''}
+            </span>
+          </div>
+          <div class="grille">
+            {groupe.projets.map((p) => (
+              <CarteProjet projet={p} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .entete-page {
+    padding-block: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .entete-page h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: -0.03em;
+  }
+
+  .entete-page .legende {
+    max-width: 62ch;
+    margin-top: 1rem;
+  }
+
+  .corps {
+    padding-bottom: 4rem;
+  }
+
+  .groupe + .groupe {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .entete-section h2 {
+    font-size: 1.4rem;
+  }
+</style>

@@ -1,0 +1,13 @@
+{
+  "titre": "eval-unlearn: Benchmarking unlearning in Text-to-Image Diffusion Models",
+  "url": "https://arxiv.org/abs/2609.35269",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.35269v1 Announce Type: cross Abstract: The rising number of concept unlearning techniques for text-to-image (T2I) diffusion models has produced a fragmented evaluation landscape. Methods are assessed under heterogeneous experimental conditions making principled cross-method comparison difficult. We present eval-unlearn, an open-source Python library providing a unified, reproducible benchmarking framework for concept unlearning in T2I Diffusion models. eval-unlearn integrates twelve published unlearning techniques spanning fine-tuning, closed-form model editing, and inference-time i",
+  "score": 11
+}

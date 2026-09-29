@@ -1,0 +1,105 @@
+---
+import { site } from '../data/site';
+import { lien } from '../lib/urls';
+
+const annee = new Date().getFullYear();
+---
+
+<footer class="pied">
+  <div class="conteneur pied-interne">
+    <div class="bloc">
+      <p class="signature">{site.nom}</p>
+      <p class="mention">
+        Développeur web full-stack & game systems — {site.localisation}.<br />
+        Ce site est statique (Astro), sans cookie ni traceur.
+      </p>
+    </div>
+
+    <nav aria-label="Liens de pied de page">
+      <ul>
+        <li><a href={lien('/projets/')}>Projets</a></li>
+        <li><a href={lien('/veille/')}>Veille tech</a></li>
+        <li><a href={lien('/a-propos/')}>À propos</a></li>
+        <li><a href={lien('/rss.xml')}>Flux RSS de la veille</a></li>
+        <li><a href={lien('/veille.opml')}>Abonnements (OPML)</a></li>
+      </ul>
+    </nav>
+
+    <ul class="social">
+      {
+        site.liens.map((l) => (
+          <li>
+            <a href={l.url} target="_blank" rel="me noopener noreferrer">
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+      <li><a href={`mailto:${site.email}`}>Email</a></li>
+    </ul>
+  </div>
+
+  <div class="conteneur copyright">
+    <p>© {annee} {site.nom} — contenu sous licence CC BY 4.0.</p>
+  </div>
+</footer>
+
+<style>
+  .pied {
+    margin-top: auto;
+    padding-top: 3rem;
+    border-top: 1px solid var(--bordure);
+    background: var(--fond-2);
+    font-size: 0.88rem;
+  }
+
+  .pied-interne {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    padding-bottom: 2.5rem;
+  }
+
+  .signature {
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  .mention {
+    margin-top: 0.4rem;
+    color: var(--texte-3);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  nav ul a,
+  .social a {
+    color: var(--texte-2);
+    transition: color var(--transition);
+  }
+
+  nav ul a:hover,
+  .social a:hover {
+    color: var(--violet);
+  }
+
+  .social {
+    grid-auto-flow: column;
+    justify-content: start;
+    gap: 1rem;
+  }
+
+  .copyright {
+    padding-block: 1.1rem;
+    border-top: 1px solid var(--bordure);
+    color: var(--texte-3);
+    font-size: 0.78rem;
+  }
+</style>

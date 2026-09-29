@@ -1,0 +1,14 @@
+{
+  "titre": "Beyond Scripted Search: Sample-Efficient Reward Discovery via Agentic Black-box Optimization",
+  "url": "https://arxiv.org/abs/2609.32394",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.32394v1 Announce Type: new Abstract: Designing dense reward functions for low-level reinforcement learning (RL) control remains difficult. Recent work uses large language models (LLMs) to iteratively generate and refine reward functions using policy-training feedback within scripted search algorithms. However, evaluating each candidate requires a full RL training run, making sample efficiency a central challenge for reward search on complex control tasks. To address this limitation, we propose an Agentic Reward Black-box Optimization (ARBO) framework, in which an LLM agent builds th",
+  "score": 10
+}

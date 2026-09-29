@@ -1,0 +1,14 @@
+{
+  "titre": "Mitigating Hallucination in Large Language Models: A Capability-Oriented Survey on RAG, Reasoning, and Agentic Systems",
+  "url": "https://arxiv.org/abs/2510.24476",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2510.24476v2 Announce Type: replace-cross Abstract: Hallucination remains one of the key obstacles to the reliable deployment of large language models (LLMs). Although various mitigation approaches have been proposed, existing studies often analyze different technical paradigms independently, lacking a unified perspective to understand the underlying mechanisms of different approaches and their correspondence with different types of hallucinations. This survey adopts a capability enhancement perspective to systematically examine hallucination mitigation approaches, focusing on Retrieval-",
+  "score": 13
+}

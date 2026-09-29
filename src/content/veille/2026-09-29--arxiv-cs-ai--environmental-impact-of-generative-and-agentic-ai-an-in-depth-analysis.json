@@ -1,0 +1,14 @@
+{
+  "titre": "Environmental Impact of Generative and Agentic AI: An in-Depth Analysis and Green Solutions",
+  "url": "https://arxiv.org/abs/2609.32960",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.32960v1 Announce Type: cross Abstract: The proliferation of generative and agentic artificial intelligence (AI) systems has introduced computational demands whose environmental consequences are substantial yet underexamined. This paper examines the environmental footprint of modern AI systems across energy consumption, carbon emissions, water usage, and electronic waste over the full lifecycle of large language models, multimodal foundation models, and agentic workflows, from hardware fabrication and training through fine-tuning and inference to end-of-life disposal. This work provi",
+  "score": 11
+}

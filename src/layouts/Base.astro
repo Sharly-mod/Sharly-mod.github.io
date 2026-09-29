@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+import { lien } from '../lib/urls';
+import Nav from '../components/Nav.astro';
+import Pied from '../components/Pied.astro';
+
+interface Props {
+  titre?: string;
+  description?: string;
+  image?: string;
+}
+
+const { titre, description = site.description, image } = Astro.props;
+const titreComplet = titre ? `${titre} — ${site.nom}` : site.titre;
+const url = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+const imageUrl = image && Astro.site ? new URL(image, Astro.site) : undefined;
+---
+
+<!doctype html>
+<html lang="fr" data-theme="sombre">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titreComplet}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <link rel="icon" type="image/svg+xml" href={lien('/favicon.svg')} />
+    <link rel="sitemap" href={lien('/sitemap-index.xml')} />
+    <link rel="alternate" type="application/rss+xml" title={`Veille — ${site.nom}`} href={lien('/rss.xml')} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={site.nom} />
+    <meta property="og:title" content={titreComplet} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="author" content={site.nom} />
+
+    <script is:inline>
+      // Applique le thème avant le premier rendu pour éviter le flash blanc.
+      (() => {
+        const stocke = localStorage.getItem('theme');
+        const prefere = matchMedia('(prefers-color-scheme: light)').matches ? 'clair' : 'sombre';
+        document.documentElement.dataset.theme = stocke ?? prefere;
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="sauter-contenu" href="#contenu">Aller au contenu</a>
+    <Nav />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Pied />
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "titre": "Google Research Introduces an AI Video Co-Director: 4 Agentic Frameworks for Coherent, Minutes-Long Video Generation",
+  "url": "https://www.marktechpost.com/2026/09/27/google-research-introduces-an-ai-video-co-director-4-agentic-frameworks-for-coherent-minutes-long-video-generation/",
+  "source": "MarkTechPost",
+  "sourceUrl": "https://www.marktechpost.com/feed/",
+  "date": "2026-09-28T02:44:27.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "web"
+  ],
+  "resume": "Google Research has introduced an AI video co-director for long-form video generation. The suite of 4 agentic frameworks turns short clips into coherent, minutes-long stories. It targets identity drift and cascading errors, the 2 failures that break most multi-shot AI video pipelines today. Why Long AI Videos Fall Apart Diffusion models render high-fidelity clips in [&#8230;] The post Google Research Introduces an AI Video Co-Director: 4 Agentic Frameworks for Coherent, Minutes-Long Video Generation appeared first on MarkTechPost .",
+  "score": 7
+}

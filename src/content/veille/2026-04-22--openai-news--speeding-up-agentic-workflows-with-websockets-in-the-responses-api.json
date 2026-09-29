@@ -1,0 +1,13 @@
+{
+  "titre": "Speeding up agentic workflows with WebSockets in the Responses API",
+  "url": "https://openai.com/index/speeding-up-agentic-workflows-with-websockets",
+  "source": "OpenAI News",
+  "sourceUrl": "https://openai.com/news/rss.xml",
+  "date": "2026-04-22T10:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "web"
+  ],
+  "resume": "A deep dive into the Codex agent loop, showing how WebSockets and connection-scoped caching reduced API overhead and improved model latency.",
+  "score": 6
+}

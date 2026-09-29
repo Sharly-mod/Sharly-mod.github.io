@@ -1,0 +1,388 @@
+---
+import { getCollection, render } from 'astro:content';
+import { lien } from '../../lib/urls';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const projets = await getCollection('projets');
+  return projets.map((projet) => ({
+    params: { id: projet.id },
+    props: { projet },
+  }));
+}
+
+const { projet } = Astro.props;
+const { Content } = await render(projet);
+const d = projet.data;
+
+const notesLiees = (
+  await getCollection('notes', (n) => n.data.projetLie?.id === projet.id)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const autres = (await getCollection('projets', (p) => p.id !== projet.id)).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+
+const contexteLabel = {
+  cours: 'Projet de cours',
+  personnel: 'Projet personnel',
+  stage: 'Projet de stage',
+  professionnel: 'Projet professionnel',
+}[d.contexte];
+---
+
+<Base titre={d.titre} description={d.resume}>
+  <article class="conteneur">
+    <nav class="fil" aria-label="Fil d'Ariane">
+      <a href={lien('/projets/')}>Projets</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{d.titre}</span>
+    </nav>
+
+    <header class="entete" data-ton={d.couleur}>
+      <div class="entete-texte">
+        <div class="etiquettes">
+          <span class="etiquette">{contexteLabel}</span>
+          <span class="etiquette">{d.annee}</span>
+          {
+            d.statut !== 'termine' && (
+              <span class="etiquette">{d.statut.replace('-', ' ')}</span>
+            )
+          }
+        </div>
+        <h1>{d.titre}</h1>
+        <p class="resume">{d.resume}</p>
+      </div>
+
+      {
+        d.image && (
+          <img class="vignette" src={d.image} alt="" width="1200" height="675" />
+        )
+      }
+    </header>
+
+    <div class="grille-page">
+      <div>
+        <div class="prose">
+          <Content />
+        </div>
+
+        {
+          notesLiees.length > 0 && (
+            <aside class="bloc-notes">
+              <h2>Veille liée à ce projet</h2>
+              <p class="legende">
+                Ce que ma veille a apporté à ce projet, et ce qu'elle a changé dans
+                ma façon de le concevoir.
+              </p>
+              <ul>
+                {notesLiees.map((note) => (
+                  <li>
+                    <a href={lien(`/veille/note/${note.id}/`)}>
+                      <strong>{note.data.titre}</strong>
+                      <span>
+                        {note.data.source} —{' '}
+                        {note.data.date.toLocaleDateString('fr-FR', {
+                          month: 'long',
+                          year: 'numeric',
+                        })}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )
+        }
+
+        <nav class="pied-projet" aria-label="Navigation entre projets">
+          {
+            autres.map((p) => (
+              <a href={lien(`/projets/${p.id}/`)}>
+                <span class="legende">Projet suivant</span>
+                <strong>{p.data.titre}</strong>
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+
+      <aside class="colonne">
+        <section class="encart">
+          <h2>Rôle</h2>
+          <p>{d.role}</p>
+        </section>
+
+        {
+          d.matieres.length > 0 && (
+            <section class="encart">
+              <h2>Matières</h2>
+              <ul class="liste-simple">
+                {d.matieres.map((m) => (
+                  <li>{m}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          d.stack.length > 0 && (
+            <section class="encart">
+              <h2>Stack</h2>
+              <ul class="pastilles">
+                {d.stack.map((t) => (
+                  <li class="pastille" data-ton={d.couleur}>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          d.competences.length > 0 && (
+            <section class="encart">
+              <h2>Compétences</h2>
+              <ul class="liste-simple">
+                {d.competences.map((c) => (
+                  <li>{c}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          (d.repo || d.demo || d.liens.length > 0) && (
+            <section class="encart">
+              <h2>Liens</h2>
+              <ul class="liste-simple">
+                {d.repo && (
+                  <li>
+                    <a class="lien-externe" href={d.repo} target="_blank" rel="noopener noreferrer">
+                      Code source ↗
+                    </a>
+                  </li>
+                )}
+                {d.demo && (
+                  <li>
+                    <a class="lien-externe" href={d.demo} target="_blank" rel="noopener noreferrer">
+                      Version en ligne ↗
+                    </a>
+                  </li>
+                )}
+                {d.liens.map((l) => (
+                  <li>
+                    <a class="lien-externe" href={l.url} target="_blank" rel="noopener noreferrer">
+                      {l.label} ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </aside>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .fil {
+    display: flex;
+    gap: 0.5rem;
+    padding-block: 2rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--texte-3);
+  }
+
+  .fil a:hover {
+    color: var(--violet);
+  }
+
+  .entete {
+    display: grid;
+    gap: 1.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--bordure);
+  }
+
+  @media (min-width: 60rem) {
+    .entete:has(.vignette) {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  .entete h1 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 5vw, 2.9rem);
+    letter-spacing: -0.03em;
+  }
+
+  .entetes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .etiquettes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .resume {
+    max-width: 60ch;
+    margin-top: 1rem;
+    font-size: 1.05rem;
+    color: var(--texte-2);
+  }
+
+  .vignette {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--bordure);
+    border-radius: var(--r-m);
+  }
+
+  .grille-page {
+    display: grid;
+    gap: 3rem;
+    padding-block: 2.5rem 4rem;
+  }
+
+  @media (min-width: 64rem) {
+    .grille-page {
+      grid-template-columns: minmax(0, 1fr) 17rem;
+      align-items: start;
+    }
+  }
+
+  .colonne {
+    display: grid;
+    gap: 1.5rem;
+    position: sticky;
+    top: 5.5rem;
+  }
+
+  .encart h2 {
+    margin-bottom: 0.7rem;
+    font-family: var(--police-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--texte-3);
+  }
+
+  .encart p {
+    font-size: 0.92rem;
+    color: var(--texte-2);
+  }
+
+  .liste-simple {
+    display: grid;
+    gap: 0.45rem;
+    list-style: none;
+    padding: 0;
+    font-size: 0.88rem;
+    color: var(--texte-2);
+  }
+
+  .liste-simple li {
+    position: relative;
+    padding-left: 0.9rem;
+  }
+
+  .liste-simple li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--violet);
+  }
+
+  .bloc-notes {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-left: 3px solid var(--violet);
+    border-radius: var(--r-m);
+  }
+
+  .bloc-notes h2 {
+    font-size: 1.05rem;
+  }
+
+  .bloc-notes .legende {
+    margin-top: 0.4rem;
+    font-size: 0.88rem;
+  }
+
+  .bloc-notes ul {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1.1rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .bloc-notes a {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .bloc-notes strong {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .bloc-notes a:hover strong {
+    color: var(--violet);
+  }
+
+  .bloc-notes span {
+    font-family: var(--police-mono);
+    font-size: 0.75rem;
+    color: var(--texte-3);
+  }
+
+  .pied-projet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .pied-projet a {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.8rem 1.1rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-radius: var(--r-m);
+    transition: border-color var(--transition);
+  }
+
+  .pied-projet a:hover {
+    border-color: var(--violet);
+  }
+
+  .pied-projet .legende {
+    font-size: 0.75rem;
+  }
+
+  .pied-projet strong {
+    font-weight: 600;
+  }
+</style>

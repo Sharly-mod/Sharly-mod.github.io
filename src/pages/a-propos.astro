@@ -1,0 +1,208 @@
+---
+import { getCollection } from 'astro:content';
+import { site } from '../data/site';
+import Base from '../layouts/Base.astro';
+
+const projets = (await getCollection('projets')).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+
+// Compte des technologies réellement présentes dans les projets
+const compteur = new Map<string, number>();
+for (const p of projets) {
+  for (const t of p.data.stack) compteur.set(t, (compteur.get(t) ?? 0) + 1);
+}
+const technologies = [...compteur.entries()]
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  .map(([nom]) => nom);
+
+const parcours = [
+  {
+    titre: 'Le socle',
+    texte:
+      "Bases en algorithmique, structures de données, bases de données relationnelles. C'est la période où l'on apprend que le modèle de données est une décision d'architecture, pas un formality.",
+  },
+  {
+    titre: 'Le web',
+    texte:
+      "PHP en MVC sans framework, puis JavaScript côté client. Le passage du serveur qui rend du HTML à l'application qui rend une API et une interface.",
+  },
+  {
+    titre: 'Le produit',
+    texte:
+      "Next.js, TypeScript, Supabase, Stripe, PWA, mobile. L'obligation de livrer un produit complet — y compris la monétisation et la publication.",
+  },
+  {
+    titre: "Les systèmes",
+    texte:
+      "Java et l'API serveur de Minecraft : événementiel, concurrence, persistance. Un autre modèle mental, où rien ne se passe dans l'ordre prévu.",
+  },
+];
+---
+
+<Base
+  titre="À propos"
+  description="Parcours, technologies et méthode de travail de FARAG Sharly, développeur web full-stack et systèmes de jeu."
+>
+  <section class="entete-page">
+    <div class="conteneur">
+      <span class="surtitre">À propos</span>
+      <h1>{site.nom}</h1>
+      <p class="legende">{site.resumeCourt}</p>
+      <ul class="liens-directs">
+        {
+          site.liens.map((l) => (
+            <li>
+              <a class="bouton" href={l.url} target="_blank" rel="me noopener noreferrer">
+                {l.label} ↗
+              </a>
+            </li>
+          ))
+        }
+        <li><a class="bouton" href={`mailto:${site.email}`}>Email</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="conteneur corps">
+    <section class="bloc">
+      <div class="prose">
+        <h2>Ma méthode</h2>
+        <p>
+          Je travaille par projets complets plutôt que par empilement de tutoriels. Un
+          projet n'est terminé que s'il est déployable, documenté, et qu'on peut
+          expliquer pourquoi chaque décision technique a été prise. C'est cette
+          dernière condition qui change tout : elle oblige à comprendre au lieu de
+          recopier.
+        </p>
+        <p>
+          Sur chaque projet, je garde la trace des problèmes réellement rencontrés.
+          Un projet sans difficulté documentée n'est pas un projet facile, c'est un
+          projet dont les difficultés n'ont pas été comprises — et c'est ce qui se
+          voit en entretien.
+        </p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <span class="surtitre">Parcours</span>
+      <h2>Comment j'en suis arrivé là</h2>
+      <ol class="parcours">
+        {
+          parcours.map((etape, i) => (
+            <li>
+              <span class="numero">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{etape.titre}</h3>
+                <p>{etape.texte}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="bloc">
+      <span class="surtitre">Outillage</span>
+      <h2>Technologies utilisées</h2>
+      <p class="legende">
+        Extraites automatiquement des {projets.length} projets de ce portfolio.
+      </p>
+      <ul class="pastilles grandes">
+        {technologies.map((t) => <li class="pastille">{t}</li>)}
+      </ul>
+    </section>
+
+    <section class="bloc contact">
+      <h2>Me contacter</h2>
+      <p>
+        Ouvert aux alternances et stages en développement web ou en systèmes de jeu.
+        Le plus rapide est l'email.
+      </p>
+      <a class="bouton principal" href={`mailto:${site.email}`}>{site.email}</a>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .entete-page {
+    padding-block: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .entete-page h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: -0.03em;
+  }
+
+  .entete-page .legende {
+    max-width: 62ch;
+    margin-top: 1rem;
+    font-size: 1.05rem;
+  }
+
+  .liens-directs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .corps {
+    padding-bottom: 4rem;
+  }
+
+  .bloc + .bloc {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .bloc h2 {
+    margin-bottom: 1.25rem;
+    font-size: 1.4rem;
+  }
+
+  .parcours {
+    display: grid;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .parcours li {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1rem;
+  }
+
+  .numero {
+    font-family: var(--police-mono);
+    font-size: 0.85rem;
+    color: var(--violet);
+  }
+
+  .parcours h3 {
+    font-size: 1.05rem;
+  }
+
+  .parcours p {
+    margin-top: 0.3rem;
+    color: var(--texte-2);
+    font-size: 0.95rem;
+  }
+
+  .pastilles.grandes {
+    margin-top: 1.25rem;
+  }
+
+  .contact p {
+    max-width: 56ch;
+    color: var(--texte-2);
+  }
+
+  .contact .bouton {
+    margin-top: 1.5rem;
+  }
+</style>

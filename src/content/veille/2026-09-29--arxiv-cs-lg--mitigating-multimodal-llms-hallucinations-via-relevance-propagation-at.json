@@ -1,0 +1,13 @@
+{
+  "titre": "Mitigating Multimodal LLMs Hallucinations via Relevance Propagation at Inference Time",
+  "url": "https://arxiv.org/abs/2605.01766",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2605.01766v2 Announce Type: replace Abstract: Multimodal large language models (MLLMs) achieve strong performance on vision- and audio-language tasks, yet can generate responses that conflict with the given visual or auditory inputs, a problem known as multimodal hallucinations. Prior work suggests that this occurs when models rely more on textual cues and learned language patterns than on evidence from the perceptual input. To obtain a more direct account of this imbalance, we apply Layer-wise Relevance Propagation (LRP), which attributes predictions to individual input tokens, and use ",
+  "score": 11
+}

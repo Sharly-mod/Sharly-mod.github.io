@@ -1,0 +1,13 @@
+{
+  "titre": "Resolution as a First-Class Decision: Task-Conditioned Routing for Efficient Multimodal Large Language Models",
+  "url": "https://arxiv.org/abs/2609.34942",
+  "source": "arXiv cs.CV",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.CV",
+  "date": "2026-09-29T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.34942v1 Announce Type: new Abstract: The inference efficiency of Multimodal Large Language Models (MLLMs) is severely constrained by massive visual token sequences induced by high-resolution inputs, with computational cost scaling quadratically. Existing approaches primarily focus on downstream token compression, while overlooking a fundamental upstream inefficiency: input resolution is treated as a static, task-agnostic hyperparameter. We propose Task-Conditioned Resolution Routing (TCRR), which formulates visual compression as a task-conditioned decision and employs a lightweight ",
+  "score": 11
+}

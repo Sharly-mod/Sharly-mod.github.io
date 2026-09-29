@@ -1,0 +1,254 @@
+---
+import { getCollection } from 'astro:content';
+import { site } from '../data/site';
+import { lien } from '../lib/urls';
+import Base from '../layouts/Base.astro';
+import CarteProjet from '../components/CarteProjet.astro';
+
+const projets = (await getCollection('projets')).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+const enAvant = projets.filter((p) => p.data.misEnAvant).slice(0, 3);
+const autres = projets.filter((p) => !p.data.misEnAvant);
+
+const notes = (await getCollection('notes')).sort(
+  (a, b) => b.data.poids - a.data.poids || b.data.date.valueOf() - a.data.date.valueOf()
+);
+const veille = (await getCollection('veille')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const formats = [
+  {
+    titre: 'Application web complète',
+    texte:
+      'Modélisation des données, API, interface, paiements, déploiement. C’est le cœur de mon travail.',
+  },
+  {
+    titre: 'Systèmes de jeu',
+    texte:
+      'Plugins serveur, événements, persistance d’état, et tout ce qui doit rester correct quand le serveur s’arrête.',
+  },
+  {
+    titre: 'Veille IA & jeu vidéo',
+    texte:
+      'Ce que l’intelligence generative change vraiment dans les moteurs, et ce qu’elle ne changera pas.',
+  },
+];
+---
+
+<Base>
+  <section class="hero">
+    <div class="conteneur">
+      <p class="surtitre">{site.localisation} — {site.disponiblesPour}</p>
+      <h1>
+        Je construis des <span class="surligne">applications qui marchent vraiment</span>,
+        et je surveille ce que l'IA change dans le jeu vidéo.
+      </h1>
+      <p class="accroche">{site.resumeCourt}</p>
+      <div class="actions">
+        <a class="bouton principal" href={lien('/projets/')}>Voir mes projets</a>
+        <a class="bouton" href={lien('/veille/')}>Ma veille tech</a>
+      </div>
+
+      <dl class="chiffres">
+        <div>
+          <dt>Projets livrés</dt>
+          <dd>{projets.length}</dd>
+        </div>
+        <div>
+          <dt>Langages</dt>
+          <dd>TypeScript · Java · PHP</dd>
+        </div>
+        <div>
+          <dt>Veille suivie</dt>
+          <dd>{veille.length + notes.length} entrées</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="bande" id="projets">
+    <div class="conteneur">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Réalisations</span>
+          <h2>Projets</h2>
+        </div>
+        <a class="lien-fleche" href={lien('/projets/')}>Tout voir</a>
+      </div>
+
+      <div class="grille">
+        {enAvant.map((p) => <CarteProjet projet={p} />)}
+      </div>
+    </div>
+  </section>
+
+  {
+    autres.length > 0 && (
+      <section class="bande">
+        <div class="conteneur">
+          <div class="entete-section">
+            <div>
+              <span class="surtitre">Autres réalisations</span>
+              <h2>Projets de cours et annexes</h2>
+            </div>
+            <a class="lien-fleche" href={lien('/projets/')}>Tout voir</a>
+          </div>
+          <div class="grille">
+            {autres.map((p) => (
+              <CarteProjet projet={p} compact />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="bande">
+    <div class="conteneur">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Ce que je fais</span>
+          <h2>Trois terrains</h2>
+        </div>
+      </div>
+      <div class="grille">
+        {
+          formats.map((f) => (
+            <div class="carte">
+              <h3>{f.titre}</h3>
+              <p>{f.texte}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bande veille-apercu">
+    <div class="conteneur">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Veille technologique</span>
+          <h2>Ce que j'observe sur l'IA dans le jeu vidéo</h2>
+        </div>
+            <a class="lien-fleche" href={lien('/veille/')}>Toute la veille</a>
+      </div>
+
+      <p class="legende intro-veille">
+        Je ne me contente pas de relayer les annonces. Je sélectionne, je lis, et
+        j'écris ce que j'en comprends — notamment la frontière entre ce que l'IA
+        générative sait faire et ce qu'un jeu ne peut pas lui déléguer.
+      </p>
+
+      <div class="grille_notes">
+        {
+          notes.slice(0, 3).map((note) => (
+            <a class="article avec-analyse" href={lien(`/veille/note/${note.id}/`)}>
+              <div class="meta">
+                <span>{note.data.source}</span>
+                <span aria-hidden="true">·</span>
+                <time datetime={note.data.date.toISOString()}>
+                  {note.data.date.toLocaleDateString('fr-FR', {
+                    month: 'short',
+                    year: 'numeric',
+                  })}
+                </time>
+              </div>
+              <h3>{note.data.titre}</h3>
+              <p>Note d'analyse complète →</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(4rem, 12vw, 8rem) clamp(3rem, 8vw, 5rem);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: -40% 20% 40% -10%;
+    background: radial-gradient(
+      ellipse at 30% 40%,
+      color-mix(in srgb, var(--violet) 22%, transparent),
+      transparent 60%
+    );
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .hero .conteneur {
+    position: relative;
+  }
+
+  .hero h1 {
+    max-width: 20ch;
+    margin-top: 0.5rem;
+    font-size: clamp(2.1rem, 6.5vw, 4rem);
+    letter-spacing: -0.035em;
+  }
+
+  .surligne {
+    background: linear-gradient(120deg, var(--violet), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .accroche {
+    max-width: 58ch;
+    margin-top: 1.5rem;
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    color: var(--texte-2);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .chiffres {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 1.5rem 2rem;
+    margin: 4rem 0 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .chiffres dt {
+    font-family: var(--police-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--texte-3);
+  }
+
+  .chiffres dd {
+    margin: 0.35rem 0 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .intro-veille {
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+
+  .grille_notes {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+</style>
