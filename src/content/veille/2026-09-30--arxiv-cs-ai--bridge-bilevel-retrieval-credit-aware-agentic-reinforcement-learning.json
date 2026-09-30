@@ -1,0 +1,14 @@
+{
+  "titre": "BRIDGE: Bilevel Retrieval-Credit-Aware Agentic Reinforcement Learning",
+  "url": "https://arxiv.org/abs/2609.36505",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.36505v1 Announce Type: new Abstract: Agentic reinforcement learning (ARL) with verifiable rewards improves the ability of large language models (LLMs) to tackle knowledge-intensive tasks by learning to interleave search and reasoning. However, most existing ARL methods optimize only LLM-generated tokens and treat retrieved evidence as environment observations. This creates an information-credit gap: failures caused by missing or misleading evidence are attributed to the LLM policy rather than to the retriever, which motivates training the LLM and the retriever jointly. In this paper",
+  "score": 12
+}

@@ -1,0 +1,14 @@
+{
+  "titre": "EEGAgentBench: Benchmarking LLM Agents on Short- and Long-Horizon EEG Analysis",
+  "url": "https://arxiv.org/abs/2609.31632",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.31632v1 Announce Type: new Abstract: Electroencephalography (EEG) analysis is evolving from short-segment classification toward long-horizon interpretation that demands iterative evidence accumulation, multi-step reasoning, and coordinated use of specialized signal-processing tools. Although large language models (LLMs) have recently shown promise as autonomous agents for EEG analysis, existing EEG agentic evaluations remain fragmented, covering limited tasks over narrow temporal horizons with inconsistent protocols, and providing no comprehensive assessment of agents' reasoning, to",
+  "score": 10
+}

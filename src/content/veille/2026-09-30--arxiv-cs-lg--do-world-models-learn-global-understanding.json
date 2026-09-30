@@ -1,0 +1,14 @@
+{
+  "titre": "Do World Models Learn Global Understanding?",
+  "url": "https://arxiv.org/abs/2609.34058",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.34058v1 Announce Type: new Abstract: AI systems often feel brittle and fragmented. A large language model (LLM) may correctly explain a concept but fail to apply it, or follow safety instructions in one context but not another. This behavior suggests a general failure to lift local information to a global understanding. To gain fundamental insight, we frame \"understanding\" as learning constraints and propagating their consequences. We construct learning tasks on monoid worlds, sets of states connected by action transitions, where observed training transitions and an unseen constrain",
+  "score": 9
+}

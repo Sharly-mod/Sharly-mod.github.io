@@ -1,0 +1,14 @@
+{
+  "titre": "The Hitchhiker's Guide to Agentic AI: From Foundations to Systems",
+  "url": "https://arxiv.org/abs/2606.24937",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2606.24937v3 Announce Type: replace Abstract: The Hitchhiker's Guide to Agentic AI is a comprehensive practitioner's reference for building autonomous AI systems, covering the full stack from first principles to production deployment. The central thesis: building great agentic systems requires understanding every layer of the pipeline, not just one. The book opens with the LLM substrate, covering transformer architecture, GPU systems, training and fine-tuning (SFT, LoRA, MoE), model compression, and inference optimization, as essential foundations. It then develops the alignment and reas",
+  "score": 10
+}

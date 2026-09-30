@@ -1,0 +1,14 @@
+{
+  "titre": "SpliTEE: Fast and Private LLM Inference by Coupling GPU-Assisted Trusted Execution Environments with Differential Privacy",
+  "url": "https://arxiv.org/abs/2609.15039",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "tech",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.15039v2 Announce Type: replace-cross Abstract: User prompts provided to large language models (LLMs) may contain sensitive or private information that can be misused by remotely deployed models, such as through inadvertent memorization during retraining. One way to protect user prompts is to execute the LLM inside a trusted execution environment (TEE), with the guarantee that the service provider has no access to computations performed within or information exchanged with the TEE. However, current TEEs are primarily CPU-based and significantly slower than GPUs optimized for LLM infe",
+  "score": 10
+}

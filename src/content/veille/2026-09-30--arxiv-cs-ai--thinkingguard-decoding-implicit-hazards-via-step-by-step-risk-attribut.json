@@ -1,0 +1,13 @@
+{
+  "titre": "ThinkingGuard: Decoding Implicit Hazards via Step-by-Step Risk Attribution in Multimodal Large Language Models",
+  "url": "https://arxiv.org/abs/2609.36562",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.36562v1 Announce Type: cross Abstract: While Multimodal Large Language Models (MLLMs) are increasingly deployed in safety-critical domains, their reliability is threatened by multimodal implicit risks. Unlike explicit threats, these hazards emerge when individually benign text and neutral visual entities logically converge to induce unsafe outputs. Current detection methods fail to address this because they overlook the underlying risk activation mechanisms that govern cross-modal risk activation, leading to single-modality shortcut learning and hallucinated rationalizations. To bri",
+  "score": 10
+}

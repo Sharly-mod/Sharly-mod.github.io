@@ -1,0 +1,13 @@
+{
+  "titre": "QwenGyre: An Elastic Reinforcement Learning Framework for Training xLong-Horizon Agents",
+  "url": "https://arxiv.org/abs/2609.33848",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.33848v1 Announce Type: new Abstract: Large language model (LLM) agents increasingly undertake extreme-long (xlong) horizon tasks, where a single execution can span hours, hundreds of model--environment interactions, and nearly 1M tokens per rollout. Applying online reinforcement learning (RL) to such executions poses two fundamental challenges: (1) severe execution variance and prolonged rollout delays cause massive GPU idling; and (2) complex non-linear branching generates massive trajectory redundancy, crippling training efficiency. To address these, we presents QwenGyre, an end-t",
+  "score": 9
+}

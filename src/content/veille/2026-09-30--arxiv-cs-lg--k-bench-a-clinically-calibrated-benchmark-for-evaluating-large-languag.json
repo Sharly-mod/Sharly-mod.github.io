@@ -1,0 +1,13 @@
+{
+  "titre": "K-Bench: a clinically calibrated benchmark for evaluating large language models in high-risk mental health conversations",
+  "url": "https://arxiv.org/abs/2609.15855",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.15855v3 Announce Type: replace-cross Abstract: People increasingly use large language models (LLMs) for mental health support, yet their safety in evolving, high-risk conversations remains poorly characterised. We developed K-Bench, a clinician-calibrated, protected benchmark evaluating 125 model configurations representing 33 base models from 14 providers across a fixed cohort of 200 multi-turn vignettes involving suicide, self-harm, domestic violence, substance misuse, and no-risk presentations. Synthetic patient conversations showed substantial distributional overlap with real hu",
+  "score": 10
+}

@@ -1,0 +1,13 @@
+{
+  "titre": "Scaling Reinforcement Learning for Diffusion Models via Velocity Matching",
+  "url": "https://arxiv.org/abs/2608.23664",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2608.23664v2 Announce Type: replace-cross Abstract: Reward-based fine-tuning of diffusion models has largely inherited likelihood-based policy optimization developed for autoregressive large language models (LLMs). Diffusion models, however, are natively trained through velocity regression and do not directly provide the likelihood of a generated sample. Existing methods address this using transition likelihoods along stochastic denoising trajectories or evidence lower bounds (ELBOs) to approximate generated-sample likelihoods. These approximations arise from applying likelihood-based up",
+  "score": 10
+}

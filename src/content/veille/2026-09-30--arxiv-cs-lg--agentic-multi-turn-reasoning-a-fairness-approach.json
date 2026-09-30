@@ -1,0 +1,14 @@
+{
+  "titre": "Agentic Multi-Turn Reasoning: A Fairness Approach",
+  "url": "https://arxiv.org/abs/2609.33323",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.33323v1 Announce Type: cross Abstract: Recent advances in Large Language Models (LLMs) have enabled agentic systems capable of solving complex tasks through multi-turn planning, tool use, verification, and memory updates. However, learning agentic systems remains difficult due to two fundamental challenges, i.e., (1) long-horizon credit assignment, where supervision is available only at the final outcome, and (2) imbalanced data distributions, where dominant data patterns bias optimization and weaken adaptation to rare but informative reasoning behaviors. In this paper, we propose F",
+  "score": 9
+}

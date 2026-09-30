@@ -1,0 +1,13 @@
+{
+  "titre": "Bits Under ZK-LLM: Evaluating Zero-Knowledge-Friendly Quantization for Verifiable Private LLM Inference",
+  "url": "https://arxiv.org/abs/2609.36437",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.36437v1 Announce Type: new Abstract: Zero-knowledge proofs are emerging as a promising approach for enabling private, verifiable LLM governance and auditing, where regulators, users, and auditors need to verify claims about training-data usage or LLM inference-time behavior, while model providers must protect proprietary model parameters. However, despite the growing interest in ZK-LLMs, the understanding of ZK-friendly quantization remains limited. This gap matters because in the ZK setting, quantization directly shapes the arithmetic structure, constraint complexity, and proving c",
+  "score": 9
+}

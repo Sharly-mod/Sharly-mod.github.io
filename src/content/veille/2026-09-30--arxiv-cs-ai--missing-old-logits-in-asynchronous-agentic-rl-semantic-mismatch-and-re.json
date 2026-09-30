@@ -1,0 +1,14 @@
+{
+  "titre": "Missing Old Logits in Asynchronous Agentic RL: Semantic Mismatch and Repair Methods for Off-Policy Correction",
+  "url": "https://arxiv.org/abs/2605.12070",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2605.12070v3 Announce Type: replace-cross Abstract: Asynchronous reinforcement learning improves rollout throughput for large language model agents by decoupling sample generation from policy optimization, but it also introduces a critical failure mode for PPO-style off-policy correction. In heterogeneous training systems, the total importance ratio should ideally be decomposed into two semantically distinct factors: a \\emph{training--inference discrepancy term} that aligns inference-side and training-side distributions at the same behavior-policy version, and a \\emph{policy-staleness te",
+  "score": 10
+}

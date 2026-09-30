@@ -1,0 +1,14 @@
+{
+  "titre": "One Bad Prompt Took Down a Company’s Salesforce: RSA’s Jim Taylor on Agent ID and Taming the 4,000 Shadow AI Agents Hiding in Your Enterprise",
+  "url": "https://www.marktechpost.com/2026/09/29/rsa-launches-agent-id-to-discover-secure-and-govern-ai-agents-in-regulated-industries/",
+  "source": "MarkTechPost",
+  "sourceUrl": "https://www.marktechpost.com/feed/",
+  "date": "2026-09-30T01:30:17.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "web"
+  ],
+  "resume": "RSA launched Agent ID at The AI Conference in San Francisco. It's an agentic identity security platform for finance, government, healthcare, and critical infrastructure. It has 3 modules. Discover finds sanctioned and shadow agents and MCP servers. Secure is an inline gateway that checks every tool call against policy. Govern maps evidence to 10 regulatory frameworks. Discover and Secure ship November 16, 2026. The post One Bad Prompt Took Down a Company’s Salesforce: RSA’s Jim Taylor on Agent ID and Taming the 4,000 Shadow AI Agents Hiding in Your Enterprise appeared first on MarkTechPost .",
+  "score": 8
+}

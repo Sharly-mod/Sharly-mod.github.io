@@ -1,0 +1,13 @@
+{
+  "titre": "Calibrate the Decisions That Change the Future: On-Policy Post-Training Quantization for Multimodal Large Language Models",
+  "url": "https://arxiv.org/abs/2609.36828",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.36828v1 Announce Type: new Abstract: Post-training quantization (PTQ) lowers deployment cost for multimodal large language models, but calibration typically reconstructs fixed sequences with local objectives. This overlooks autoregressive feedback: a quantization-induced token change redirects the prefix and changes future states. Yet on-policy coverage alone is insufficient because many decision mismatches barely affect future generation. We propose OnPTQ, an on-policy framework that calibrates on trajectories visited by the current quantized policy. On shared prefixes, OnPTQ ident",
+  "score": 12
+}

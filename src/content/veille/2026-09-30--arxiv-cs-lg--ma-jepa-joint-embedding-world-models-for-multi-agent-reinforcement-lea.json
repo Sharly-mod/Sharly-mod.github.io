@@ -1,0 +1,14 @@
+{
+  "titre": "MA-JEPA: Joint-Embedding World Models for Multi-Agent Reinforcement Learning",
+  "url": "https://arxiv.org/abs/2609.33563",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.33563v1 Announce Type: new Abstract: World models improve sample efficiency by training policies on imagined trajectories, but their usefulness depends on learning representations that capture the information needed for future control. We study whether self-supervised joint-embedding prediction (JEPA) can provide this learning signal for multi-agent reinforcement learning. We introduce MA-JEPA, a stochastic world model that replaces observation reconstruction with prediction of target representations, enabling model-based multi-agent reinforcement learning with centralized training ",
+  "score": 9
+}

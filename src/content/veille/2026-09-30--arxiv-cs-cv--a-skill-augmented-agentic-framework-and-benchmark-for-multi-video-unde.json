@@ -1,0 +1,14 @@
+{
+  "titre": "A Skill-augmented Agentic Framework and Benchmark for Multi-Video Understanding",
+  "url": "https://arxiv.org/abs/2603.14733",
+  "source": "arXiv cs.CV",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.CV",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2603.14733v2 Announce Type: replace Abstract: Multimodal Large Language Models have achieved strong performance in single-video understanding, yet their ability to reason across multiple videos remains limited. Existing approaches typically concatenate multiple videos into a single input and perform direct inference, which introduces training-inference mismatch, information loss from frame compression, and a lack of explicit cross-video coordination. Meanwhile, current multi-video benchmarks primarily emphasize event-level comparison, leaving identity-level matching, fine-grained discrim",
+  "score": 13
+}

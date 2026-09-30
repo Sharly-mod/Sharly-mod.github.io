@@ -1,0 +1,13 @@
+{
+  "titre": "How RUST LTD built the deep firearm simulation for Hot Dogs, Horseshoes & Hand Grenades 2",
+  "url": "https://unity.com/blog/rust-ltd-hot-dogs-horseshoes-hand-grenades-2",
+  "source": "Unity Blog",
+  "sourceUrl": "https://unity.com/blog/rss",
+  "date": "2026-09-25T00:00:00.000Z",
+  "categories": [
+    "tech",
+    "ia-jv"
+  ],
+  "resume": "Rust LTD rebuilt Hot Dogs, Horseshoes & Hand Grenades 2 from scratch in Unity – ECS ballistics, custom firearm physicals, Quest 3 frame budget, and Editor tooling.",
+  "score": 2
+}

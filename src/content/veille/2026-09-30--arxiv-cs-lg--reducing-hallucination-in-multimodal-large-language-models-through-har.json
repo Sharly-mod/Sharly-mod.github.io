@@ -1,0 +1,13 @@
+{
+  "titre": "Reducing Hallucination in Multimodal Large Language Models through Hard Grounding Preference Supervision",
+  "url": "https://arxiv.org/abs/2605.16411",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2605.16411v4 Announce Type: replace-cross Abstract: Hallucination remains a major challenge in vision-language models (VLMs), particularly when linguistically plausible responses are unsupported by visual evidence. We study whether multimodal hallucination can be reduced by concentrating post-training supervision on hard grounding boundaries, where preferred and rejected responses are semantically close but differ in their support from observable visual evidence. Under a frozen visual encoder and cross-modal alignment pathway, we first use supervised fine-tuning (SFT) to establish broad ",
+  "score": 10
+}

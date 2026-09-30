@@ -1,0 +1,13 @@
+{
+  "titre": "Google Research Open-Sources RRSI: AI Agents That Improve Their Own Harness Without Overfitting",
+  "url": "https://www.marktechpost.com/2026/09/29/google-research-open-sources-rrsi-ai-agents-that-improve-their-own-harness-without-overfitting/",
+  "source": "MarkTechPost",
+  "sourceUrl": "https://www.marktechpost.com/feed/",
+  "date": "2026-09-29T09:01:36.000Z",
+  "categories": [
+    "ia",
+    "web"
+  ],
+  "resume": "Google Cloud AI Research has open-sourced RRSI, a framework that lets LLM agents rewrite their own prompts, tools and memory while model weights stay frozen. It adds a leakage critic, a noise floor, a cost rule and pruning so gains carry over to new tasks. With Claude Opus 4.8, Terminal-Bench 2.1 rose from 74.2% to 80.2%, and all 6 held-out splits improved. The post Google Research Open-Sources RRSI: AI Agents That Improve Their Own Harness Without Overfitting appeared first on MarkTechPost .",
+  "score": 8
+}

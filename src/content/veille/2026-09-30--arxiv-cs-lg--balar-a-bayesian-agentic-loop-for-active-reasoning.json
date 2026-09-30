@@ -1,0 +1,14 @@
+{
+  "titre": "BALAR : A Bayesian Agentic Loop for Active Reasoning",
+  "url": "https://arxiv.org/abs/2605.05386",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2605.05386v2 Announce Type: replace-cross Abstract: Large language models increasingly operate in interactive settings where solving a task requires multiple rounds of information exchange with a user. However, most current systems treat dialogue reactively and lack a principled mechanism to reason about what information is missing. We propose BALAR (Bayesian Agentic Loop for Active Reasoning), a task-agnostic outer-loop algorithm that requires no fine-tuning and enables multi-turn interaction between an LLM agent and a user. BALAR maintains a structured belief over latent states, select",
+  "score": 10
+}

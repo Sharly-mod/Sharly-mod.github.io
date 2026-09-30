@@ -1,0 +1,14 @@
+{
+  "titre": "DynGraphAgentBench: A Benchmark for Agentic Lifecycle Control in Dynamic Graph Anomaly Detection",
+  "url": "https://arxiv.org/abs/2609.33980",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.33980v1 Announce Type: new Abstract: Dynamic graph anomaly detection requires repeated decisions as graph structure and class prevalence drift, yet detector benchmarks usually score a fixed pipeline after current labels are known. We introduce DynGraphAgentBench, an executable benchmark for agentic lifecycle control under delayed feedback. It comprises seven temporal graph datasets with node- and edge-level anomaly tasks, eleven selectable detectors, and eight chronological deployment windows per dataset. In each window, a controller sees only time-causal aggregate context, register",
+  "score": 9
+}

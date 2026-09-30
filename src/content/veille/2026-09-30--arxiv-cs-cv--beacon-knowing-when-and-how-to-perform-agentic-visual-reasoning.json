@@ -1,0 +1,14 @@
+{
+  "titre": "Beacon: Knowing When and How to Perform Agentic Visual Reasoning",
+  "url": "https://arxiv.org/abs/2607.28595",
+  "source": "arXiv cs.CV",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.CV",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2607.28595v2 Announce Type: replace Abstract: The fundamental goal of agentic visual reasoning is to improve the success rate of multimodal large language models (MLLMs) on complex tasks. We rethink agentic visual reasoning through two key dimensions of tool use: Mode Adaptiveness and Tool Effect. Mode Adaptiveness characterizes whether an MLLM recognizes when tools are necessary and invokes them accordingly, avoiding unnecessary computational overhead while improving performance on problems requiring tool assistance. Tool Effect characterizes whether tools extend the model's capabilitie",
+  "score": 10
+}

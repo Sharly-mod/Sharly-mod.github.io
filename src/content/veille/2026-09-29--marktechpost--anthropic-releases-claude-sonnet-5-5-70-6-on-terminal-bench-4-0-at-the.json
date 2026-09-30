@@ -1,0 +1,13 @@
+{
+  "titre": "Anthropic Releases Claude Sonnet 5.5: 70.6% on Terminal-Bench 4.0 at the Same $2/$10 Price",
+  "url": "https://www.marktechpost.com/2026/09/28/anthropic-releases-claude-sonnet-5-5-70-6-on-terminal-bench-4-0-at-the-same-2-10-price/",
+  "source": "MarkTechPost",
+  "sourceUrl": "https://www.marktechpost.com/feed/",
+  "date": "2026-09-29T04:20:59.000Z",
+  "categories": [
+    "ia",
+    "web"
+  ],
+  "resume": "Anthropic has released Claude Sonnet 5.5, the second model in its Claude 5.5 family. It scores 70.6% on Terminal-Bench 4.0 and lands within 2 points of Opus 5.5 on GDPval-AA. It also generates output 30%+ faster than Sonnet 5 and keeps the same $2/$10 per million token price. Anthropic says cost per task falls by up to 30% because the model uses fewer tokens. You can deploy it today via the Claude API, AWS, Google Cloud and Azure. The post Anthropic Releases Claude Sonnet 5.5: 70.6% on Terminal-Bench 4.0 at the Same $2/$10 Price appeared first on MarkTechPost .",
+  "score": 6
+}

@@ -1,0 +1,15 @@
+{
+  "titre": "Meta-SecAlign: Training LLMs against Prompt Injection for Robust Agents",
+  "url": "https://arxiv.org/abs/2507.02735",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-09-30T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "tech",
+    "recherche"
+  ],
+  "resume": "arXiv:2507.02735v4 Announce Type: replace-cross Abstract: Prompt injection attacks, where untrusted data contains an injected prompt to manipulate the system, have been listed as the top security threat to AI agents. By fine-tuning on simulated prompt injections, SecAlign, a leading open defense, reports LLMs with good test-time robustness and negligible benign utility drop. By scaling up training and evaluations, however, we find that SecAlign actually suffers from significant utility degradation, especially in agentic tasks where the threat of prompt injection is prominent. Motivated by this",
+  "score": 9
+}

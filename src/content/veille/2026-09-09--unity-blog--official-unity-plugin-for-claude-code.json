@@ -1,0 +1,13 @@
+{
+  "titre": "Official Unity Plugin for Claude Code",
+  "url": "https://unity.com/blog/unity-plugin-for-claude-code",
+  "source": "Unity Blog",
+  "sourceUrl": "https://unity.com/blog/rss",
+  "date": "2026-09-09T00:00:00.000Z",
+  "categories": [
+    "ia",
+    "ia-jv"
+  ],
+  "resume": "Unity's official plugin for Claude Code installs Unity-authored skills, the Unity CLI, and live Editor control via Unity's MCP server, in one command.",
+  "score": 3
+}
