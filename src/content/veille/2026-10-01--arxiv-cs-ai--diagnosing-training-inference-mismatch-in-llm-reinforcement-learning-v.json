@@ -1,0 +1,13 @@
+{
+  "titre": "Diagnosing Training Inference Mismatch in LLM Reinforcement Learning via a Zero-Mismatch Reference",
+  "url": "https://arxiv.org/abs/2605.14220",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2605.14220v2 Announce Type: replace-cross Abstract: Modern LLM RL systems separate rollout generation from policy optimization. These two stages are expected to produce token probabilities that match exactly. However, implementation differences can make them assign different values to the same sequence under the same model weights, inducing Training-Inference Mismatch (TIM). TIM is difficult to inspect because it is entangled with off-policy drift and common stabilization mechanisms. In this work, we isolate TIM in a zero-mismatch diagnostic setting (VeXact), and show that small token-le",
+  "score": 9
+}

@@ -1,0 +1,13 @@
+{
+  "titre": "From Compound Figures to Medical Multi-image Reasoning: Scaling Multimodal Large Language Models with Biomedical Literature",
+  "url": "https://arxiv.org/abs/2511.22232",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2511.22232v2 Announce Type: replace-cross Abstract: Multimodal large language models (MLLMs) are increasingly capable in medical imaging, yet most focus on single-image settings. Clinical interpretation often requires integrating evidence across multiple images, such as different modalities, views, or time points. However, large-scale medical multi-image data and training strategies for such reasoning remain limited. We construct PMC-MI, a large-scale resource comprising 234,956 instruction instances derived from biomedical compound figures, with 10,555 multi-subimage instances structure",
+  "score": 10
+}

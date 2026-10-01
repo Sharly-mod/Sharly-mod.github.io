@@ -1,0 +1,14 @@
+{
+  "titre": "ORACLE: Agentic AI Orchestrator Routing Via Adaptive Verifier Calibration Feedback",
+  "url": "https://arxiv.org/abs/2607.22465",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2607.22465v3 Announce Type: replace Abstract: Modern enterprise agent deployments consist of a heterogeneous pool of large language models (LLMs) having diverse capabilities and cost. Existing model routing strategies optimize the quality-cost trade-off, while providing request-level static decisions. More recent solutions address agentic routing as a task-level selection with a serial verifier based router feedback loop. However, their fixed verifier suitable for homogeneous workloads may not generalize to heterogeneous batches of agentic tasks (example: coding, general conversational).",
+  "score": 9
+}

@@ -1,0 +1,13 @@
+{
+  "titre": "Group Preference Collapse in Personalized Multimodal Large Language Models",
+  "url": "https://arxiv.org/abs/2607.22603",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2607.22603v2 Announce Type: replace Abstract: Personalized multimodal large language models (MLLMs) aim to generate user-specific responses, but existing methods mainly rely on profile-level information and overlook diverse user preferences. We identify group preference collapse, where multi-user personalized MLLMs become insensitive to individual preferences and drift toward dominant population-level choices due to suppressed preference signals and unreliable preference use during generation. We propose PrefMoE, a preference-centric framework that separates stable profile information fr",
+  "score": 10
+}

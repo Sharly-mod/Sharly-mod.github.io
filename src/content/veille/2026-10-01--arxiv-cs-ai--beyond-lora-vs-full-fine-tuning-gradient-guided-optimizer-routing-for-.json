@@ -1,0 +1,13 @@
+{
+  "titre": "Beyond LoRA vs. Full Fine-Tuning: Gradient-Guided Optimizer Routing for LLM Adaptation",
+  "url": "https://arxiv.org/abs/2605.07111",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2605.07111v3 Announce Type: replace-cross Abstract: Recent literature on fine-tuning Large Language Models highlights a fundamental debate. While Full Fine-Tuning (FFT) provides greater representational plasticity, Low-Rank Adaptation (LoRA) can match or surpass FFT performance while constraining updates to a low-rank space and potentially benefiting from additional regularization. Through empirical evaluation across diverse tasks (SQL, Medical QA, and Counterfactual Knowledge) and varying language models (Gemma-3-1B, Qwen2.5-1.5B, and Qwen2.5-3B), we observe both trends and find that th",
+  "score": 10
+}

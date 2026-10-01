@@ -1,0 +1,13 @@
+{
+  "titre": "ChartDensity-Bench: Benchmarking MLLMs for Numerical Data Reconstruction under Visual Density",
+  "url": "https://arxiv.org/abs/2609.38781",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.38781v1 Announce Type: cross Abstract: Multimodal large language models (MLLMs) offer a promising approach for recovering numerical data from scientific charts, but their ability to reconstruct chart data from visually dense figures remains poorly understood. Existing chart understanding benchmarks primarily evaluate question answering or chart-level reasoning and provide limited support for evaluating structured numerical reconstruction from scientific figures. We introduce \\textbf{ChartDensity-Bench}, a benchmark for evaluating MLLMs on structured numerical data reconstruction fro",
+  "score": 9
+}

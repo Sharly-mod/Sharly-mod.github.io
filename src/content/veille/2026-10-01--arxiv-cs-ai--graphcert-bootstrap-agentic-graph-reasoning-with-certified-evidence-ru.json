@@ -1,0 +1,14 @@
+{
+  "titre": "GraphCert: Bootstrap Agentic Graph Reasoning with Certified Evidence Rubrics",
+  "url": "https://arxiv.org/abs/2609.38798",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.38798v1 Announce Type: new Abstract: Graph agents extend large language models (LLMs) with the ability to actively explore and reason over knowledge graphs through multi-step interactions with graph tools. However, training capable graph agents typically requires large collections of question-answer pairs and reasoning trajectories, whose manual construction is costly and difficult to scale. Moreover, employing proprietary LLMs to generate such supervision further risks exposing sensitive graph data to external services. Therefore, we propose GraphCert to bootstrap agentic graph rea",
+  "score": 9
+}

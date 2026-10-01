@@ -1,0 +1,13 @@
+{
+  "titre": "Life-Bench: A Benchmark and Knowledge Graph Framework for Multimodal Personalization Beyond Concept Recognition",
+  "url": "https://arxiv.org/abs/2602.19001",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2602.19001v2 Announce Type: cross Abstract: As large language models increasingly power personal assistants, users expect them to reason over multimodal life histories, from recognizing people to understanding events to aggregating patterns, yet existing benchmarks primarily target concept-level recognition. We introduce Life-Bench, a fully synthetic, human-verified multimodal benchmark of over 11,800 question-answer pairs across 10 tasks, organized by required evidence scope: concept identification, event understanding, and aggregated reasoning. The benchmark's photo-centric personal hi",
+  "score": 8
+}

@@ -1,0 +1,13 @@
+{
+  "titre": "Security-Enhanced Seed-Based Weight Quantization for Large Language Models",
+  "url": "https://arxiv.org/abs/2609.38477",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.38477v1 Announce Type: cross Abstract: Large language models (LLMs) incur substantial storage, memory-bandwidth and energy costs, motivating compact weight representations. Existing seed-based compression methods reconstruct weights from compact pseudo-random representations but do not explicitly account for the non-uniform sensitivity of model weights. We introduce Seed-Q, a security-enhanced sensitivity-aware seed-based weight compression framework that uses lightweight Linear Feedback Shift Register (LFSR)-based weight generation with non-uniform bit allocation. Our approach assi",
+  "score": 10
+}

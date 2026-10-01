@@ -1,0 +1,14 @@
+{
+  "titre": "Agentic Tool-Augmented Reasoning for Explainable Image Forgery Detection",
+  "url": "https://arxiv.org/abs/2609.39066",
+  "source": "arXiv cs.CV",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.CV",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.39066v1 Announce Type: new Abstract: Conventional image forgery detection methods produce binary scores or pixel-level masks without interpretable evidence, while recent multimodal large language model (MLLM)-based approaches generate post-hoc explanations of predetermined classification results rather than reasoning from evidence. Inspired by the forensic workflow of human judicial experts, we propose Agentic Tool-Augmented Reasoning (ATAR), a framework integrating 22 specialized forensic tools across seven complementary domains to autonomously detect, localize, and explain image f",
+  "score": 10
+}

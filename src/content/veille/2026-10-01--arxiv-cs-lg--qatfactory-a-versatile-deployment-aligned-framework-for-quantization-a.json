@@ -1,0 +1,13 @@
+{
+  "titre": "QATFactory: A Versatile, Deployment-Aligned Framework for Quantization-aware Training and Distillation of LLMs",
+  "url": "https://arxiv.org/abs/2609.39223",
+  "source": "arXiv cs.LG",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.LG",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.39223v1 Announce Type: new Abstract: Large language model (LLM) inference is increasingly moving toward lower precision to realize the throughput of hardware accelerators, but aggressive post-training quantization (PTQ) can degrade model quality. We present QATFactory, an open-source framework for deployment-aligned quantization-aware distillation (QAD) and reinforcement learning (QARL). QATFactory simulates deployment-time quantization while performing matrix multiplications in BF16, allowing models to adapt to quantization noise without requiring training hardware that natively su",
+  "score": 10
+}

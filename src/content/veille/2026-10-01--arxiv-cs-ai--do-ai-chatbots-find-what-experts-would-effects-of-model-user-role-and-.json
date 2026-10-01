@@ -1,0 +1,13 @@
+{
+  "titre": "Do AI chatbots find what experts would? Effects of model, user role, and sample size on study retrieval for medical questions",
+  "url": "https://arxiv.org/abs/2608.13786",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2608.13786v2 Announce Type: replace-cross Abstract: Large language model (LLM) chatbots are increasingly used to answer clinical questions with citations to relevant studies, yet the quality of retrieved evidence and factors influencing study selection remain unclear. We evaluated three general-purpose LLM chatbots (Claude Sonnet 5, Gemini 3.1 Pro, and ChatGPT GPT-5.5) using 20 clinical questions adapted from 2026 Cochrane reviews. We simulated patient, clinician, and evidence-synthesis researcher roles and obtained four independent responses for each chatbot-role-question combination, y",
+  "score": 9
+}

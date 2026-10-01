@@ -1,0 +1,14 @@
+{
+  "titre": "Janus: Evidence-Before-Effect Sagas and Offline-Verifiable Provenance for Agentic LLMs",
+  "url": "https://arxiv.org/abs/2609.38266",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.38266v1 Announce Type: cross Abstract: Agentic large language models (LLMs) now move money through tools, yet the record of what they did is usually a trace their own process emits beside the effect. Janus puts the record on the effect path. A step's proposal, the verdict on it and any answer from a validator or a person are durable in a signed, hash-chained log before the step may run or its effect be released; with keys declared, each answer is signed by whoever gave or relayed it. Gates are pure functions of that log, and an auditor re-derives every verdict offline from the log a",
+  "score": 11
+}

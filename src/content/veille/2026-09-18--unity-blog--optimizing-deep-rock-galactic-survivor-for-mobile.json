@@ -1,0 +1,12 @@
+{
+  "titre": "Optimizing Deep Rock Galactic Survivor for mobile",
+  "url": "https://unity.com/blog/optimizing-deep-rock-galactic-survivor-for-mobile",
+  "source": "Unity Blog",
+  "sourceUrl": "https://unity.com/blog/rss",
+  "date": "2026-09-18T00:00:00.000Z",
+  "categories": [
+    "ia-jv"
+  ],
+  "resume": "Learn how Piktiv ported Deep Rock Galactic: Survivor to mobile with flow field navigation, KD-tree physics queries, GPU-driven rendering, Burst jobs, and Addressables.",
+  "score": 0
+}

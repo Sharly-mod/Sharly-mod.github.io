@@ -1,0 +1,14 @@
+{
+  "titre": "Better Deck or Different Judge? Evaluating Agentic Harness Gains in Corporate and Investment Banking",
+  "url": "https://arxiv.org/abs/2609.39958",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.39958v1 Announce Type: new Abstract: Corporate and investment banking teams use presentations to support credit decisions and advise clients on financing and transactions. Producing these decks requires reconciling financial data, tracing sources and turning analysis into a recommendation. We retrospectively study the development of an agentic harness combining a 27B language model, financial calculations, narrative templates and validation checks. LLM judges guide engineering changes and assess the resulting decks, raising the question of whether higher scores reflect better docume",
+  "score": 8
+}

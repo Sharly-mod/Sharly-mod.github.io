@@ -1,0 +1,14 @@
+{
+  "titre": "Trust Is Not a Score: Runtime Assurance Contracts for High-Risk AI Agents",
+  "url": "https://arxiv.org/abs/2609.39717",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "tech",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.39717v1 Announce Type: new Abstract: Benchmarks, audits, and agent protocols describe performance, permissions, and repair, but not how observed evidence should change an agent's authority during a consequential task. We call this the assurance-transition gap. We propose a Runtime Assurance Contract (RAC), a policy-level formal schema binding autonomy boundaries, component eligibility, evidence state, transition policy, human-review capacity, and non-compensatory gates. Under RAC, soft metrics may inform routing, whereas a failed or unknown mandatory gate forces retry, switch, escal",
+  "score": 9
+}

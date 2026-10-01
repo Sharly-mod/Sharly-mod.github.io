@@ -1,0 +1,14 @@
+{
+  "titre": "SAPO: Single-Rollout Autoregressive Policy Optimization for Agentic Reinforcement Learning",
+  "url": "https://arxiv.org/abs/2608.19842",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2608.19842v3 Announce Type: replace Abstract: Agentic reinforcement learning (RL) has emerged as an important post-training approach for enhancing the capabilities of Large Language Models (LLMs). However, existing methods face a trade-off between policy performance and resource efficiency. Conventional Proximal Policy Optimization (PPO) implementations incur substantial memory overhead from a separate critic, whereas critic-free group-relative methods require multiple rollouts and face potential learning bottlenecks on long-horizon tasks. In this work, we propose Single-rollout Autoregr",
+  "score": 12
+}

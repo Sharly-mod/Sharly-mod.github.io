@@ -1,0 +1,14 @@
+{
+  "titre": "DexHoldem: An Agentic Robotics Benchmark for Dexterous Manipulation in Texas Hold'em",
+  "url": "https://arxiv.org/abs/2605.18727",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2605.18727v2 Announce Type: replace-cross Abstract: Evaluating embodied systems with real dexterous hardware requires more than isolated motor-skill tests: an agent must perceive a changing scene (e.g. a tabletop), choose a context-appropriate action, execute it with a dexterous hand, and leave the scene usable for later decisions. We introduce DexHoldem, a comprehensive real-world benchmark evaluating Texas Hold'em related dexterous manipulations with a ShadowHand. DexHoldem provides 1,470 teleoperated demonstrations across 14 Texas Hold'em manipulation primitives, a standardized physic",
+  "score": 9
+}

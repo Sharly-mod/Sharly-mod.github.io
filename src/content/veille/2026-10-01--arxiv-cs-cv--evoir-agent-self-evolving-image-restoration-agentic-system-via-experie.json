@@ -1,0 +1,14 @@
+{
+  "titre": "EvoIR-Agent: Self-Evolving Image Restoration Agentic System via Experience-Driven Learning",
+  "url": "https://arxiv.org/abs/2605.22208",
+  "source": "arXiv cs.CV",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.CV",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia-jv",
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2605.22208v3 Announce Type: replace Abstract: Multimodal Large Language Model (MLLM)-driven image restoration agent demonstrates effectiveness in degradation coupling scenarios by flexibly selecting tools and determining removal orders. However, its zero-shot planning often fails without experience, necessitating severe trial-and-error overhead to achieve satisfactory outcomes. Currently, two paradigms are employed to address this issue, yet a dilemma persists: Training-based methods embed intrinsic experience into parameters, achieving high inference efficiency but lacking compatibility",
+  "score": 11
+}

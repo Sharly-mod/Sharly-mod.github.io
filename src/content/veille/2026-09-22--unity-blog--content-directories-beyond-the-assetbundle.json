@@ -1,0 +1,12 @@
+{
+  "titre": "Content directories: Beyond the AssetBundle",
+  "url": "https://unity.com/blog/content-directories-beyond-the-assetbundle",
+  "source": "Unity Blog",
+  "sourceUrl": "https://unity.com/blog/rss",
+  "date": "2026-09-22T00:00:00.000Z",
+  "categories": [
+    "ia-jv"
+  ],
+  "resume": "Unity 6.6 introduces content directories, a faster and more granular replacement for AssetBundles that cuts build times, reduces game size, and improves load performance — with full remote delivery coming in Unity 7.",
+  "score": 0
+}

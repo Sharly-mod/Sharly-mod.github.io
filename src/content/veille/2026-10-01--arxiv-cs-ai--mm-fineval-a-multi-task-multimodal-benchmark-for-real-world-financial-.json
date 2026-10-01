@@ -1,0 +1,13 @@
+{
+  "titre": "MM-FinEval: A Multi-Task Multimodal Benchmark for Real-World Financial Forecasting",
+  "url": "https://arxiv.org/abs/2609.38523",
+  "source": "arXiv cs.AI",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.AI",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.38523v1 Announce Type: cross Abstract: Financial forecasting from earnings conference calls requires models to reason over complex corporate disclosures, market expectations, and subtle communication signals. However, existing financial benchmarks are often limited to unimodal inputs or single-task settings, making it difficult to evaluate whether multimodal large language models (LLMs) can support real-world financial analysis. In this paper, we introduce MM-FinEval, a novel benchmark designed to evaluate multimodal LLMs across multiple financial tasks. MM-FinEval spans a diverse t",
+  "score": 9
+}

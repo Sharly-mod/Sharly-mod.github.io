@@ -1,0 +1,13 @@
+{
+  "titre": "MiCo: Mutual Information Coverage Optimization through Semantic Erasure Modeling for Efficient MLLM Inference",
+  "url": "https://arxiv.org/abs/2609.34330",
+  "source": "arXiv cs.CV",
+  "sourceUrl": "https://rss.arxiv.org/rss/cs.CV",
+  "date": "2026-10-01T04:00:00.000Z",
+  "categories": [
+    "ia",
+    "recherche"
+  ],
+  "resume": "arXiv:2609.34330v2 Announce Type: replace Abstract: Multimodal large language models (MLLMs) have demonstrated impressive performance in multimodal understanding, but processing large numbers of visual tokens results in high computational costs. While many methods have been proposed to reduce the number of visual tokens, most of them rely on heuristics and are prone to discarding substantial visual information during pruning, leading to degradation in model performance. In this work, by using a semantic erasure model, we derive a general mutual information coverage objective from task log-loss",
+  "score": 9
+}
