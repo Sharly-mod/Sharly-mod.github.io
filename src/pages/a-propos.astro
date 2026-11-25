@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Competences from '../components/Competences.astro';
 import Icone from '../components/Icone.astro';
-import { site } from '../data/site';
+import { site, examenBlanc } from '../data/site';
 import { parcours, faconDeTravailler } from '../data/parcours';
 import { lien } from '../lib/urls';
 
@@ -142,7 +142,9 @@ const technologies = [...new Set(projetsE5.flatMap((p) => p.data.stack))].sort((
           <Icone nom="mail" taille={15} />
           {site.email}
         </a>
-        <a class="bouton secondaire" href={lien('/e5/#documents')}>CV & documents</a>
+        <a class="bouton secondaire" href={lien(examenBlanc ? '/e5/#tableau' : '/e5/#documents')}>
+          {examenBlanc ? 'Tableau E5 en ligne' : 'CV & documents'}
+        </a>
       </div>
     </section>
   </div>

@@ -36,3 +36,8 @@ export const site = {
 export const theme = {
   modeParDefaut: 'sombre' as const,
 };
+
+/* Mode examen blanc : les documents officiels ne sont pas encore disponibles.
+   L'interface masque les fichiers manquants et présente le tableau HTML en
+   ligne. Passer à false quand les PDF sont déposés dans public/documents/. */
+export const examenBlanc: boolean = true;

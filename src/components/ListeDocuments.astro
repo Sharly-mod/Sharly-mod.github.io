@@ -1,6 +1,8 @@
 ---
 import type { DocumentE5 } from '../data/documents';
 import { documentExiste, urlDocument } from '../lib/documents';
+import { site, examenBlanc } from '../data/site';
+import { lien } from '../lib/urls';
 import Icone from './Icone.astro';
 
 interface Props {
@@ -10,35 +12,90 @@ interface Props {
 const { documents } = Astro.props;
 ---
 
-<div class="documents-grille">
-  {
-    documents.map((doc) => {
-      const disponible = documentExiste(doc.fichier);
-      return (
-        <article class="document-carte" data-disponible={disponible ? 'true' : 'false'}>
-          <div class="document-entete">
-            <span class="document-type">{doc.type}</span>
-            <span class="badge" data-statut={disponible ? 'disponible' : 'manquant'}>
-              {disponible ? 'Disponible' : 'À déposer'}
-            </span>
-          </div>
+{
+  examenBlanc ? (
+    <div class="documents-examen-blanc">
+      <div class="document-entete">
+        <span class="badge" data-statut="disponible">Examen blanc</span>
+        <span class="legende">Documents officiels non exigés</span>
+      </div>
+      <h3>Le tableau de synthèse est consultable en ligne</h3>
+      <p>
+        Pour cet examen blanc, les PDF (tableau, attestation, convention,
+        rapport, CV) ne sont pas requis. Le tableau HTML ci-dessous présente les
+        quatre réalisations et les six blocs de compétences. Le CV peut être
+        demandé par email.
+      </p>
+      <div class="doc-actions">
+        <a class="bouton secondaire" href={lien('/e5/#tableau')}>
+          <Icone nom="file" taille={15} />
+          Consulter le tableau
+        </a>
+        <a class="bouton secondaire" href={`mailto:${site.email}?subject=Demande%20de%20CV`}>
+          <Icone nom="mail" taille={15} />
+          Demander le CV
+        </a>
+      </div>
+    </div>
+  ) : (
+    <div class="documents-grille">
+      {documents.map((doc) => {
+        const disponible = documentExiste(doc.fichier);
+        return (
+          <article class="document-carte" data-disponible={disponible ? 'true' : 'false'}>
+            <div class="document-entete">
+              <span class="document-type">{doc.type}</span>
+              <span class="badge" data-statut={disponible ? 'disponible' : 'manquant'}>
+                {disponible ? 'Disponible' : 'À déposer'}
+              </span>
+            </div>
 
-          <h3>{doc.titre}</h3>
-          <p>{doc.description}</p>
+            <h3>{doc.titre}</h3>
+            <p>{doc.description}</p>
 
-          {disponible ? (
-            <a class="bouton secondaire" href={urlDocument(doc.fichier)} download>
-              <Icone nom="download" taille={15} />
-              Télécharger
-            </a>
-          ) : (
-            <p class="document-manquant">
-              <strong>[À COMPLÉTER]</strong> Déposer le fichier{' '}
-              <code>public/{doc.fichier}</code>
-            </p>
-          )}
-        </article>
-      );
-    })
+            {disponible ? (
+              <a class="bouton secondaire" href={urlDocument(doc.fichier)} download>
+                <Icone nom="download" taille={15} />
+                Télécharger
+              </a>
+            ) : (
+              <p class="document-manquant">
+                <strong>[À COMPLÉTER]</strong> Déposer le fichier{' '}
+                <code>public/{doc.fichier}</code>
+              </p>
+            )}
+          </article>
+        );
+      })}
+    </div>
+  )
+}
+
+<style>
+  .documents-examen-blanc {
+    padding: 1.35rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--r-m) var(--r-m) 0;
   }
-</div>
+
+  .documents-examen-blanc h3 {
+    margin-top: 0.7rem;
+    font-size: 1.08rem;
+  }
+
+  .documents-examen-blanc p {
+    max-width: 70ch;
+    margin-top: 0.45rem;
+    color: var(--texte-2);
+    font-size: 0.92rem;
+  }
+
+  .doc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+</style>

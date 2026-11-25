@@ -127,8 +127,17 @@ const placeholders = capturesACompleter.length > 0 ? capturesACompleter : d.aCom
                 ))}
               </ul>
               <p class="legende">
-                Correspondance détaillée dans le{' '}
-                <a class="lien-externe" href={lien('/e5/')}>tableau de synthèse E5</a>.
+                {d.selectionE5 ? (
+                  <>
+                    Correspondance détaillée dans le{' '}
+                    <a class="lien-externe" href={lien('/e5/')}>tableau de synthèse E5</a>.
+                  </>
+                ) : (
+                  <>
+                    Projet complémentaire : ces compétences ne sont pas comptées
+                    dans le tableau de synthèse E5.
+                  </>
+                )}
               </p>
             </section>
           )

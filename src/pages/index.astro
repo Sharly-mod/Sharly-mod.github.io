@@ -6,7 +6,7 @@ import Competences from '../components/Competences.astro';
 import Icone from '../components/Icone.astro';
 import ListeDocuments from '../components/ListeDocuments.astro';
 import TableauE5 from '../components/TableauE5.astro';
-import { site } from '../data/site';
+import { site, examenBlanc } from '../data/site';
 import { parcours, faconDeTravailler } from '../data/parcours';
 import { documentsE5 } from '../data/documents';
 import { blocsBts } from '../data/competences-bts';
@@ -22,12 +22,20 @@ const veille = (await getCollection('veilleE5')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
+const ongaku = (await getCollection('projets', (p) => p.id === 'ongaku'))[0];
+
 const docsAccueil = documentsE5.filter((d) =>
   ['tableau-synthese', 'attestation-stage', 'cv'].includes(d.id)
 );
 
 const cvDisponible = documentExiste('documents/cv-sharly-farag.pdf');
-const cvUrl = cvDisponible ? urlDocument('documents/cv-sharly-farag.pdf') : lien('/e5/#documents');
+const cvUrl = examenBlanc
+  ? `mailto:${site.email}?subject=Demande%20de%20CV`
+  : cvDisponible
+    ? urlDocument('documents/cv-sharly-farag.pdf')
+    : lien('/e5/#documents');
+const cvLabel = examenBlanc ? 'CV sur demande' : 'Télécharger mon CV';
+const cvIcon: 'mail' | 'download' = examenBlanc ? 'mail' : 'download';
 
 const compteurs: Record<string, number> = {
   tous: projetsE5.length,
@@ -54,11 +62,11 @@ const compteurs: Record<string, number> = {
           <a
             class="bouton secondaire"
             href={cvUrl}
-            download={cvDisponible ? '' : undefined}
-            title={cvDisponible ? 'Télécharger le CV au format PDF' : 'Le CV sera déposé avant l’oral'}
+            download={!examenBlanc && cvDisponible ? '' : undefined}
+            title={examenBlanc ? 'Demander le CV par email' : cvDisponible ? 'Télécharger le CV au format PDF' : 'Le CV sera déposé avant l’oral'}
           >
-            <Icone nom="download" taille={16} />
-            Télécharger mon CV
+            <Icone nom={cvIcon} taille={16} />
+            {cvLabel}
           </a>
           <a class="bouton secondaire" href={lien('/e5/')}>
             <Icone nom="file" taille={16} />
@@ -232,6 +240,24 @@ const compteurs: Record<string, number> = {
         }
       </div>
 
+      {
+        ongaku && (
+          <aside class="projet-complementaire">
+            <div>
+              <span class="surtitre">Projet personnel complémentaire</span>
+              <h3>{ongaku.data.titre}</h3>
+              <p>{ongaku.data.resume}</p>
+              <ul class="pastilles">
+                {ongaku.data.stack.slice(0, 5).map((techno) => <li class="pastille">{techno}</li>)}
+              </ul>
+            </div>
+            <a class="bouton secondaire" href={lien(`/projets/${ongaku.id}/`)}>
+              Voir la fiche Ongaku
+            </a>
+          </aside>
+        )
+      }
+
       <p class="legende note-bas">
         Les fiches détaillent le contexte, les besoins, les choix techniques, les
         opérations CRUD, les mesures de sécurité et les compétences BTS couvertes.
@@ -253,8 +279,8 @@ const compteurs: Record<string, number> = {
       <div class="e5-intro">
         <p class="legende">
           Le tableau ci-dessous associe chaque réalisation aux six blocs de
-          compétences du BTS SIO. Les documents officiels (tableau de synthèse,
-          attestation, CV) sont téléchargeables depuis la page E5.
+          compétences du BTS SIO. Pour l’examen blanc, le tableau est consultable
+          en ligne ; les documents officiels seront ajoutés pour l’épreuve finale.
         </p>
         <a class="bouton secondaire" href={lien('/e5/#documents')}>
           <Icone nom="file" taille={15} />
@@ -323,9 +349,9 @@ const compteurs: Record<string, number> = {
           <Icone nom="mail" taille={16} />
           {site.email}
         </a>
-        <a class="bouton secondaire" href={cvUrl} download={cvDisponible ? '' : undefined}>
-          <Icone nom="download" taille={16} />
-          Télécharger le CV
+        <a class="bouton secondaire" href={cvUrl} download={!examenBlanc && cvDisponible ? '' : undefined}>
+          <Icone nom={cvIcon} taille={16} />
+          {cvLabel}
         </a>
         <a class="bouton secondaire" href={site.liens[0].url} target="_blank" rel="me noopener noreferrer">
           GitHub ↗
@@ -629,6 +655,35 @@ const compteurs: Record<string, number> = {
 
   .projet-item[hidden] {
     display: none !important;
+  }
+
+  .projet-complementaire {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    margin-top: 1.25rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--r-m) var(--r-m) 0;
+  }
+
+  .projet-complementaire h3 {
+    font-size: 1rem;
+  }
+
+  .projet-complementaire p {
+    max-width: 76ch;
+    margin-top: 0.3rem;
+    color: var(--texte-2);
+    font-size: 0.88rem;
+  }
+
+  .projet-complementaire .pastilles {
+    margin-top: 0.55rem;
   }
 
   .note-bas {

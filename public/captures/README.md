@@ -20,9 +20,13 @@ public/captures/
 ├── champihardcore/
 │   ├── commande-champi.webp
 │   └── discord.webp
-└── conversa/
-    ├── conversation.webp
-    └── amis-statuts.webp
+├── conversa/
+│   ├── conversation.webp
+│   └── amis-statuts.webp
+└── ongaku/
+    ├── accueil-pc.webp
+    ├── lecteur-paroles.webp
+    └── telechargements.webp
 ```
 
 ## Utilisation dans une fiche

@@ -47,7 +47,7 @@ export const parcours: EtapeParcours[] = [
     titre: 'Projets personnels & veille',
     lieu: 'Java, React, sécurité logicielle',
     texte:
-      "Développement d'un plugin Paper en Java et d'une messagerie React/Supabase, complétés par une veille sur la sécurité de la chaîne logistique logicielle et l'impact des outils d'IA.",
+      "Développement d'un plugin Paper en Java, d'une messagerie React/Supabase et d'Ongaku (Python puis Rust/Slint), complétés par une veille sur la sécurité de la chaîne logistique logicielle et l'impact des outils d'IA.",
   },
 ];
 

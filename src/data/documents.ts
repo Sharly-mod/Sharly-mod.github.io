@@ -1,10 +1,9 @@
 /* ---------------------------------------------------------------------------
  * Documents attendus pour l'épreuve E5.
  *
- * Les fichiers ne sont pas fournis dans ce dépôt : ils sont déposés dans
- * public/documents/ avant l'oral. Le site vérifie leur présence au build et
- * affiche « À déposer » si le fichier manque, pour éviter un lien mort devant
- * le jury.
+ * Ce jeu de données n'est affiché que lorsque `examenBlanc` est false dans
+ * src/data/site.ts. En mode examen blanc, le site présente uniquement le
+ * tableau HTML en ligne et ne réclame aucun PDF.
  * ------------------------------------------------------------------------- */
 
 export interface DocumentE5 {

@@ -1,8 +1,11 @@
 # Documents E5 — à déposer ici
 
-Ce dossier est volontairement vide dans le dépôt : les documents personnels ne
-doivent pas être versionnés. Le site vérifie leur présence au build et affiche
-« À déposer » tant qu'un fichier manque.
+**Examen blanc : ce dossier peut rester vide.** Le site est en mode
+`examenBlanc = true` et présente le tableau de synthèse directement en ligne.
+
+Pour l’épreuve finale, dépose les PDF ici et passe `examenBlanc` à `false` dans
+`src/data/site.ts`. Le site vérifie alors leur présence au build et affiche
+« À déposer » tant qu’un fichier manque.
 
 ## Fichiers attendus
 

@@ -78,8 +78,12 @@ docs/
 | Champi-Hardcore | Projet Personnel | Java, Paper/Bukkit, LuckPerms, Discord, Tebex |
 | Conversa | Projet Personnel | React, Supabase, PostgreSQL, RLS, temps réel |
 
-La refonte du site de **Dayana** (deuxième stage, en cours) est conservée en
-réalisation complémentaire, hors tableau E5.
+La refonte du site de **Dayana** (deuxième stage, en cours) et **Ongaku** sont
+conservées en réalisations complémentaires, hors tableau E5 :
+
+- **Dayana** : refonte de site, stage en cours.
+- **Ongaku** : expérimentation de développement assisté par IA, d’un script
+  Python à une application Rust/Slint PC + Android + PWA.
 
 ## Ajouter ou modifier un projet
 
@@ -99,7 +103,20 @@ réalisation complémentaire, hors tableau E5.
 3. Écris le corps Markdown (retour d’expérience, difficultés, recul).
 4. Lance `npm run check` et `npm run build`.
 
-## Documents E5
+## Mode examen blanc
+
+`src/data/site.ts` contient `examenBlanc = true`. Dans ce mode :
+
+- aucun PDF n’est réclamé dans l’interface ;
+- les badges « À déposer » et les chemins de fichiers manquants sont masqués ;
+- le tableau de synthèse est consultable directement en ligne sur `/e5/#tableau` ;
+- le bouton CV devient « CV sur demande » (lien `mailto:`).
+
+C’est le mode à garder pour l’examen blanc. Pour l’épreuve finale, lorsque les
+documents existent, dépose-les dans `public/documents/` puis passe
+`examenBlanc` à `false`. Les cartes de téléchargement réapparaîtront.
+
+## Documents E5 (épreuve finale)
 
 Les PDF ne sont pas fournis dans ce dépôt. Dépose-les dans
 `public/documents/` avec les noms attendus (voir
@@ -156,7 +173,9 @@ Le site est publié sur `https://sharly-mod.github.io`.
 Voir la liste détaillée dans [`docs/PLAN-ORAL.md`](docs/PLAN-ORAL.md) et les
 badges **« À compléter »** sur les fiches projets. Les principaux points :
 
-- [ ] Déposer les 5 PDF dans `public/documents/`.
+- [ ] Examen blanc : rien à déposer, le mode `examenBlanc` est actif.
+- [ ] Épreuve finale : déposer les 5 PDF dans `public/documents/` et passer
+      `examenBlanc` à `false`.
 - [ ] Renseigner le tuteur et la raison sociale du stage dans
       `stage-tis-inge-2026.md`.
 - [ ] Ajouter les captures d’écran des 4 projets.

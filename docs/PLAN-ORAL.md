@@ -7,13 +7,18 @@ que tout est prêt la veille.
 
 ### Documents
 
+**Examen blanc : aucun PDF n’est requis.** Le mode `examenBlanc = true` masque
+les documents manquants et le tableau HTML en ligne suffit.
+
+Pour l’épreuve finale seulement :
+
 - [ ] `public/documents/tableau-synthese-e5.pdf` déposé.
 - [ ] `public/documents/attestation-stage.pdf` déposé.
 - [ ] `public/documents/convention-stage.pdf` déposé (si demandé).
 - [ ] `public/documents/rapport-stage.pdf` déposé.
 - [ ] `public/documents/cv-sharly-farag.pdf` déposé.
-- [ ] Relancer `npm run build` après ajout et vérifier les badges
-      « Disponible » sur `/e5/`.
+- [ ] Passer `examenBlanc` à `false` dans `src/data/site.ts`.
+- [ ] Relancer `npm run build` et vérifier les badges « Disponible » sur `/e5/`.
 
 ### Captures
 
@@ -21,6 +26,7 @@ que tout est prêt la veille.
 - [ ] Stage : dashboard admin, espace utilisateur, ticket, export CSV, AD/DHCP.
 - [ ] Champi-Hardcore : commande `/champi`, notification Discord, extrait YAML.
 - [ ] Conversa : conversation, demandes d’amis, statuts.
+- [ ] Ongaku : accueil PC, écran mobile, lecteur avec paroles, téléchargements.
 - [ ] Dayana : avant / après, page d’accueil mobile.
 
 ### Site
@@ -30,7 +36,7 @@ que tout est prêt la veille.
 - [ ] Test sur mobile (390 px) : menu, filtres, tableau E5 scrollable.
 - [ ] Test en mode clair et sombre.
 - [ ] Vérifier les liens GitHub et le lien LinkedIn.
-- [ ] Vérifier que le CV se télécharge bien.
+- [ ] Vérifier que le bouton « CV sur demande » ouvre bien l’email.
 
 ## 2. Plan de soutenance (10 minutes)
 
@@ -41,7 +47,7 @@ que tout est prêt la veille.
 | 3:00–4:45 | Stage DydyITServices / TIS-INGÉ | besoin réel, GestioParc, CRUD, tests, AD/DHCP |
 | 4:45–5:45 | Champi-Hardcore | POO Java, événements, LuckPerms, Discord, Tebex |
 | 5:45–6:45 | Conversa | React, Supabase, RLS, temps réel |
-| 6:45–7:45 | Tableau E5 | 4 projets × 6 blocs, preuves et documents |
+| 6:45–7:45 | Tableau E5 | 4 projets × 6 blocs, preuves et tableau en ligne |
 | 7:45–9:00 | Veille | supply chain + IA, méthode, impact concret |
 | 9:00–10:00 | Bilan | difficultés, recul, ce que je ferais autrement |
 
@@ -57,6 +63,8 @@ que tout est prêt la veille.
   mensuelles par permissions, les lignées et les intégrations Discord/Tebex.
 - **Conversa** : messagerie React/Supabase avec authentification, amis, statuts
   et messages temps réel protégés par RLS.
+- **Ongaku** (complémentaire, hors E5) : expérimentation IA de bout en bout,
+  d’un script Python à une application Rust/Slint PC + Android + PWA.
 
 ## 4. Questions probables et réponses courtes
 
@@ -120,6 +128,13 @@ des tests, puis je relis, je teste et je dois pouvoir expliquer chaque ligne.
 Je ne mets jamais de secret dans un prompt, et je vérifie les dépendances
 suggérées.
 
+### « Pourquoi Ongaku n’est pas dans le tableau E5 ? »
+
+C’est un projet personnel d’expérimentation, pas une réalisation de stage ou
+d’atelier professionnel. Il est complémentaire : il montre surtout le portage
+Python → Rust/Slint, le build Android et la démarche de développement assisté
+par IA, avec revue et tests manuels.
+
 ## 5. Ce qu’il reste à compléter
 
 - [ ] Tuteur / référent et raison sociale exacte du stage.
@@ -127,7 +142,9 @@ suggérées.
 - [ ] Fiche Dayana : dates, activité, URL, stack, captures avant/après.
 - [ ] Lien LinkedIn réel.
 - [ ] Liens GitHub des projets à vérifier.
-- [ ] Documents PDF dans `public/documents/`.
+- [ ] Ongaku : captures PC/mobile, lien APK/EXE ou dépôt.
+- [ ] Documents PDF dans `public/documents/` (épreuve finale uniquement ;
+      examen blanc : mode `examenBlanc` actif).
 
 ## 6. Dernier conseil
 

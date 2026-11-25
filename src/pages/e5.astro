@@ -6,6 +6,7 @@ import ListeDocuments from '../components/ListeDocuments.astro';
 import TableauE5 from '../components/TableauE5.astro';
 import { blocsBts, tonsBts } from '../data/competences-bts';
 import { documentsE5 } from '../data/documents';
+import { examenBlanc } from '../data/site';
 import { documentExiste, urlDocument } from '../lib/documents';
 import { lien } from '../lib/urls';
 
@@ -14,9 +15,11 @@ const projetsE5 = (await getCollection('projets', (p) => p.data.selectionE5)).so
 );
 
 const tableauDisponible = documentExiste('documents/tableau-synthese-e5.pdf');
-const tableauUrl = tableauDisponible
-  ? urlDocument('documents/tableau-synthese-e5.pdf')
-  : lien('/e5/#documents');
+const tableauUrl = examenBlanc
+  ? '#tableau'
+  : tableauDisponible
+    ? urlDocument('documents/tableau-synthese-e5.pdf')
+    : lien('/e5/#documents');
 ---
 
 <Base
@@ -28,26 +31,26 @@ const tableauUrl = tableauDisponible
       <span class="surtitre">Épreuve E5 — Parcours de professionnalisation</span>
       <h1>Tableau de synthèse & dossier E5</h1>
       <p class="legende">
-        Cette page rassemble les quatre réalisations présentées à l’oral, les
-        documents officiels et la correspondance avec les six blocs de
+        Cette page rassemble les quatre réalisations présentées à l’oral, le
+        tableau de synthèse et la correspondance avec les six blocs de
         compétences du BTS SIO option SLAM.
       </p>
       <div class="actions-e5">
         <a
           class="bouton principal"
           href={tableauUrl}
-          download={tableauDisponible ? '' : undefined}
+          download={!examenBlanc && tableauDisponible ? '' : undefined}
         >
-          <Icone nom="download" taille={16} />
-          Télécharger le tableau de synthèse
+          <Icone nom={examenBlanc ? 'file' : 'download'} taille={16} />
+          {examenBlanc ? 'Consulter le tableau en ligne' : 'Télécharger le tableau de synthèse'}
         </a>
         <a class="bouton secondaire" href="#documents">
           <Icone nom="file" taille={16} />
-          Voir les documents
+          Voir la section documents
         </a>
       </div>
       {
-        !tableauDisponible && (
+        !examenBlanc && !tableauDisponible && (
           <p class="note-manquant">
             <span class="badge" data-statut="manquant">À déposer</span>
             Le fichier <code>public/documents/tableau-synthese-e5.pdf</code> doit
@@ -107,21 +110,36 @@ const tableauUrl = tableauDisponible
           <h2>Pièces du dossier</h2>
         </div>
         <p class="legende">
-          Les badges « Disponible » sont calculés au build à partir des fichiers
-          présents dans <code>public/documents/</code>.
+          {examenBlanc
+            ? 'Examen blanc : les documents officiels ne sont pas exigés.'
+            : 'Les badges « Disponible » sont calculés au build à partir des fichiers présents dans public/documents/.'}
         </p>
       </div>
 
       <ListeDocuments documents={documentsE5} />
 
       <div class="note-documents">
-        <h3>Ce que le jury doit pouvoir consulter</h3>
-        <ul>
-          <li>Le tableau de synthèse des réalisations professionnelles.</li>
-          <li>L’attestation de stage et, si demandé, la convention.</li>
-          <li>Le rapport de stage et les captures des réalisations.</li>
-          <li>Le CV, à jour, pour la partie poursuite d’études / alternance.</li>
-        </ul>
+        {examenBlanc ? (
+          <>
+            <h3>Pour l’épreuve finale</h3>
+            <p>
+              Le tableau HTML ci-dessus suffit pour l’examen blanc. Les
+              documents officiels (tableau signé, attestation, convention,
+              rapport, CV) seront ajoutés dans <code>public/documents/</code>{' '}
+              et le mode documents complets sera activé pour l’épreuve finale.
+            </p>
+          </>
+        ) : (
+          <>
+            <h3>Ce que le jury doit pouvoir consulter</h3>
+            <ul>
+              <li>Le tableau de synthèse des réalisations professionnelles.</li>
+              <li>L’attestation de stage et, si demandé, la convention.</li>
+              <li>Le rapport de stage et les captures des réalisations.</li>
+              <li>Le CV, à jour, pour la partie poursuite d’études / alternance.</li>
+            </ul>
+          </>
+        )}
       </div>
     </section>
 
@@ -244,6 +262,13 @@ const tableauUrl = tableauDisponible
 
   .note-documents h3 {
     font-size: 1rem;
+  }
+
+  .note-documents p {
+    max-width: 70ch;
+    margin-top: 0.6rem;
+    color: var(--texte-2);
+    font-size: 0.9rem;
   }
 
   .note-documents ul {
