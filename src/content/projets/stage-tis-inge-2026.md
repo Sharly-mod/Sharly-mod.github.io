@@ -60,12 +60,16 @@ securite:
   - "Contrôle d'accès par rôle sur chaque page et chaque action critique."
   - "Actions critiques protégées et journalisées côté administration."
 competencesBts: [C1, C2, C4, C5, C6]
-captures: []
+captures:
+  - captures/stage-gestioparc/mld.png
+  - captures/stage-gestioparc/cas-utilisation.png
+  - captures/stage-gestioparc/dashboard-admin.png
+  - captures/stage-gestioparc/dashboard-utilisateur.png
+  - captures/stage-gestioparc/active-directory.png
+  - captures/stage-gestioparc/dhcp.png
 aCompleter:
   - "Nom du tuteur / référent de stage et raison sociale complète de l'entreprise."
   - "Missions précises validées par le tuteur (compléter ou corriger la liste ci-dessous)."
-  - "Captures : tableau de bord administrateur, espace utilisateur, déclaration d'incident, tickets et export CSV."
-  - "Captures : Active Directory, DHCP, intégration des postes Windows et Debian."
   - "Lien du dépôt Git privé ou archive ZIP du code à fournir au jury."
 misEnAvant: true
 couleur: cyan
@@ -90,9 +94,10 @@ C'est la deuxième phase qui constitue le cœur de ma fiche E5, mais la premièr
 m'a permis de comprendre l'environnement dans lequel l'application allait
 vivre : des utilisateurs réels, des machines, des droits et des incidents.
 
-> **À compléter avant l'oral :** captures d'écran de l'application et de
-> l'infrastructure, lien du dépôt privé ou archive du code, nom du tuteur.
-> Voir la liste des zones à compléter en bas de cette fiche.
+> **À compléter avant l'oral :** nom du tuteur / référent, raison sociale
+> exacte et lien du dépôt privé ou archive du code. Les captures de
+> l'application, les diagrammes et les preuves d'infrastructure sont déjà
+> intégrés.
 
 ## Les missions
 
@@ -263,8 +268,6 @@ automatisés et une synchronisation LDAP propre.
 
 ## À compléter avant l'oral
 
-- [ ] Captures du tableau de bord administrateur et de l'espace utilisateur.
-- [ ] Capture de la déclaration d'incident et de l'export CSV.
-- [ ] Captures Active Directory / DHCP / intégration des postes.
 - [ ] Lien du dépôt Git privé ou archive ZIP du code.
 - [ ] Nom du tuteur / référent et raison sociale complète de l'entreprise.
+- [ ] Missions validées par le tuteur, si elles diffèrent de la liste.

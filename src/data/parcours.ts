@@ -29,11 +29,10 @@ export const parcours: EtapeParcours[] = [
   },
   {
     periode: '2026 — en cours',
-    titre: 'Deuxième stage — Refonte du site de Dayana',
-    lieu: 'Stage en cours — [À COMPLÉTER : activité de Dayana]',
+    titre: 'Deuxième stage — Refonte du site Un t’elle Succès',
+    lieu: 'Dayana — réseau de femmes entrepreneures à Lyon',
     texte:
-      "Refonte d'un site existant : audit, nouvelle arborescence, intégration responsive et mise en ligne. Un travail directement avec la cliente, où il faut défendre des choix de contenu autant que de code.",
-    aCompleter: true,
+      "Refonte de 13 pages : accueil, réseau, concours 2026, événements, membres, partenaires, blog, compte et pages légales. Design bordeaux/ivoire, intégration responsive et relation directe avec la cliente.",
   },
   {
     periode: '2025 — aujourd’hui',

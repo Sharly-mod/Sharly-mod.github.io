@@ -69,11 +69,16 @@ securite:
   - "Code produit avec l'IA mais relu, compilé et testé manuellement avant diffusion."
   - "APK signé en debug pour les tests ; signature release à prévoir pour une publication."
 competencesBts: [C4, C5, C6]
-captures: []
+captures:
+  - captures/ongaku/accueil.png
+  - captures/ongaku/bibliotheque.png
+  - captures/ongaku/lecture.png
+  - captures/ongaku/paroles.png
+  - captures/ongaku/recherche.png
+  - captures/ongaku/mobile-lecture.png
 aCompleter:
-  - "Capture de l'écran d'accueil PC et de l'écran mobile."
-  - "Capture du lecteur avec paroles synchronisées."
-  - "Capture du gestionnaire de téléchargements et de la bibliothèque."
+  - "Capture du gestionnaire de téléchargements (les autres écrans sont intégrés)."
+  - "Capture de la version PC si tu veux la distinguer du mobile."
   - "Lien du dépôt GitHub ou archive de l'APK / de l'exécutable PC."
   - "Quelques chiffres : taille de l'APK, temps de build, nombre de pistes importées."
 ---
@@ -161,7 +166,7 @@ jour du client YouTube.
 
 ## À compléter avant l'oral
 
-- [ ] Captures PC / mobile / lecteur / téléchargements.
+- [ ] Capture du gestionnaire de téléchargements.
 - [ ] Lien du dépôt GitHub ou archive APK/EXE.
 - [ ] Chiffres : taille de l'APK, temps de build, nombre de pistes.
 - [ ] Courte explication du rôle exact de l'IA dans le développement.

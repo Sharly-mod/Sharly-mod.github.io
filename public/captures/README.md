@@ -23,10 +23,13 @@ public/captures/
 ├── conversa/
 │   ├── conversation.webp
 │   └── amis-statuts.webp
-└── ongaku/
-    ├── accueil-pc.webp
-    ├── lecteur-paroles.webp
-    └── telechargements.webp
+├── ongaku/
+│   ├── accueil-pc.webp
+│   ├── lecteur-paroles.webp
+│   └── telechargements.webp
+└── dayana/
+    ├── accueil.png
+    └── reseau.png
 ```
 
 ## Utilisation dans une fiche

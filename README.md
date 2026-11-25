@@ -81,7 +81,8 @@ docs/
 La refonte du site de **Dayana** (deuxième stage, en cours) et **Ongaku** sont
 conservées en réalisations complémentaires, hors tableau E5 :
 
-- **Dayana** : refonte de site, stage en cours.
+- **Dayana** : refonte du site **Un t’elle Succès** (réseau de femmes
+  entrepreneures à Lyon), stage en cours.
 - **Ongaku** : expérimentation de développement assisté par IA, d’un script
   Python à une application Rust/Slint PC + Android + PWA.
 
@@ -178,7 +179,8 @@ badges **« À compléter »** sur les fiches projets. Les principaux points :
       `examenBlanc` à `false`.
 - [ ] Renseigner le tuteur et la raison sociale du stage dans
       `stage-tis-inge-2026.md`.
-- [ ] Ajouter les captures d’écran des 4 projets.
+- [ ] Ajouter les captures manquantes de Fair’repair, Champi-Hardcore et
+      Conversa (celles du stage, d’Ongaku et de Dayana sont déjà intégrées).
 - [ ] Compléter la fiche Dayana (dates, activité, URL, stack).
 - [ ] Remplacer le lien LinkedIn placeholder dans `src/data/site.ts`.
 - [ ] Vérifier les liens GitHub des projets.

@@ -23,11 +23,12 @@ Pour l’épreuve finale seulement :
 ### Captures
 
 - [ ] Fair’repair : tableau de bord réparateur, carte Leaflet, MCD/MLD.
-- [ ] Stage : dashboard admin, espace utilisateur, ticket, export CSV, AD/DHCP.
+- [x] Stage : dashboards admin/utilisateur, MLD, cas d’utilisation, AD/DHCP.
 - [ ] Champi-Hardcore : commande `/champi`, notification Discord, extrait YAML.
 - [ ] Conversa : conversation, demandes d’amis, statuts.
-- [ ] Ongaku : accueil PC, écran mobile, lecteur avec paroles, téléchargements.
-- [ ] Dayana : avant / après, page d’accueil mobile.
+- [x] Ongaku : accueil, bibliothèque, lecteur, paroles, recherche, mobile.
+- [x] Dayana : captures accueil et page réseau (avant/après encore à faire).
+- [ ] Stage : ticket et export CSV si tu veux compléter les preuves.
 
 ### Site
 
@@ -139,7 +140,8 @@ par IA, avec revue et tests manuels.
 
 - [ ] Tuteur / référent et raison sociale exacte du stage.
 - [ ] Captures de tous les projets.
-- [ ] Fiche Dayana : dates, activité, URL, stack, captures avant/après.
+- [ ] Fiche Dayana : URL de mise en ligne, contenus cliente, formulaire,
+      capture avant / après.
 - [ ] Lien LinkedIn réel.
 - [ ] Liens GitHub des projets à vérifier.
 - [ ] Ongaku : captures PC/mobile, lien APK/EXE ou dépôt.

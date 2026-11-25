@@ -150,7 +150,15 @@ const placeholders = capturesACompleter.length > 0 ? capturesACompleter : d.aCom
               <div class="captures-grille">
                 {d.captures.map((capture, index) => (
                   <figure class="capture">
-                    <img src={capture} alt={`${d.titre} — capture ${index + 1}`} loading="lazy" />
+                    <img
+                      src={
+                        capture.startsWith('http') || capture.startsWith('data:')
+                          ? capture
+                          : lien(`/${capture.replace(/^\/+/, '')}`)
+                      }
+                      alt={`${d.titre} — capture ${index + 1}`}
+                      loading="lazy"
+                    />
                   </figure>
                 ))}
               </div>
@@ -404,6 +412,9 @@ const placeholders = capturesACompleter.length > 0 ? capturesACompleter : d.aCom
   .capture img {
     width: 100%;
     height: auto;
+    max-height: 520px;
+    object-fit: contain;
+    background: var(--fond-3);
   }
 
   .capture-placeholder {
