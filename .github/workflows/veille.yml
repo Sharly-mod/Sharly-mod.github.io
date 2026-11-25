@@ -1,14 +1,13 @@
-name: Veille
+name: Archive de veille (manuel)
 
-# Collecte quotidienne des flux RSS, puis publication automatique.
+# Ancienne collecte quotidienne des flux RSS IA & jeu vidéo. Elle est conservée
+# uniquement pour archiver les sources : la veille présentée à l'oral est
+# écrite à la main dans src/content/veille-e5/.
 #
-# Enchaîne : collecte -> commit -> le push déclenche « Déployer sur GitHub
-# Pages ». Donc un nouvel article collecté la nuit se retrouve en ligne le
-# matin, sans intervention.
+# Plus de déclenchement automatique : le portfolio E5 ne doit pas être noyé
+# dans des articles sans rapport avec la sécurité de la chaîne logistique.
 
 on:
-  schedule:
-    - cron: '17 6 * * *'
   workflow_dispatch:
     inputs:
       jours:

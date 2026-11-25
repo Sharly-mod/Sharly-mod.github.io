@@ -1,76 +1,166 @@
-# Portfolio — FARAG Sharly
+# Portfolio — Sharly Farag · BTS SIO SLAM
 
-Site statique construit avec [Astro](https://astro.build). Deux sections :
-les **projets** (Frood, FairRepair, ChampiHardcore) et une **veille
-technologique** sur l'IA appliquée au jeu vidéo.
+Portfolio préparé pour l’**épreuve E5 (parcours de professionnalisation)** du
+BTS SIO option SLAM. Il présente quatre réalisations, les compétences
+techniques, le tableau de synthèse et une veille technologique sur la sécurité
+de la chaîne logistique logicielle et l’impact des outils d’IA.
+
+Site statique généré avec **Astro**, déployé sur **GitHub Pages**.
+
+## Pourquoi Astro et pas PHP ?
+
+Le portfolio est un site de présentation : il n’a pas besoin d’une base de
+données ni d’un back-office pour être consulté. Astro permet de garder :
+
+- un **contenu séparé de l’affichage** (Markdown + JSON dans `src/content/`,
+  données de compétences et documents dans `src/data/`) ;
+- un site **rapide et sans serveur**, donc sans surface d’attaque inutile ;
+- un déploiement automatique sur GitHub Pages.
+
+Les compétences PHP/MySQL/MVC sont démontrées dans les **projets présentés**
+(Fair’repair, GestioParc), pas dans le portfolio lui-même. C’est un choix
+assumé, explicable à l’oral.
+
+## Stack
+
+| Élément | Technologie |
+| --- | --- |
+| Générateur | Astro 7 |
+| Langage | TypeScript |
+| Contenu | Content collections Markdown / JSON |
+| Styles | CSS maison (aucun framework) |
+| Déploiement | GitHub Pages + GitHub Actions |
+| Veille | Flux RSS, synthèses Markdown |
 
 ## Commandes
 
-| Commande          | Action                                                        |
-| :---------------- | :----------------------------------------------------------- |
-| `npm install`     | Installe les dépendances                                      |
-| `npm run dev`     | Serveur de développement sur `localhost:4321`                 |
-| `npm run build`   | Construit le site dans `dist/`                                |
-| `npm run preview` | Prévisualise le build en local                                |
-| `npm run check`   | Vérification des types (à lancer avant chaque commit)         |
-| `npm run veille`  | Collecte les flux RSS de la veille                            |
-| `npm run veille:dry` | Idem, sans rien écrire — pour tester la configuration      |
+| Commande | Action |
+| --- | --- |
+| `npm install` | Installe les dépendances |
+| `npm run dev` | Serveur de développement sur `localhost:4321` |
+| `npm run build` | Construit le site dans `dist/` |
+| `npm run preview` | Prévisualise le build local |
+| `npm run check` | Vérifie les types et les contenus Astro |
+| `npm run veille` | Collecte les flux RSS de l’ancienne veille (archive) |
 
-## Ajouter un projet
+Avant chaque commit : `npm run check` puis `npm run build`.
 
-1. Copie `src/content/projets/_modele.md` vers `src/content/projets/mon-projet.md`.
-2. Remplis le frontmatter (voir `_MODE-EMPLOI.md` pour le détail de chaque champ).
-3. Écris le corps en Markdown, en suivant le plan : problème, mon rôle, décisions
-   techniques, difficultés, ce que j'en retiens.
-4. Lance `npm run check` puis `npm run build`.
+## Structure
 
-Le projet apparaît automatiquement sur l'accueil et sur `/projets/`. La page de
-détail, le lien dans la navigation et le sitemap sont générés tout seuls.
+```text
+src/
+├── components/        Cartes projets, compétences, documents, tableau E5, navigation
+├── content/
+│   ├── projets/       Une fiche Markdown par réalisation
+│   ├── veille-e5/     Les 3 synthèses de veille présentées à l’oral
+│   ├── notes/         Ancienne veille IA & jeu vidéo (archive)
+│   └── veille/        Flux RSS collecté (archive)
+├── data/              Identité, compétences, parcours, documents, référentiel BTS
+├── layouts/           Layout principal
+├── lib/               Helpers (URLs, dates, vérification des documents)
+├── pages/             Accueil, réalisations, E5, veille, à propos
+└── styles/            Design system CSS
+public/
+├── documents/         PDF à déposer avant l’oral (non versionnés)
+├── favicon.svg
+└── veille.opml
+docs/
+├── PLAN-ORAL.md       Plan de soutenance et questions probables
+└── MCD-MLD.md         Modèles de données des projets
+```
 
-## La veille
+## Les quatre réalisations E5
 
-Deux niveaux, volontairement distincts :
+| Projet | Catégorie | Compétences principales |
+| --- | --- | --- |
+| Fair’repair | Atelier Pro | PHP MVC, MySQL, PDO, RBAC, Leaflet |
+| Stage DydyITServices / TIS-INGÉ | Stage | PHP/MySQL, helpdesk, CRUD, sécurité, AD/DHCP |
+| Champi-Hardcore | Projet Personnel | Java, Paper/Bukkit, LuckPerms, Discord, Tebex |
+| Conversa | Projet Personnel | React, Supabase, PostgreSQL, RLS, temps réel |
 
-- **Les notes** (`src/content/notes/*.md`) sont écrites à la main. Ce sont les
-  seules pages qui portent une valeur d'analyse : ce que j'ai compris de
-  l'article, et ce que ça change dans ma façon de concevoir.
-- **Les articles** (`src/content/veille/*.json`) sont collectés automatiquement
-  par `scripts/fetch-veille.mjs`, filtrés par mots-clés, notés, dédupliqués et
-  plafonnés. C'est une boîte de réception, pas du contenu publié tel quel.
+La refonte du site de **Dayana** (deuxième stage, en cours) est conservée en
+réalisation complémentaire, hors tableau E5.
 
-Les sources, les mots-clés et les quotas se règlent dans
-`scripts/veille.config.mjs`. Le fichier `public/veille.opml` s'exporte vers
-n'importe quel lecteur RSS.
+## Ajouter ou modifier un projet
 
-`npm run veille` accepte `--days 30` (fenêtre de collecte) et `--max 300`
-(nombre d'articles conservés, les plus anciens sont purgés).
+1. Copie `src/content/projets/_modele.md` vers
+   `src/content/projets/mon-projet.md`.
+2. Remplis le frontmatter. Les champs importants pour l’E5 :
+   - `contexte` : `atelier`, `stage`, `personnel`, `cours` ou
+     `professionnel` ;
+   - `selectionE5` : `true` pour l’afficher dans la grille principale et le
+     tableau de synthèse ;
+   - `besoins`, `choixTechniques`, `fonctionnalites`, `crud`, `securite` :
+     listes affichées dans la fiche ;
+   - `competencesBts` : codes `C1` à `C6` ;
+   - `captures` : chemins depuis `public/`, par exemple
+     `captures/fairrepair/dashboard.webp` ;
+   - `aCompleter` : liste des preuves restant à ajouter.
+3. Écris le corps Markdown (retour d’expérience, difficultés, recul).
+4. Lance `npm run check` et `npm run build`.
 
-## Personalisation
+## Documents E5
 
-Un seul fichier contient l'identité, l'email et les liens :
-`src/data/site.ts`.
+Les PDF ne sont pas fournis dans ce dépôt. Dépose-les dans
+`public/documents/` avec les noms attendus (voir
+`public/documents/README.md`) :
+
+- `tableau-synthese-e5.pdf`
+- `attestation-stage.pdf`
+- `convention-stage.pdf`
+- `rapport-stage.pdf`
+- `cv-sharly-farag.pdf`
+
+Le site vérifie leur présence au build. Tant qu’un fichier manque, la carte
+affiche **« À déposer »** au lieu d’un lien mort. Relance le build après ajout.
+Si tu commits les PDF, ils seront publiés tels quels sur GitHub Pages :
+vérifie qu’ils ne contiennent pas de données personnelles inutiles.
+
+## Veille technologique
+
+La veille principale est dans `src/content/veille-e5/` (3 synthèses) :
+
+1. OWASP Top 10:2025 et la chaîne logistique logicielle.
+2. Dépendances npm compromises et propagation.
+3. IA générative et code : gagner du temps sans perdre la maîtrise.
+
+Chaque fiche contient une source, un résumé, un impact concret et une analyse.
+L’ancienne veille IA & jeu vidéo reste accessible sur `/veille/archives/` ;
+elle n’est plus le sujet principal.
+
+## Sécurité et qualité
+
+- Aucun cookie, aucun traceur, aucune police externe.
+- Aucun secret dans le dépôt (`.env` ignoré).
+- Liens internes vérifiés par `.github/check-links.mjs` avant déploiement.
+- Contenu et affichage séparés : les données sont dans `src/content/` et
+  `src/data/`, les composants ne contiennent pas de contenu métier.
+- Accessibilité : lien d’évitement, navigation clavier, `aria-current`,
+  contrastes, `prefers-reduced-motion`.
 
 ## Déploiement
 
-Le site se publie automatiquement sur GitHub Pages à chaque push sur `main`,
-via `.github/workflows/deploy.yml`. Il n'y a aucun secret à configurer : le
-déploiement utilise le token automatique de GitHub Actions.
+Le workflow `.github/workflows/deploy.yml` construit et publie le site sur
+GitHub Pages à chaque push sur `main`. Aucun secret n’est nécessaire.
 
-Le workflow détecte seul le type de dépôt :
+```bash
+git add .
+git commit -m "Refonte du portfolio pour l'épreuve E5"
+git push origin main
+```
 
-| Dépôt                              | URL                              |
-| :--------------------------------- | :------------------------------- |
-| `Sharly-mod/Sharly-mod.github.io`  | `https://sharly-mod.github.io`   |
-| `Sharly-mod/portfolio`             | `https://sharly-mod.github.io/portfolio/` |
+Le site est publié sur `https://sharly-mod.github.io`.
 
-Le second cas publie sous un sous-chemin. C'est géré par `base` dans
-`astro.config.mjs` et par l'aide `lien()` de `src/lib/urls.ts`, qui préfixe les
-liens internes. **Si tu écris un lien vers une page du site, écris-le avec
-`lien('/chemin/')`, pas `href="/chemin/"`.**
+## À compléter avant l’oral du 9 décembre
 
-Le workflow `veille.yml` collecte chaque nuit à 6h17 UTC, puis commite les
-nouveaux articles — ce commit déclenche à son tour le déploiement.
+Voir la liste détaillée dans [`docs/PLAN-ORAL.md`](docs/PLAN-ORAL.md) et les
+badges **« À compléter »** sur les fiches projets. Les principaux points :
 
-### Après le premier push
-
-Dans les paramètres du dépôt, onglet **Pages**, *Source* : **GitHub Actions**.
+- [ ] Déposer les 5 PDF dans `public/documents/`.
+- [ ] Renseigner le tuteur et la raison sociale du stage dans
+      `stage-tis-inge-2026.md`.
+- [ ] Ajouter les captures d’écran des 4 projets.
+- [ ] Compléter la fiche Dayana (dates, activité, URL, stack).
+- [ ] Remplacer le lien LinkedIn placeholder dans `src/data/site.ts`.
+- [ ] Vérifier les liens GitHub des projets.
+- [ ] Tester le site sur mobile et en mode clair/sombre.
