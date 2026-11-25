@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { lien } from '../lib/urls';
+import { libelleContexte, tonContexte } from '../lib/libelles';
 
 interface Props {
   projet: CollectionEntry<'projets'>;
@@ -12,14 +13,23 @@ const d = projet.data;
 const url = lien(`/projets/${projet.id}/`);
 ---
 
-<a class="carte" href={url} data-ton={d.couleur}>
-  {!compact && d.image && (
-    <img class="vignette" src={d.image} alt="" loading="lazy" decoding="async" width="800" height="450" />
-  )}
+<a
+  class:list={['carte', 'carte-projet', { compact }]}
+  href={url}
+  data-ton={d.couleur}
+  data-categorie={d.contexte}
+>
+  <div class="carte-haut">
+    <span class="etiquette" data-ton={tonContexte(projet)}>{libelleContexte(projet)}</span>
+    <span class="carte-statut">
+      {d.statut !== 'termine' && <span class="badge badge-statut">{d.statut.replace('-', ' ')}</span>}
+      <span class="annee">{d.annee}</span>
+    </span>
+  </div>
 
-  <div class="entete">
+  <div class="carte-titre">
     <h3>{d.titre}</h3>
-    <span class="etiquette">{d.contexte}</span>
+    {d.selectionE5 && <span class="badge badge-e5">Fiche E5</span>}
   </div>
 
   <p>{d.resume}</p>
@@ -29,39 +39,62 @@ const url = lien(`/projets/${projet.id}/`);
   </ul>
 
   <div class="pied">
-    <span class="lien-fleche">Voir le projet</span>
-    <span class="annee">{d.annee}</span>
+    <span class="lien-fleche">Voir la fiche</span>
   </div>
 </a>
 
 <style>
-  .vignette {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: var(--r-s);
-    border: 1px solid var(--bordure);
+  .carte-projet {
+    gap: 0.8rem;
   }
 
-  .entete {
+  .carte-haut {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .carte-titre {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 0.75rem;
   }
 
-  .entete h3 {
+  .carte-titre h3 {
     transition: color var(--transition);
   }
 
-  a.carte:hover h3 {
-    color: var(--accent, var(--violet));
+  a.carte-projet:hover h3 {
+    color: var(--accent);
   }
 
-  .carte[data-ton='cyan'] { --accent: var(--cyan); }
-  .carte[data-ton='ambre'] { --accent: var(--ambre); }
-  .carte[data-ton='vert'] { --accent: var(--vert); }
-  .carte[data-ton='violet'] { --accent: var(--violet); }
+  .badge-e5 {
+    flex: 0 0 auto;
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--bordure));
+    background: color-mix(in srgb, var(--accent) 7%, var(--fond-2));
+  }
+
+  .carte-statut {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .badge-statut {
+    color: var(--ambre);
+    border-color: color-mix(in srgb, var(--ambre) 35%, var(--bordure));
+    background: color-mix(in srgb, var(--ambre) 8%, var(--fond-2));
+  }
+
+  .annee {
+    font-family: var(--police-mono);
+    font-size: 0.72rem;
+    color: var(--texte-3);
+    white-space: nowrap;
+  }
 
   .pied {
     display: flex;
@@ -71,9 +104,21 @@ const url = lien(`/projets/${projet.id}/`);
     padding-top: 0.35rem;
   }
 
-  .annee {
-    font-family: var(--police-mono);
-    font-size: 0.75rem;
-    color: var(--texte-3);
+  .carte-projet.compact {
+    padding: 1.1rem;
+  }
+
+  .carte-projet.compact h3 {
+    font-size: 1rem;
+  }
+
+  .carte-projet.compact .badge-e5 {
+    display: none;
+  }
+
+  @media (max-width: 36rem) {
+    .pied .annee {
+      display: none;
+    }
   }
 </style>

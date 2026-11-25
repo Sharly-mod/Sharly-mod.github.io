@@ -1,0 +1,52 @@
+---
+import Icone from './Icone.astro';
+import { competences, methodes } from '../data/competences';
+---
+
+<div class="grille-competences">
+  {
+    competences.map((categorie) => (
+      <article class="competence-carte">
+        <div class="competence-entete">
+          <span class="competence-icone">
+            <Icone nom={categorie.icone} taille={18} />
+          </span>
+          <h3>{categorie.titre}</h3>
+        </div>
+        <p>{categorie.description}</p>
+        <ul class="pastilles">
+          {categorie.items.map((item) => (
+            <li class="pastille">{item}</li>
+          ))}
+        </ul>
+      </article>
+    ))
+  }
+</div>
+
+<div class="methodes">
+  <span class="methodes-titre">Méthodes</span>
+  <ul class="pastilles">
+    {methodes.map((m) => <li class="pastille">{m}</li>)}
+  </ul>
+</div>
+
+<style>
+  .methodes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .methodes-titre {
+    font-family: var(--police-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--texte-3);
+  }
+</style>

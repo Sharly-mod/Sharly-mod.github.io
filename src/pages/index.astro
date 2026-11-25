@@ -1,166 +1,335 @@
 ---
 import { getCollection } from 'astro:content';
-import { site } from '../data/site';
-import { lien } from '../lib/urls';
 import Base from '../layouts/Base.astro';
 import CarteProjet from '../components/CarteProjet.astro';
+import Competences from '../components/Competences.astro';
+import Icone from '../components/Icone.astro';
+import ListeDocuments from '../components/ListeDocuments.astro';
+import TableauE5 from '../components/TableauE5.astro';
+import { site } from '../data/site';
+import { parcours, faconDeTravailler } from '../data/parcours';
+import { documentsE5 } from '../data/documents';
+import { blocsBts } from '../data/competences-bts';
+import { documentExiste, urlDocument } from '../lib/documents';
+import { categoriesFiltre, formatDate } from '../lib/libelles';
+import { lien } from '../lib/urls';
 
-const projets = (await getCollection('projets')).sort(
+const projetsE5 = (await getCollection('projets', (p) => p.data.selectionE5)).sort(
   (a, b) => a.data.ordre - b.data.ordre
 );
-const enAvant = projets.filter((p) => p.data.misEnAvant).slice(0, 3);
-const autres = projets.filter((p) => !p.data.misEnAvant);
 
-const notes = (await getCollection('notes')).sort(
-  (a, b) => b.data.poids - a.data.poids || b.data.date.valueOf() - a.data.date.valueOf()
-);
-const veille = (await getCollection('veille')).sort(
+const veille = (await getCollection('veilleE5')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-const formats = [
-  {
-    titre: 'Application web complète',
-    texte:
-      'Modélisation des données, API, interface, paiements, déploiement. C’est le cœur de mon travail.',
-  },
-  {
-    titre: 'Systèmes de jeu',
-    texte:
-      'Plugins serveur, événements, persistance d’état, et tout ce qui doit rester correct quand le serveur s’arrête.',
-  },
-  {
-    titre: 'Veille IA & jeu vidéo',
-    texte:
-      'Ce que l’intelligence generative change vraiment dans les moteurs, et ce qu’elle ne changera pas.',
-  },
-];
+const docsAccueil = documentsE5.filter((d) =>
+  ['tableau-synthese', 'attestation-stage', 'cv'].includes(d.id)
+);
+
+const cvDisponible = documentExiste('documents/cv-sharly-farag.pdf');
+const cvUrl = cvDisponible ? urlDocument('documents/cv-sharly-farag.pdf') : lien('/e5/#documents');
+
+const compteurs: Record<string, number> = {
+  tous: projetsE5.length,
+  atelier: projetsE5.filter((p) => p.data.contexte === 'atelier').length,
+  stage: projetsE5.filter((p) => p.data.contexte === 'stage').length,
+  personnel: projetsE5.filter((p) => p.data.contexte === 'personnel').length,
+};
 ---
 
 <Base>
   <section class="hero">
-    <div class="conteneur">
-      <p class="surtitre">{site.localisation} — {site.disponiblesPour}</p>
-      <h1>
-        Je construis des <span class="surligne">applications qui marchent vraiment</span>,
-        et je surveille ce que l'IA change dans le jeu vidéo.
-      </h1>
-      <p class="accroche">{site.resumeCourt}</p>
-      <div class="actions">
-        <a class="bouton principal" href={lien('/projets/')}>Voir mes projets</a>
-        <a class="bouton" href={lien('/veille/')}>Ma veille tech</a>
+    <div class="conteneur hero-grille">
+      <div class="hero-texte">
+        <p class="surtitre">BTS SIO · option SLAM · 2e année</p>
+        <h1>Sharly Farag</h1>
+        <p class="hero-role">Étudiant en BTS SIO SLAM à Ingetis (Paris) — développement web & applicatif.</p>
+        <p class="accroche">{site.resumeCourt}</p>
+
+        <div class="actions">
+          <a class="bouton principal" href="#realisations">
+            Voir mes réalisations
+            <Icone nom="fleche" taille={16} />
+          </a>
+          <a
+            class="bouton secondaire"
+            href={cvUrl}
+            download={cvDisponible ? '' : undefined}
+            title={cvDisponible ? 'Télécharger le CV au format PDF' : 'Le CV sera déposé avant l’oral'}
+          >
+            <Icone nom="download" taille={16} />
+            Télécharger mon CV
+          </a>
+          <a class="bouton secondaire" href={lien('/e5/')}>
+            <Icone nom="file" taille={16} />
+            Tableau de synthèse E5
+          </a>
+        </div>
+
+        <p class="dispo">
+          <span class="point" aria-hidden="true"></span>
+          {site.disponiblesPour}
+        </p>
       </div>
 
-      <dl class="chiffres">
-        <div>
-          <dt>Projets livrés</dt>
-          <dd>{projets.length}</dd>
+      <aside class="fiche-profil" aria-label="Fiche profil">
+        <div class="fiche-entete">
+          <span class="fiche-titre">Fiche profil</span>
+          <span class="badge" data-statut="disponible">Disponible</span>
         </div>
-        <div>
-          <dt>Langages</dt>
-          <dd>TypeScript · Java · PHP</dd>
+
+        <dl>
+          <div class="fiche-ligne">
+            <dt>Formation</dt>
+            <dd>{site.formation}</dd>
+          </div>
+          <div class="fiche-ligne">
+            <dt>Établissement</dt>
+            <dd>{site.etablissement}</dd>
+          </div>
+          <div class="fiche-ligne">
+            <dt>Période</dt>
+            <dd>{site.periodeFormation}</dd>
+          </div>
+          <div class="fiche-ligne">
+            <dt>Recherche</dt>
+            <dd>Alternance ou poursuite d’études</dd>
+          </div>
+          <div class="fiche-ligne">
+            <dt>Localisation</dt>
+            <dd>{site.localisation}</dd>
+          </div>
+          <div class="fiche-ligne">
+            <dt>Contact</dt>
+            <dd><a class="lien-externe" href={`mailto:${site.email}`}>{site.email}</a></dd>
+          </div>
+        </dl>
+
+        <div class="fiche-pied">
+          <span class="legende">Projet phare</span>
+          <a class="lien-fleche" href={lien('/projets/fairrepair/')}>Fair’repair</a>
         </div>
-        <div>
-          <dt>Veille suivie</dt>
-          <dd>{veille.length + notes.length} entrées</dd>
-        </div>
-      </dl>
+      </aside>
+    </div>
+
+    <div class="conteneur chiffres">
+      <div>
+        <span class="chiffre">{projetsE5.length}</span>
+        <span class="chiffre-label">réalisations E5 documentées</span>
+      </div>
+      <div>
+        <span class="chiffre">5</span>
+        <span class="chiffre-label">semaines de stage en entreprise</span>
+      </div>
+      <div>
+        <span class="chiffre">{blocsBts.length}</span>
+        <span class="chiffre-label">blocs de compétences BTS SIO</span>
+      </div>
     </div>
   </section>
 
-  <section class="bande" id="projets">
+  <section class="bande" id="parcours">
     <div class="conteneur">
       <div class="entete-section">
         <div>
-          <span class="surtitre">Réalisations</span>
-          <h2>Projets</h2>
+          <span class="surtitre">01 — Parcours</span>
+          <h2>Formation, stages et expérience</h2>
         </div>
-        <a class="lien-fleche" href={lien('/projets/')}>Tout voir</a>
+        <a class="lien-fleche" href={lien('/a-propos/')}>En savoir plus</a>
       </div>
 
-      <div class="grille">
-        {enAvant.map((p) => <CarteProjet projet={p} />)}
+      <div class="parcours-grille">
+        <ol class="timeline">
+          {
+            parcours.map((etape) => (
+              <li class="timeline-item">
+                <span class="timeline-date">{etape.periode}</span>
+                <div class="timeline-contenu">
+                  <h3>{etape.titre}</h3>
+                  <p class="timeline-lieu">
+                    {etape.lieu}
+                    {etape.aCompleter && <span class="badge badge-a-completer">À compléter</span>}
+                  </p>
+                  <p>{etape.texte}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+
+        <aside class="methode">
+          <h3>Ma façon de travailler</h3>
+          <ol class="principes">
+            {
+              faconDeTravailler.map((principe, index) => (
+                <li>
+                  <span class="principe-numero">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <strong>{principe.titre}</strong>
+                    <p>{principe.texte}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+          <div class="methode-objectif">
+            <span class="legende">Objectif</span>
+            <p>Alternance ou poursuite d’études en développement web & applicatif.</p>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
 
-  {
-    autres.length > 0 && (
-      <section class="bande">
-        <div class="conteneur">
-          <div class="entete-section">
-            <div>
-              <span class="surtitre">Autres réalisations</span>
-              <h2>Projets de cours et annexes</h2>
-            </div>
-            <a class="lien-fleche" href={lien('/projets/')}>Tout voir</a>
-          </div>
-          <div class="grille">
-            {autres.map((p) => (
-              <CarteProjet projet={p} compact />
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <section class="bande">
+  <section class="bande bande-douce" id="competences">
     <div class="conteneur">
       <div class="entete-section">
         <div>
-          <span class="surtitre">Ce que je fais</span>
-          <h2>Trois terrains</h2>
+          <span class="surtitre">02 — Compétences</span>
+          <h2>Stack technique SLAM</h2>
         </div>
+        <p class="legende entete-note">
+          Pas de barres de pourcentage : chaque compétence est rattachée à un
+          projet ou à une pratique vérifiable.
+        </p>
       </div>
-      <div class="grille">
+      <Competences />
+    </div>
+  </section>
+
+  <section class="bande" id="realisations">
+    <div class="conteneur">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">03 — Réalisations professionnelles</span>
+          <h2>Quatre projets pour l’épreuve E5</h2>
+        </div>
+        <a class="lien-fleche" href={lien('/projets/')}>Toutes les réalisations</a>
+      </div>
+
+      <div class="filtres" role="group" aria-label="Filtrer les réalisations">
         {
-          formats.map((f) => (
-            <div class="carte">
-              <h3>{f.titre}</h3>
-              <p>{f.texte}</p>
+          categoriesFiltre.map((categorie) => (
+            <button
+              type="button"
+              data-filtre-projets={categorie.id}
+              aria-pressed={categorie.id === 'tous' ? 'true' : 'false'}
+            >
+              {categorie.label}
+              <span>{compteurs[categorie.id] ?? 0}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="projets-grille" data-grille-projets>
+        {
+          projetsE5.map((projet) => (
+            <div class="projet-item" data-projet-item data-categorie={projet.data.contexte}>
+              <CarteProjet projet={projet} />
             </div>
           ))
         }
       </div>
+
+      <p class="legende note-bas">
+        Les fiches détaillent le contexte, les besoins, les choix techniques, les
+        opérations CRUD, les mesures de sécurité et les compétences BTS couvertes.
+        <a class="lien-externe" href={lien('/projets/#autres')}>Voir aussi les autres travaux</a>.
+      </p>
     </div>
   </section>
 
-  <section class="bande veille-apercu">
+  <section class="bande bande-douce" id="e5">
     <div class="conteneur">
       <div class="entete-section">
         <div>
-          <span class="surtitre">Veille technologique</span>
-          <h2>Ce que j'observe sur l'IA dans le jeu vidéo</h2>
+          <span class="surtitre">04 — Dossier E5</span>
+          <h2>Tableau de synthèse & documents</h2>
         </div>
-            <a class="lien-fleche" href={lien('/veille/')}>Toute la veille</a>
+        <a class="lien-fleche" href={lien('/e5/')}>Page E5 complète</a>
       </div>
 
-      <p class="legende intro-veille">
-        Je ne me contente pas de relayer les annonces. Je sélectionne, je lis, et
-        j'écris ce que j'en comprends — notamment la frontière entre ce que l'IA
-        générative sait faire et ce qu'un jeu ne peut pas lui déléguer.
+      <div class="e5-intro">
+        <p class="legende">
+          Le tableau ci-dessous associe chaque réalisation aux six blocs de
+          compétences du BTS SIO. Les documents officiels (tableau de synthèse,
+          attestation, CV) sont téléchargeables depuis la page E5.
+        </p>
+        <a class="bouton secondaire" href={lien('/e5/#documents')}>
+          <Icone nom="file" taille={15} />
+          Tous les documents
+        </a>
+      </div>
+
+      <ListeDocuments documents={docsAccueil} />
+
+      <div class="e5-tableau">
+        <TableauE5 projets={projetsE5} />
+      </div>
+    </div>
+  </section>
+
+  <section class="bande" id="veille">
+    <div class="conteneur">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">05 — Veille technologique</span>
+          <h2>Sécurité de la chaîne logistique logicielle & IA</h2>
+        </div>
+        <a class="lien-fleche" href={lien('/veille/')}>Méthode et sources</a>
+      </div>
+
+      <p class="legende veille-intro">
+        Une veille hebdomadaire, pas une liste de liens : je sélectionne, je lis,
+        je synthétise et je regarde ce que cela change concrètement dans mes
+        projets.
       </p>
 
-      <div class="grille_notes">
+      <div class="veille-grille">
         {
-          notes.slice(0, 3).map((note) => (
-            <a class="article avec-analyse" href={lien(`/veille/note/${note.id}/`)}>
-              <div class="meta">
-                <span>{note.data.source}</span>
-                <span aria-hidden="true">·</span>
-                <time datetime={note.data.date.toISOString()}>
-                  {note.data.date.toLocaleDateString('fr-FR', {
-                    month: 'short',
-                    year: 'numeric',
-                  })}
-                </time>
+          veille.map((note) => (
+            <a class="carte veille-carte" href={lien(`/veille/${note.id}/`)}>
+              <div class="veille-meta">
+                <span class="badge">{note.data.source}</span>
+                <span>{formatDate(note.data.date)}</span>
               </div>
               <h3>{note.data.titre}</h3>
-              <p>Note d'analyse complète →</p>
+              <p>{note.data.resume}</p>
+              <div class="impact-veille">
+                <strong>Impact pour un développeur SLAM</strong>
+                <p>{note.data.impact}</p>
+              </div>
+              <span class="lien-fleche">Lire la synthèse</span>
             </a>
           ))
         }
+      </div>
+    </div>
+  </section>
+
+  <section class="bande contact" id="contact">
+    <div class="conteneur contact-interne">
+      <div>
+        <span class="surtitre">06 — Contact</span>
+        <h2>Un stage, une alternance ou une question ?</h2>
+        <p class="legende">
+          Je réponds rapidement par email. Le CV et le tableau de synthèse sont
+          disponibles dans la section E5.
+        </p>
+      </div>
+      <div class="contact-actions">
+        <a class="bouton principal" href={`mailto:${site.email}`}>
+          <Icone nom="mail" taille={16} />
+          {site.email}
+        </a>
+        <a class="bouton secondaire" href={cvUrl} download={cvDisponible ? '' : undefined}>
+          <Icone nom="download" taille={16} />
+          Télécharger le CV
+        </a>
+        <a class="bouton secondaire" href={site.liens[0].url} target="_blank" rel="me noopener noreferrer">
+          GitHub ↗
+        </a>
       </div>
     </div>
   </section>
@@ -169,86 +338,404 @@ const formats = [
 <style>
   .hero {
     position: relative;
-    padding-block: clamp(4rem, 12vw, 8rem) clamp(3rem, 8vw, 5rem);
+    padding-block: clamp(3rem, 8vw, 6rem) 2rem;
     overflow: hidden;
   }
 
   .hero::before {
     content: '';
     position: absolute;
-    inset: -40% 20% 40% -10%;
-    background: radial-gradient(
-      ellipse at 30% 40%,
-      color-mix(in srgb, var(--violet) 22%, transparent),
-      transparent 60%
-    );
-    filter: blur(60px);
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, var(--bordure) 1px, transparent 0);
+    background-size: 26px 26px;
+    mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0.55), transparent 80%);
     pointer-events: none;
   }
 
-  .hero .conteneur {
+  .hero-grille {
     position: relative;
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 62rem) {
+    .hero-grille {
+      grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+      gap: 4rem;
+    }
   }
 
   .hero h1 {
-    max-width: 20ch;
-    margin-top: 0.5rem;
-    font-size: clamp(2.1rem, 6.5vw, 4rem);
-    letter-spacing: -0.035em;
+    margin-top: 0.6rem;
+    font-size: clamp(2.6rem, 7vw, 4.4rem);
+    letter-spacing: -0.045em;
   }
 
-  .surligne {
-    background: linear-gradient(120deg, var(--violet), var(--cyan));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .hero-role {
+    max-width: 55ch;
+    margin-top: 0.9rem;
+    color: var(--accent);
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    font-weight: 500;
   }
 
   .accroche {
-    max-width: 58ch;
-    margin-top: 1.5rem;
-    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    max-width: 62ch;
+    margin-top: 1.1rem;
     color: var(--texte-2);
+    font-size: clamp(0.98rem, 2vw, 1.08rem);
   }
 
   .actions {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1.8rem;
+  }
+
+  .dispo {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1.5rem;
+    font-size: 0.86rem;
+    color: var(--texte-2);
+  }
+
+  .fiche-profil {
+    padding: 1.35rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-radius: var(--r-m);
+  }
+
+  .fiche-entete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 0.75rem;
-    margin-top: 2.25rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--bordure);
   }
 
-  .chiffres {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-    gap: 1.5rem 2rem;
-    margin: 4rem 0 0;
-    padding-top: 2rem;
-    border-top: 1px solid var(--bordure);
-  }
-
-  .chiffres dt {
+  .fiche-titre {
     font-family: var(--police-mono);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--texte-3);
   }
 
-  .chiffres dd {
-    margin: 0.35rem 0 0;
-    font-size: 1.15rem;
+  .fiche-ligne {
+    display: grid;
+    grid-template-columns: 6.7rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--bordure);
+    font-size: 0.87rem;
+  }
+
+  .fiche-ligne dt {
+    font-family: var(--police-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--texte-3);
+  }
+
+  .fiche-ligne dd {
+    color: var(--texte);
+  }
+
+  .fiche-ligne a {
+    overflow-wrap: anywhere;
+  }
+
+  .fiche-pied {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-top: 0.9rem;
+  }
+
+  .chiffres {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    margin-top: 2.5rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .chiffres > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .chiffre {
+    font-size: 1.8rem;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .chiffre-label {
+    font-family: var(--police-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--texte-3);
+  }
+
+  .entete-note {
+    max-width: 32ch;
+    text-align: right;
+  }
+
+  .parcours-grille {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 64rem) {
+    .parcours-grille {
+      grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 0.8fr);
+      gap: 3rem;
+    }
+  }
+
+  .methode {
+    padding: 1.35rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-radius: var(--r-m);
+    align-self: start;
+  }
+
+  .methode h3 {
+    font-size: 1rem;
+  }
+
+  .principes {
+    display: grid;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 1.1rem;
+  }
+
+  .principes li {
+    display: grid;
+    grid-template-columns: 1.7rem 1fr;
+    gap: 0.6rem;
+  }
+
+  .principe-numero {
+    font-family: var(--police-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    padding-top: 0.15rem;
+  }
+
+  .principes strong {
+    font-size: 0.9rem;
     font-weight: 600;
   }
 
-  .intro-veille {
-    max-width: 62ch;
-    margin-bottom: 2rem;
+  .principes p {
+    margin-top: 0.2rem;
+    color: var(--texte-2);
+    font-size: 0.84rem;
+    line-height: 1.55;
   }
 
-  .grille_notes {
+  .methode-objectif {
+    margin-top: 1.2rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .methode-objectif p {
+    margin-top: 0.25rem;
+    font-size: 0.84rem;
+    color: var(--texte-2);
+  }
+
+  .badge-a-completer {
+    margin-left: 0.45rem;
+    color: var(--ambre);
+    border-color: color-mix(in srgb, var(--ambre) 35%, var(--bordure));
+    background: color-mix(in srgb, var(--ambre) 8%, var(--fond-2));
+  }
+
+  .filtres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .filtres button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.38rem 0.7rem;
+    font-family: var(--police);
+    font-size: 0.82rem;
+    color: var(--texte-2);
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-radius: var(--r-s);
+    cursor: pointer;
+    transition: color var(--transition), border-color var(--transition), background var(--transition);
+  }
+
+  .filtres button span {
+    font-family: var(--police-mono);
+    font-size: 0.68rem;
+    color: var(--texte-3);
+  }
+
+  .filtres button:hover {
+    color: var(--texte);
+    border-color: var(--bordure-forte);
+  }
+
+  .filtres button[aria-pressed='true'] {
+    color: #ffffff;
+    background: var(--accent-fort);
+    border-color: var(--accent-fort);
+  }
+
+  .filtres button[aria-pressed='true'] span {
+    color: rgb(255 255 255 / 0.75);
+  }
+
+  .projets-grille {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 48rem) {
+    .projets-grille {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .projet-item[hidden] {
+    display: none !important;
+  }
+
+  .note-bas {
+    margin-top: 1.1rem;
+    font-size: 0.86rem;
+  }
+
+  .e5-intro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .e5-intro .legende {
+    max-width: 68ch;
+  }
+
+  .e5-tableau {
+    margin-top: 1.75rem;
+  }
+
+  .veille-intro {
+    max-width: 68ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .veille-grille {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  }
+
+  .veille-carte {
+    gap: 0.65rem;
+  }
+
+  .veille-carte h3 {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .veille-carte p {
+    font-size: 0.86rem;
+  }
+
+  .veille-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    font-family: var(--police-mono);
+    font-size: 0.7rem;
+    color: var(--texte-3);
+  }
+
+  .contact-interne {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .contact h2 {
+    font-size: clamp(1.5rem, 3.2vw, 2rem);
+  }
+
+  .contact .legende {
+    max-width: 55ch;
+    margin-top: 0.7rem;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  @media (max-width: 40rem) {
+    .entete-note {
+      text-align: left;
+    }
+
+    .fiche-ligne {
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+    }
   }
 </style>
+
+<script>
+  const boutons = document.querySelectorAll<HTMLButtonElement>('[data-filtre-projets]');
+  const items = document.querySelectorAll<HTMLElement>('[data-projet-item]');
+
+  function appliquerFiltre(filtre: string) {
+    for (const item of items) {
+      item.hidden = filtre !== 'tous' && item.dataset.categorie !== filtre;
+    }
+    for (const bouton of boutons) {
+      bouton.setAttribute('aria-pressed', String(bouton.dataset.filtreProjets === filtre));
+    }
+  }
+
+  for (const bouton of boutons) {
+    bouton.addEventListener('click', () => appliquerFiltre(bouton.dataset.filtreProjets ?? 'tous'));
+  }
+</script>

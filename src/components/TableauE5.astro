@@ -1,0 +1,60 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { blocsBts } from '../data/competences-bts';
+import { lien } from '../lib/urls';
+import { libelleContexte } from '../lib/libelles';
+
+interface Props {
+  projets: CollectionEntry<'projets'>[];
+}
+
+const { projets } = Astro.props;
+---
+
+<div class="tableau-enveloppe">
+  <table class="tableau-e5">
+    <caption class="sr-only">
+      Tableau de synthèse des réalisations professionnelles et des blocs de
+      compétences du BTS SIO couverts.
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Réalisation</th>
+        {blocsBts.map((bloc) => (
+          <th scope="col" title={bloc.titre}>
+            <abbr title={bloc.titre}>{bloc.code}</abbr>
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        projets.map((projet) => (
+          <tr>
+            <th scope="row">
+              <a href={lien(`/projets/${projet.id}/`)}>{projet.data.titre}</a>
+              <span>{libelleContexte(projet)} · {projet.data.annee}</span>
+            </th>
+            {blocsBts.map((bloc) => (
+              <td>
+                {projet.data.competencesBts.includes(bloc.code) ? (
+                  <span class="check" aria-label={`${bloc.code} couvert`}>✓</span>
+                ) : (
+                  <span class="non" aria-hidden="true">—</span>
+                )}
+              </td>
+            ))}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<p class="tableau-legende">
+  <strong>C1</strong> Patrimoine · <strong>C2</strong> Incidents ·{' '}
+  <strong>C3</strong> Présence en ligne · <strong>C4</strong> Mode projet ·{' '}
+  <strong>C5</strong> Service informatique · <strong>C6</strong> Développement
+  professionnel. Les cases cochées correspondent à des compétences mises en œuvre
+  et documentées dans la fiche du projet.
+</p>

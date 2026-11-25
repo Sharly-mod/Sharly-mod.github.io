@@ -1,0 +1,44 @@
+---
+import type { DocumentE5 } from '../data/documents';
+import { documentExiste, urlDocument } from '../lib/documents';
+import Icone from './Icone.astro';
+
+interface Props {
+  documents: DocumentE5[];
+}
+
+const { documents } = Astro.props;
+---
+
+<div class="documents-grille">
+  {
+    documents.map((doc) => {
+      const disponible = documentExiste(doc.fichier);
+      return (
+        <article class="document-carte" data-disponible={disponible ? 'true' : 'false'}>
+          <div class="document-entete">
+            <span class="document-type">{doc.type}</span>
+            <span class="badge" data-statut={disponible ? 'disponible' : 'manquant'}>
+              {disponible ? 'Disponible' : 'À déposer'}
+            </span>
+          </div>
+
+          <h3>{doc.titre}</h3>
+          <p>{doc.description}</p>
+
+          {disponible ? (
+            <a class="bouton secondaire" href={urlDocument(doc.fichier)} download>
+              <Icone nom="download" taille={15} />
+              Télécharger
+            </a>
+          ) : (
+            <p class="document-manquant">
+              <strong>[À COMPLÉTER]</strong> Déposer le fichier{' '}
+              <code>public/{doc.fichier}</code>
+            </p>
+          )}
+        </article>
+      );
+    })
+  }
+</div>

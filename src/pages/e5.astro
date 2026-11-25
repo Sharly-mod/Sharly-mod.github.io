@@ -1,0 +1,299 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
+import ListeDocuments from '../components/ListeDocuments.astro';
+import TableauE5 from '../components/TableauE5.astro';
+import { blocsBts, tonsBts } from '../data/competences-bts';
+import { documentsE5 } from '../data/documents';
+import { documentExiste, urlDocument } from '../lib/documents';
+import { lien } from '../lib/urls';
+
+const projetsE5 = (await getCollection('projets', (p) => p.data.selectionE5)).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+
+const tableauDisponible = documentExiste('documents/tableau-synthese-e5.pdf');
+const tableauUrl = tableauDisponible
+  ? urlDocument('documents/tableau-synthese-e5.pdf')
+  : lien('/e5/#documents');
+---
+
+<Base
+  titre="Tableau de synthèse E5"
+  description="Tableau de synthèse des réalisations professionnelles, documents de stage et correspondance avec les six blocs de compétences du BTS SIO SLAM."
+>
+  <section class="entete-page">
+    <div class="conteneur">
+      <span class="surtitre">Épreuve E5 — Parcours de professionnalisation</span>
+      <h1>Tableau de synthèse & dossier E5</h1>
+      <p class="legende">
+        Cette page rassemble les quatre réalisations présentées à l’oral, les
+        documents officiels et la correspondance avec les six blocs de
+        compétences du BTS SIO option SLAM.
+      </p>
+      <div class="actions-e5">
+        <a
+          class="bouton principal"
+          href={tableauUrl}
+          download={tableauDisponible ? '' : undefined}
+        >
+          <Icone nom="download" taille={16} />
+          Télécharger le tableau de synthèse
+        </a>
+        <a class="bouton secondaire" href="#documents">
+          <Icone nom="file" taille={16} />
+          Voir les documents
+        </a>
+      </div>
+      {
+        !tableauDisponible && (
+          <p class="note-manquant">
+            <span class="badge" data-statut="manquant">À déposer</span>
+            Le fichier <code>public/documents/tableau-synthese-e5.pdf</code> doit
+            être ajouté avant l’oral.
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <div class="conteneur corps">
+    <section class="bloc" id="tableau">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Synthèse</span>
+          <h2>Réalisations et blocs de compétences</h2>
+        </div>
+        <p class="legende">
+          Chaque ligne renvoie vers la fiche détaillée du projet.
+        </p>
+      </div>
+
+      <TableauE5 projets={projetsE5} />
+    </section>
+
+    <section class="bloc" id="blocs">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Référentiel</span>
+          <h2>Les six blocs du BTS SIO</h2>
+        </div>
+        <p class="legende">
+          Les descriptions sont volontairement courtes : elles servent à
+          expliquer le tableau, pas à paraphraser le référentiel.
+        </p>
+      </div>
+
+      <div class="blocs-grille">
+        {
+          blocsBts.map((bloc) => (
+            <article class="bloc-competence" id={bloc.code}>
+              <div class="bloc-entete">
+                <span class="pastille" data-ton={tonsBts[bloc.code]}>{bloc.code}</span>
+                <h3>{bloc.titre}</h3>
+              </div>
+              <p>{bloc.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="bloc" id="documents">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Documents</span>
+          <h2>Pièces du dossier</h2>
+        </div>
+        <p class="legende">
+          Les badges « Disponible » sont calculés au build à partir des fichiers
+          présents dans <code>public/documents/</code>.
+        </p>
+      </div>
+
+      <ListeDocuments documents={documentsE5} />
+
+      <div class="note-documents">
+        <h3>Ce que le jury doit pouvoir consulter</h3>
+        <ul>
+          <li>Le tableau de synthèse des réalisations professionnelles.</li>
+          <li>L’attestation de stage et, si demandé, la convention.</li>
+          <li>Le rapport de stage et les captures des réalisations.</li>
+          <li>Le CV, à jour, pour la partie poursuite d’études / alternance.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc" id="preuves">
+      <div class="entete-section">
+        <div>
+          <span class="surtitre">Preuves</span>
+          <h2>Accéder aux fiches projets</h2>
+        </div>
+      </div>
+      <ul class="liste-preuves">
+        {
+          projetsE5.map((projet) => (
+            <li>
+              <a href={lien(`/projets/${projet.id}/`)}>
+                <span>
+                  <strong>{projet.data.titre}</strong>
+                  <small>{projet.data.annee} · {projet.data.role}</small>
+                </span>
+                <span class="lien-fleche">Ouvrir la fiche</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .entete-page {
+    padding-block: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .entete-page h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: -0.035em;
+  }
+
+  .entete-page .legende {
+    max-width: 68ch;
+    margin-top: 1rem;
+  }
+
+  .actions-e5 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .note-manquant {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--texte-3);
+  }
+
+  .note-manquant code {
+    font-family: var(--police-mono);
+    font-size: 0.78rem;
+    padding: 0.1rem 0.35rem;
+    background: var(--fond-3);
+    border: 1px solid var(--bordure);
+    border-radius: 4px;
+  }
+
+  .corps {
+    padding-bottom: 4rem;
+  }
+
+  .bloc + .bloc {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .blocs-grille {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  }
+
+  .bloc-competence {
+    padding: 1.25rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-radius: var(--r-m);
+    scroll-margin-top: 5.5rem;
+  }
+
+  .bloc-entete {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .bloc-entete h3 {
+    font-size: 0.98rem;
+    line-height: 1.35;
+  }
+
+  .bloc-competence p {
+    color: var(--texte-2);
+    font-size: 0.88rem;
+  }
+
+  .note-documents {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--r-m) var(--r-m) 0;
+  }
+
+  .note-documents h3 {
+    font-size: 1rem;
+  }
+
+  .note-documents ul {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.65rem;
+    padding-left: 1.1rem;
+    color: var(--texte-2);
+    font-size: 0.9rem;
+  }
+
+  .note-documents li::marker {
+    color: var(--accent);
+  }
+
+  .liste-preuves {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .liste-preuves a {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.95rem 1.1rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-radius: var(--r-m);
+    transition: border-color var(--transition), background var(--transition);
+  }
+
+  .liste-preuves a:hover {
+    border-color: var(--bordure-forte);
+    background: color-mix(in srgb, var(--fond-2) 88%, var(--fond-3));
+  }
+
+  .liste-preuves strong {
+    display: block;
+    font-weight: 600;
+  }
+
+  .liste-preuves small {
+    display: block;
+    margin-top: 0.15rem;
+    font-family: var(--police-mono);
+    font-size: 0.7rem;
+    color: var(--texte-3);
+  }
+</style>

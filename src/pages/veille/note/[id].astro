@@ -43,7 +43,7 @@ const autres = (await getCollection('notes', (n) => n.id !== note.id))
 <Base titre={d.titre} description={`Note de veille : ${d.titre}`}>
   <article class="conteneur">
     <nav class="fil" aria-label="Fil d'Ariane">
-      <a href={lien('/veille/')}>Veille</a>
+      <a href={lien('/veille/archives/')}>Archives de veille</a>
       <span aria-hidden="true">/</span>
       <span aria-current="page">Note</span>
     </nav>
@@ -101,9 +101,10 @@ const autres = (await getCollection('notes', (n) => n.id !== note.id))
         )
       }
       <p class="avertissement">
-        Note de veille personnelle : c'est ma lecture de la source, pas un compte
-        rendu officiel. Les chiffres annoncés par les éditeurs sont rapportés
-        comme tels et n'ont pas été vérifiés indépendamment.
+        Note de veille personnelle issue de l’ancienne veille IA & jeu vidéo :
+        c’est ma lecture de la source, pas un compte rendu officiel. Les
+        chiffres annoncés par les éditeurs sont rapportés comme tels et n’ont
+        pas été vérifiés indépendamment.
       </p>
     </footer>
 

@@ -2,39 +2,53 @@
 import { site } from '../data/site';
 import { lien } from '../lib/urls';
 
-const onglet = ['Accueil', 'Projets', 'Veille', 'À propos'];
-const chemins: Record<string, string> = {
-  Accueil: '/',
-  Projets: '/projets/',
-  Veille: '/veille/',
-  'À propos': '/a-propos/',
-};
+const onglets = [
+  { label: 'Accueil', chemin: '/' },
+  { label: 'Réalisations', chemin: '/projets/' },
+  { label: 'E5', chemin: '/e5/' },
+  { label: 'Veille', chemin: '/veille/' },
+  { label: 'À propos', chemin: '/a-propos/' },
+];
 
 // On compare des chemins sans le base, pour que la navigation reste active
 // que le site soit à la racine ou sous un sous-chemin.
 const racine = import.meta.env.BASE_URL.replace(/\/$/, '');
 const cheminActuel =
   Astro.url.pathname.slice(racine.length).replace(/index\.html$/, '').replace(/\/$/, '') || '/';
-function estActif(onglet: string) {
-  const c = chemins[onglet];
-  return c === '/' ? cheminActuel === '/' : cheminActuel.startsWith(c.replace(/\/$/, ''));
+
+function estActif(chemin: string) {
+  return chemin === '/' ? cheminActuel === '/' : cheminActuel.startsWith(chemin.replace(/\/$/, ''));
 }
 ---
 
-<header class="entete">
+<header class="entete" data-entete>
   <div class="conteneur entete-interne">
     <a class="marque" href={lien('/')}>
       <span class="marque-nom">{site.nom}</span>
-      <span class="marque-role">Dev web & game systems</span>
+      <span class="marque-role">BTS SIO · SLAM</span>
     </a>
 
-    <nav aria-label="Navigation principale">
+    <button
+      class="menu-bouton"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-principal"
+      data-menu-bouton
+    >
+      <span class="sr-only">Ouvrir le menu</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18"></path>
+      </svg>
+    </button>
+
+    <nav id="menu-principal" aria-label="Navigation principale">
       <ul class="onglets">
         {
-          onglet.map((o) => (
+          onglets.map((onglet) => (
             <li>
-              <a href={lien(chemins[o])} aria-current={estActif(o) ? 'page' : undefined}>
-                {o}
+              <a href={lien(onglet.chemin)} aria-current={estActif(onglet.chemin) ? 'page' : undefined}>
+                {onglet.label}
               </a>
             </li>
           ))
@@ -66,15 +80,16 @@ function estActif(onglet: string) {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--fond) 82%, transparent);
-    backdrop-filter: blur(14px) saturate(1.6);
+    background: color-mix(in srgb, var(--fond) 88%, transparent);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--bordure);
   }
 
   .entete-interne {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     min-height: 4rem;
   }
 
@@ -92,21 +107,21 @@ function estActif(onglet: string) {
 
   .marque-role {
     font-family: var(--police-mono);
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     color: var(--texte-3);
   }
 
   .onglets {
     display: flex;
-    gap: 0.15rem;
+    gap: 0.1rem;
     list-style: none;
     padding: 0;
   }
 
   .onglets a {
     display: block;
-    padding: 0.4rem 0.7rem;
-    font-size: 0.9rem;
+    padding: 0.4rem 0.65rem;
+    font-size: 0.88rem;
     color: var(--texte-2);
     border-radius: var(--r-s);
     transition: color var(--transition), background var(--transition);
@@ -119,42 +134,112 @@ function estActif(onglet: string) {
 
   .onglets a[aria-current='page'] {
     color: var(--texte);
-    font-weight: 550;
+    font-weight: 600;
+    background: var(--fond-3);
   }
 
-  .bascule-theme {
+  .bascule-theme,
+  .menu-bouton {
     display: grid;
     place-items: center;
-    width: 2.1rem;
-    height: 2.1rem;
-    margin-left: 0.5rem;
+    width: 2.15rem;
+    height: 2.15rem;
     color: var(--texte-2);
-    background: var(--fond-3);
+    background: var(--fond-2);
     border: 1px solid var(--bordure);
     border-radius: var(--r-s);
     cursor: pointer;
     transition: color var(--transition), border-color var(--transition);
   }
 
-  .bascule-theme:hover {
-    color: var(--violet);
+  .bascule-theme {
+    margin-left: 0.25rem;
+  }
+
+  .menu-bouton {
+    display: none;
+  }
+
+  .bascule-theme:hover,
+  .menu-bouton:hover {
+    color: var(--accent);
     border-color: var(--bordure-forte);
+  }
+
+  /* L'attribut hidden n'est pas appliqué de façon fiable aux SVG selon les
+     navigateurs : on force le masquage de l'icône inactive. La règle par
+     thème évite aussi un flash des deux icônes avant l'exécution du script. */
+  html[data-theme='sombre'] .bascule-theme [data-icone='soleil'],
+  html[data-theme='clair'] .bascule-theme [data-icone='lune'] {
+    display: none;
+  }
+
+  html[data-theme='sombre'] .bascule-theme [data-icone='lune'],
+  html[data-theme='clair'] .bascule-theme [data-icone='soleil'] {
+    display: block;
+  }
+
+  @media (max-width: 48rem) {
+    .menu-bouton {
+      display: grid;
+    }
+
+    .entete nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      display: none;
+      padding: 0.6rem 1.5rem 1rem;
+      background: var(--fond-2);
+      border-bottom: 1px solid var(--bordure);
+    }
+
+    .entete[data-ouvert='true'] nav {
+      display: block;
+    }
+
+    .onglets {
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .onglets a {
+      padding: 0.6rem 0.75rem;
+      font-size: 0.95rem;
+    }
   }
 
   @media (max-width: 30rem) {
     .marque-role {
       display: none;
     }
-
-    .onglets a {
-      padding-inline: 0.5rem;
-      font-size: 0.85rem;
-    }
   }
 </style>
 
 <script>
-  const bouton = document.querySelector<HTMLButtonElement>('[data-bascule-theme]');
+  const entete = document.querySelector<HTMLElement>('[data-entete]');
+  const boutonMenu = document.querySelector<HTMLButtonElement>('[data-menu-bouton]');
+  const lienMenu = document.querySelectorAll<HTMLAnchorElement>('#menu-principal a');
+  const boutonTheme = document.querySelector<HTMLButtonElement>('[data-bascule-theme]');
+
+  function ouvrirMenu(ouvert: boolean) {
+    if (!entete || !boutonMenu) return;
+    entete.dataset.ouvert = String(ouvert);
+    boutonMenu.setAttribute('aria-expanded', String(ouvert));
+    const libelle = boutonMenu.querySelector('.sr-only');
+    if (libelle) libelle.textContent = ouvert ? 'Fermer le menu' : 'Ouvrir le menu';
+  }
+
+  boutonMenu?.addEventListener('click', () => {
+    ouvrirMenu(entete?.dataset.ouvert !== 'true');
+  });
+
+  lienMenu.forEach((lien) => lien.addEventListener('click', () => ouvrirMenu(false)));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') ouvrirMenu(false);
+  });
 
   function majIcones() {
     const clair = document.documentElement.dataset.theme === 'clair';
@@ -164,7 +249,7 @@ function estActif(onglet: string) {
   }
 
   majIcones();
-  bouton?.addEventListener('click', () => {
+  boutonTheme?.addEventListener('click', () => {
     const suivant = document.documentElement.dataset.theme === 'clair' ? 'sombre' : 'clair';
     document.documentElement.dataset.theme = suivant;
     localStorage.setItem('theme', suivant);

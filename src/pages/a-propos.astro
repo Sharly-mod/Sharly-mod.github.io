@@ -1,48 +1,24 @@
 ---
 import { getCollection } from 'astro:content';
-import { site } from '../data/site';
 import Base from '../layouts/Base.astro';
+import Competences from '../components/Competences.astro';
+import Icone from '../components/Icone.astro';
+import { site } from '../data/site';
+import { parcours, faconDeTravailler } from '../data/parcours';
+import { lien } from '../lib/urls';
 
-const projets = (await getCollection('projets')).sort(
+const projetsE5 = (await getCollection('projets', (p) => p.data.selectionE5)).sort(
   (a, b) => a.data.ordre - b.data.ordre
 );
 
-// Compte des technologies réellement présentes dans les projets
-const compteur = new Map<string, number>();
-for (const p of projets) {
-  for (const t of p.data.stack) compteur.set(t, (compteur.get(t) ?? 0) + 1);
-}
-const technologies = [...compteur.entries()]
-  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-  .map(([nom]) => nom);
-
-const parcours = [
-  {
-    titre: 'Le socle',
-    texte:
-      "Bases en algorithmique, structures de données, bases de données relationnelles. C'est la période où l'on apprend que le modèle de données est une décision d'architecture, pas un formality.",
-  },
-  {
-    titre: 'Le web',
-    texte:
-      "PHP en MVC sans framework, puis JavaScript côté client. Le passage du serveur qui rend du HTML à l'application qui rend une API et une interface.",
-  },
-  {
-    titre: 'Le produit',
-    texte:
-      "Next.js, TypeScript, Supabase, Stripe, PWA, mobile. L'obligation de livrer un produit complet — y compris la monétisation et la publication.",
-  },
-  {
-    titre: "Les systèmes",
-    texte:
-      "Java et l'API serveur de Minecraft : événementiel, concurrence, persistance. Un autre modèle mental, où rien ne se passe dans l'ordre prévu.",
-  },
-];
+const technologies = [...new Set(projetsE5.flatMap((p) => p.data.stack))].sort((a, b) =>
+  a.localeCompare(b)
+);
 ---
 
 <Base
   titre="À propos"
-  description="Parcours, technologies et méthode de travail de FARAG Sharly, développeur web full-stack et systèmes de jeu."
+  description="Parcours, méthode de travail et compétences de Sharly Farag, étudiant en BTS SIO option SLAM à Ingetis Paris."
 >
   <section class="entete-page">
     <div class="conteneur">
@@ -59,41 +35,71 @@ const parcours = [
             </li>
           ))
         }
-        <li><a class="bouton" href={`mailto:${site.email}`}>Email</a></li>
+        <li>
+          <a class="bouton principal" href={`mailto:${site.email}`}>
+            <Icone nom="mail" taille={15} />
+            Email
+          </a>
+        </li>
+        <li><a class="bouton secondaire" href={lien('/e5/')}>Tableau de synthèse E5</a></li>
       </ul>
     </div>
   </section>
 
   <div class="conteneur corps">
     <section class="bloc">
-      <div class="prose">
-        <h2>Ma méthode</h2>
-        <p>
-          Je travaille par projets complets plutôt que par empilement de tutoriels. Un
-          projet n'est terminé que s'il est déployable, documenté, et qu'on peut
-          expliquer pourquoi chaque décision technique a été prise. C'est cette
-          dernière condition qui change tout : elle oblige à comprendre au lieu de
-          recopier.
-        </p>
-        <p>
-          Sur chaque projet, je garde la trace des problèmes réellement rencontrés.
-          Un projet sans difficulté documentée n'est pas un projet facile, c'est un
-          projet dont les difficultés n'ont pas été comprises — et c'est ce qui se
-          voit en entretien.
-        </p>
+      <div class="deux-colonnes">
+        <div class="prose">
+          <h2>Mon parcours</h2>
+          <p>
+            J’ai commencé le BTS SIO option SLAM en 2025 à Ingetis Paris. La
+            formation m’a fait passer des bases algorithmiques aux applications
+            complètes : modélisation d’une base, développement back-end,
+            intégration, sécurité et mise en production.
+          </p>
+          <p>
+            Mes deux stages ont complété cette progression. Le premier, chez{' '}
+            <strong>DydyITServices</strong> (projet TIS-INGÉ pour le client
+            DITS), m’a mis face à une application réelle de gestion de parc et
+            de ticketing. Le second, en cours, est la refonte du site de{' '}
+            <strong>Dayana</strong> : un travail plus orienté client, contenu et
+            intégration.
+          </p>
+        </div>
+
+        <aside class="methode">
+          <h2>Ma méthode</h2>
+          <ol class="principes">
+            {
+              faconDeTravailler.map((principe, index) => (
+                <li>
+                  <span class="principe-numero">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <strong>{principe.titre}</strong>
+                    <p>{principe.texte}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </aside>
       </div>
     </section>
 
     <section class="bloc">
-      <span class="surtitre">Parcours</span>
-      <h2>Comment j'en suis arrivé là</h2>
-      <ol class="parcours">
+      <span class="surtitre">Parcours détaillé</span>
+      <h2>Formation, stages et expérience</h2>
+      <ol class="timeline">
         {
-          parcours.map((etape, i) => (
-            <li>
-              <span class="numero">{String(i + 1).padStart(2, '0')}</span>
-              <div>
+          parcours.map((etape) => (
+            <li class="timeline-item">
+              <span class="timeline-date">{etape.periode}</span>
+              <div class="timeline-contenu">
                 <h3>{etape.titre}</h3>
+                <p class="timeline-lieu">
+                  {etape.lieu}
+                  {etape.aCompleter && <span class="badge badge-a-completer">À compléter</span>}
+                </p>
                 <p>{etape.texte}</p>
               </div>
             </li>
@@ -103,23 +109,41 @@ const parcours = [
     </section>
 
     <section class="bloc">
+      <span class="surtitre">Compétences</span>
+      <h2>Stack technique SLAM</h2>
+      <p class="legende intro-competences">
+        Les compétences sont classées par domaine. Elles sont rattachées à des
+        projets concrets, consultables dans la section réalisations.
+      </p>
+      <Competences />
+    </section>
+
+    <section class="bloc">
       <span class="surtitre">Outillage</span>
-      <h2>Technologies utilisées</h2>
+      <h2>Technologies utilisées dans mes réalisations E5</h2>
       <p class="legende">
-        Extraites automatiquement des {projets.length} projets de ce portfolio.
+        Extraites automatiquement des {projetsE5.length} fiches projets.
       </p>
       <ul class="pastilles grandes">
-        {technologies.map((t) => <li class="pastille">{t}</li>)}
+        {technologies.map((techno) => <li class="pastille">{techno}</li>)}
       </ul>
     </section>
 
     <section class="bloc contact">
-      <h2>Me contacter</h2>
+      <h2>Ce que je cherche</h2>
       <p>
-        Ouvert aux alternances et stages en développement web ou en systèmes de jeu.
-        Le plus rapide est l'email.
+        Une alternance ou une poursuite d’études en développement web &
+        applicatif. Je suis particulièrement à l’aise sur les projets où il faut
+        comprendre un besoin métier, modéliser des données et livrer une
+        application sécurisée.
       </p>
-      <a class="bouton principal" href={`mailto:${site.email}`}>{site.email}</a>
+      <div class="contact-actions">
+        <a class="bouton principal" href={`mailto:${site.email}`}>
+          <Icone nom="mail" taille={15} />
+          {site.email}
+        </a>
+        <a class="bouton secondaire" href={lien('/e5/#documents')}>CV & documents</a>
+      </div>
     </section>
   </div>
 </Base>
@@ -131,11 +155,11 @@ const parcours = [
 
   .entete-page h1 {
     font-size: clamp(2rem, 5vw, 3rem);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.035em;
   }
 
   .entete-page .legende {
-    max-width: 62ch;
+    max-width: 68ch;
     margin-top: 1rem;
     font-size: 1.05rem;
   }
@@ -144,7 +168,7 @@ const parcours = [
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
-    margin-top: 1.75rem;
+    margin-top: 1.5rem;
     list-style: none;
     padding: 0;
   }
@@ -154,55 +178,102 @@ const parcours = [
   }
 
   .bloc + .bloc {
-    margin-top: 3.5rem;
-    padding-top: 2.5rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
     border-top: 1px solid var(--bordure);
   }
 
   .bloc h2 {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.15rem;
     font-size: 1.4rem;
   }
 
-  .parcours {
+  .deux-colonnes {
     display: grid;
-    gap: 1.5rem;
+    gap: 2rem;
+  }
+
+  @media (min-width: 62rem) {
+    .deux-colonnes {
+      grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.8fr);
+      gap: 3rem;
+    }
+  }
+
+  .methode {
+    padding: 1.25rem;
+    background: var(--fond-2);
+    border: 1px solid var(--bordure);
+    border-radius: var(--r-m);
+    align-self: start;
+  }
+
+  .methode h2 {
+    margin-bottom: 0.75rem;
+    font-family: var(--police-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--texte-3);
+  }
+
+  .principes {
+    display: grid;
+    gap: 1rem;
     list-style: none;
     padding: 0;
   }
 
-  .parcours li {
+  .principes li {
     display: grid;
-    grid-template-columns: 2.5rem 1fr;
-    gap: 1rem;
+    grid-template-columns: 1.7rem 1fr;
+    gap: 0.6rem;
   }
 
-  .numero {
+  .principe-numero {
     font-family: var(--police-mono);
-    font-size: 0.85rem;
-    color: var(--violet);
+    font-size: 0.72rem;
+    color: var(--accent);
+    padding-top: 0.15rem;
   }
 
-  .parcours h3 {
-    font-size: 1.05rem;
+  .principes strong {
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 
-  .parcours p {
-    margin-top: 0.3rem;
+  .principes p {
+    margin-top: 0.2rem;
     color: var(--texte-2);
-    font-size: 0.95rem;
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .badge-a-completer {
+    margin-left: 0.45rem;
+    color: var(--ambre);
+    border-color: color-mix(in srgb, var(--ambre) 35%, var(--bordure));
+    background: color-mix(in srgb, var(--ambre) 8%, var(--fond-2));
+  }
+
+  .intro-competences {
+    max-width: 68ch;
+    margin-bottom: 1.25rem;
   }
 
   .pastilles.grandes {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
   }
 
   .contact p {
-    max-width: 56ch;
+    max-width: 62ch;
     color: var(--texte-2);
   }
 
-  .contact .bouton {
-    margin-top: 1.5rem;
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
   }
 </style>

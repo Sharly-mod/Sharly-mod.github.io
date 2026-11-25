@@ -10,18 +10,19 @@ const annee = new Date().getFullYear();
     <div class="bloc">
       <p class="signature">{site.nom}</p>
       <p class="mention">
-        Développeur web full-stack & game systems — {site.localisation}.<br />
-        Ce site est statique (Astro), sans cookie ni traceur.
+        Étudiant en BTS SIO option SLAM — Ingetis Paris.<br />
+        Portfolio statique généré avec Astro : contenu en Markdown/JSON, sans
+        cookie ni traceur.
       </p>
     </div>
 
     <nav aria-label="Liens de pied de page">
       <ul>
-        <li><a href={lien('/projets/')}>Projets</a></li>
-        <li><a href={lien('/veille/')}>Veille tech</a></li>
-        <li><a href={lien('/a-propos/')}>À propos</a></li>
-        <li><a href={lien('/rss.xml')}>Flux RSS de la veille</a></li>
-        <li><a href={lien('/veille.opml')}>Abonnements (OPML)</a></li>
+        <li><a href={lien('/projets/')}>Réalisations</a></li>
+        <li><a href={lien('/e5/')}>Tableau de synthèse E5</a></li>
+        <li><a href={lien('/veille/')}>Veille technologique</a></li>
+        <li><a href={lien('/a-propos/')}>Parcours & compétences</a></li>
+        <li><a href={lien('/e5/#documents')}>CV & documents</a></li>
       </ul>
     </nav>
 
@@ -40,7 +41,7 @@ const annee = new Date().getFullYear();
   </div>
 
   <div class="conteneur copyright">
-    <p>© {annee} {site.nom} — contenu sous licence CC BY 4.0.</p>
+    <p>© {annee} {site.nom} — Portfolio BTS SIO SLAM. Code source sur GitHub.</p>
   </div>
 </footer>
 
@@ -87,7 +88,7 @@ const annee = new Date().getFullYear();
 
   nav ul a:hover,
   .social a:hover {
-    color: var(--violet);
+    color: var(--accent);
   }
 
   .social {

@@ -1,0 +1,179 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { lien } from '../../lib/urls';
+import { formatDate } from '../../lib/libelles';
+
+export async function getStaticPaths() {
+  const syntheses = await getCollection('veilleE5');
+  return syntheses.map((note) => ({
+    params: { id: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const d = note.data;
+
+const autres = (await getCollection('veilleE5', (n) => n.id !== note.id))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+---
+
+<Base titre={d.titre} description={`Veille technologique : ${d.titre}`}>
+  <article class="conteneur">
+    <nav class="fil" aria-label="Fil d'Ariane">
+      <a href={lien('/veille/')}>Veille</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Synthèse</span>
+    </nav>
+
+    <header class="entete">
+      <div class="etiquettes">
+        <span class="badge">{d.source}</span>
+        {
+          d.tags.map((tag) => (
+            <span class="pastille">{tag}</span>
+          ))
+        }
+      </div>
+
+      <h1>{d.titre}</h1>
+      <p class="resume">{d.resume}</p>
+
+      <p class="meta">
+        <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{d.tempsLecture} min de lecture</span>
+        <span aria-hidden="true">·</span>
+        <a class="lien-externe" href={d.sourceUrl} target="_blank" rel="noopener noreferrer">
+          Source : {d.source} ↗
+        </a>
+      </p>
+    </header>
+
+    <div class="impact-veille impact-haut">
+      <strong>Impact pour un développeur SLAM</strong>
+      <p>{d.impact}</p>
+    </div>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <footer class="pied-note">
+      <p class="avertissement">
+        Synthèse personnelle : c’est ma lecture de la source, pas un compte
+        rendu officiel. Les liens renvoient à la documentation ou à l’article
+        d’origine.
+      </p>
+      <a class="bouton secondaire" href={lien('/veille/')}>Retour à la veille</a>
+    </footer>
+
+    {
+      autres.length > 0 && (
+        <aside class="autres">
+          <h2>Autres synthèses</h2>
+          <div class="grille">
+            {autres.map((autre) => (
+              <a class="carte" href={lien(`/veille/${autre.id}/`)}>
+                <span class="badge">{autre.data.source}</span>
+                <h3>{autre.data.titre}</h3>
+                <p>{autre.data.resume}</p>
+                <span class="lien-fleche">Lire la synthèse</span>
+              </a>
+            ))}
+          </div>
+        </aside>
+      )
+    }
+  </article>
+</Base>
+
+<style>
+  .fil {
+    display: flex;
+    gap: 0.5rem;
+    padding-block: 2rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--texte-3);
+  }
+
+  .fil a:hover {
+    color: var(--accent);
+  }
+
+  .entete {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--bordure);
+  }
+
+  .etiquettes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .entete h1 {
+    max-width: 28ch;
+    margin-top: 1rem;
+    font-size: clamp(1.8rem, 4.5vw, 2.7rem);
+    letter-spacing: -0.035em;
+  }
+
+  .resume {
+    max-width: 68ch;
+    margin-top: 0.9rem;
+    color: var(--texte-2);
+    font-size: 1.03rem;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.6rem;
+    margin-top: 1rem;
+    font-family: var(--police-mono);
+    font-size: 0.75rem;
+    color: var(--texte-3);
+  }
+
+  .impact-haut {
+    margin-top: 2rem;
+  }
+
+  .prose {
+    margin-top: 2.5rem;
+  }
+
+  .pied-note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .avertissement {
+    max-width: 62ch;
+    font-size: 0.8rem;
+    color: var(--texte-3);
+  }
+
+  .autres {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--bordure);
+  }
+
+  .autres h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+  }
+</style>

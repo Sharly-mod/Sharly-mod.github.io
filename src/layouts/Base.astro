@@ -28,6 +28,8 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site) : undefined;
     <link rel="icon" type="image/svg+xml" href={lien('/favicon.svg')} />
     <link rel="sitemap" href={lien('/sitemap-index.xml')} />
     <link rel="alternate" type="application/rss+xml" title={`Veille — ${site.nom}`} href={lien('/rss.xml')} />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1120" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f8fb" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
@@ -36,7 +38,7 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site) : undefined;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={url} />
     {imageUrl && <meta property="og:image" content={imageUrl} />}
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="author" content={site.nom} />
 
     <script is:inline>

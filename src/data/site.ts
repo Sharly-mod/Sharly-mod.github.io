@@ -1,33 +1,38 @@
 /* ---------------------------------------------------------------------------
- * Identité du site — c'est le SEUL fichier à modifier pour personnaliser
- * le nom, le titre, la bio et les liens.
+ * Identité et informations générales du portfolio.
+ * C'est le fichier à modifier en premier pour changer le nom, l'email ou les
+ * liens affichés sur le site.
  * ------------------------------------------------------------------------- */
 
 export const site = {
-  nom: 'FARAG Sharly',
+  nom: 'Sharly Farag',
   pseudo: 'Sharly-mod',
-  titre: 'FARAG Sharly — Développeur web & game systems',
+  titre: 'Sharly Farag — Portfolio BTS SIO SLAM',
   description:
-    'Portfolio de FARAG Sharly : applications web full-stack, plugins de jeu en Java et veille technologique sur l’IA appliquée au jeu vidéo.',
+    "Portfolio de Sharly Farag, étudiant en 2e année de BTS SIO option SLAM à Ingetis (Paris). Réalisations professionnelles, compétences, tableau de synthèse E5 et veille technologique.",
   resumeCourt:
-    'Développeur web full-stack et systèmes de jeu. Je conçois des applications complètes — du modèle de données à l’interface — et je surveille de près ce que l’IA change vraiment dans le game design, les moteurs et le web.',
+    "Étudiant en 2e année de BTS SIO option SLAM à Ingetis (Paris). Je développe des applications web et des services back-end en PHP, Java et React, avec une attention particulière portée à la structure du code, aux bases de données et à la sécurité.",
 
-  // L'adresse est affichée en clair sur la page À propos et dans un bouton
-  // « Email » : c'est un contact public, à lire par des recruteurs.
+  // Adresse de contact publique, affichée sur le site.
   email: 'Sharly923@gmail.com',
 
   liens: [
     { label: 'GitHub', url: 'https://github.com/Sharly-mod', icone: 'github' },
-    // Placeholder : aucune URL LinkedIn n'a encore été fournie. À remplacer
-    // par l'URL complète du profil, ou à supprimer si le profil n'existe pas.
+    // À remplacer par l'URL complète du profil LinkedIn, ou à supprimer
+    // si le profil n'existe pas encore.
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/', icone: 'linkedin' },
   ],
 
-  localisation: 'France',
-  disponiblesPour: 'Alternance / stage en développement web ou game systems',
+  localisation: 'Paris / Île-de-France',
+  formation: 'BTS SIO — option SLAM',
+  etablissement: 'Ingetis, Paris',
+  periodeFormation: '2025 — 2027',
+  disponiblesPour:
+    "Recherche une alternance ou une poursuite d'études en développement web & applicatif",
 } as const;
 
-/* Thème utilisé pour l'alternance clair/sombre (voir global.css) */
+/* Thème utilisé au premier chargement. L'utilisateur peut ensuite basculer
+   clair/sombre : le choix est conservé dans localStorage. */
 export const theme = {
   modeParDefaut: 'sombre' as const,
 };
