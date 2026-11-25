@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { documents } = Astro.props;
+const cvDisponible = documentExiste('documents/cv-sharly-farag.pdf');
 ---
 
 {
@@ -22,19 +23,26 @@ const { documents } = Astro.props;
       <h3>Le tableau de synthèse est consultable en ligne</h3>
       <p>
         Pour cet examen blanc, les PDF (tableau, attestation, convention,
-        rapport, CV) ne sont pas requis. Le tableau HTML ci-dessous présente les
-        quatre réalisations et les six blocs de compétences. Le CV peut être
-        demandé par email.
+        rapport) ne sont pas requis. Le tableau HTML ci-dessous présente les
+        quatre réalisations et les six blocs de compétences.{' '}
+        {cvDisponible ? 'Le CV est disponible au téléchargement.' : 'Le CV peut être demandé par email.'}
       </p>
       <div class="doc-actions">
         <a class="bouton secondaire" href={lien('/e5/#tableau')}>
           <Icone nom="file" taille={15} />
           Consulter le tableau
         </a>
-        <a class="bouton secondaire" href={`mailto:${site.email}?subject=Demande%20de%20CV`}>
-          <Icone nom="mail" taille={15} />
-          Demander le CV
-        </a>
+        {cvDisponible ? (
+          <a class="bouton secondaire" href={urlDocument('documents/cv-sharly-farag.pdf')} download>
+            <Icone nom="download" taille={15} />
+            Télécharger le CV
+          </a>
+        ) : (
+          <a class="bouton secondaire" href={`mailto:${site.email}?subject=Demande%20de%20CV`}>
+            <Icone nom="mail" taille={15} />
+            Demander le CV
+          </a>
+        )}
       </div>
     </div>
   ) : (

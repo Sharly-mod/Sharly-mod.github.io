@@ -29,13 +29,13 @@ const docsAccueil = documentsE5.filter((d) =>
 );
 
 const cvDisponible = documentExiste('documents/cv-sharly-farag.pdf');
-const cvUrl = examenBlanc
-  ? `mailto:${site.email}?subject=Demande%20de%20CV`
-  : cvDisponible
-    ? urlDocument('documents/cv-sharly-farag.pdf')
+const cvUrl = cvDisponible
+  ? urlDocument('documents/cv-sharly-farag.pdf')
+  : examenBlanc
+    ? `mailto:${site.email}?subject=Demande%20de%20CV`
     : lien('/e5/#documents');
-const cvLabel = examenBlanc ? 'CV sur demande' : 'Télécharger mon CV';
-const cvIcon: 'mail' | 'download' = examenBlanc ? 'mail' : 'download';
+const cvLabel = cvDisponible ? 'Télécharger mon CV' : examenBlanc ? 'CV sur demande' : 'Télécharger mon CV';
+const cvIcon: 'mail' | 'download' = cvDisponible ? 'download' : examenBlanc ? 'mail' : 'download';
 
 const compteurs: Record<string, number> = {
   tous: projetsE5.length,
